@@ -29,6 +29,13 @@ class ProjectExpenses extends Controller
             ]);
         }
 
+        $fileName = '';
+        if ($request->has('file')) {
+            $file = $request->file('file');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/projects/expenses'), $fileName);
+        }
+
         Expense::create([
             'date'           => $request->date,
             'amount'         => $request->amount,
@@ -36,7 +43,8 @@ class ProjectExpenses extends Controller
             'project_id'     => $request->project_id,
             'note'           => $request->note,
             'safe_id'        => $request->safe_id ,
-            'type'           => 'other'
+            'type'           => 'other',
+            'file'           => $fileName
         ]);
 
         return redirect()->back()->with(isCreated());

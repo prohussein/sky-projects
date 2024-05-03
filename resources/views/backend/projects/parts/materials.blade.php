@@ -77,6 +77,7 @@
                                                 <th> الاسم  </th>
                                                 <th>الكمية </th>
                                                 <th>التكلفة</th>
+                                                <th>المستند</th>
                                                 <th>ملاحظات</th>
                                                 <th>اجراء </th>
                                                 </tr>
@@ -89,6 +90,13 @@
                                                     <td>{{ $material->material_name }}</td>
                                                     <td>{{ $material->material_qty }}</td>
                                                     <td>{{ $material->amount }}</td>
+                                                    <td>
+                                                        @if($material->file)
+                                                         <a href="{{url('public/uploads/projects/materials/'.$material->file) }}" download="">تحميل المستند</a> 
+                                                         @else
+                                                         -----
+                                                         @endif    
+                                                    </td>
                                                     <td>{{ $material->note }}</td>
                                                     <td>
                                                          <a type="button" class="btn btn-sm btn-warning" title="تعديل " data-toggle="modal" data-target="#myModal{{ $material->id }}">

@@ -30,6 +30,13 @@ class ProjectWages extends Controller
             ]);
         }
 
+        $fileName = '';
+        if ($request->has('file')) {
+            $file = $request->file('file');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/projects/wages'), $fileName);
+        }
+
         Expense::create([
             'date'           => $request->date,
             'amount'         => $request->amount,
@@ -38,7 +45,8 @@ class ProjectWages extends Controller
             'employee_id'    => $request->employee_id,
             'note'           => $request->note,
             'safe_id'        => $request->safe_id,
-            'type'           => 'tempwages'
+            'type'           => 'tempwages',
+            'file'           => $fileName
         ]);
 
         return redirect()->back()->with(isCreated());

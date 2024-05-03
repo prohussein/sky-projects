@@ -103,6 +103,12 @@ class ProjectContractors extends Controller
             ]);
         }
 
+        $fileName = '';
+        if ($request->has('file')) {
+            $file = $request->file('file');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/projects/contractorrevenu'), $fileName);
+        }
         Expense::create([
             'date'            => $request->date,
             'amount'          => $request->amount,
@@ -111,7 +117,8 @@ class ProjectContractors extends Controller
             'project_id'      => $request->project_id,
             'safe_id'        => $request->safe_id,
             'subcontractor_id'=> $request->subcontractor_id,
-            'type'            => 'subcontractor'
+            'type'            => 'subcontractor',
+            'file' => $fileName
         ]);
 
         return redirect()->back()->with(isCreated());

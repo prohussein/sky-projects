@@ -18,46 +18,46 @@
                         <form id="addContactors" name="add_contactors" action="{{ route('dashboard.project.contactor.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="project_id" value="{{ $project->id }}">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label> المقاول </label>
-                                <select class="form-control select2" name="subcontractor_id">
-                                    <option selected disabled>اختر مقاول</option>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label> المقاول </label>
+                                    <select class="form-control select2" name="subcontractor_id">
+                                        <option selected disabled>اختر مقاول</option>
 
-                                    @foreach ($contactors as $contactor)
-                                    <option value="{{ $contactor->id }}" >{{ $contactor->name }}</option>
-                                    @endforeach
-                                </select>
-                                <input type="hidden" name="project_id" class="form-control" value="{{ $project->id }}">
-                            </div>
-                            <div class="form-group">
-                                <label>تاريخ البدء </label>
-                                <input type="date" name="start_date" class="form-control" value="" required>
-                            </div>
-                            <div class="form-group">
-                                <label>تاريخ الانتهاء </label>
-                                <input type="date" name="end_date" class="form-control" value="" >
+                                        @foreach ($contactors as $contactor)
+                                        <option value="{{ $contactor->id }}" >{{ $contactor->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="hidden" name="project_id" class="form-control" value="{{ $project->id }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>تاريخ البدء </label>
+                                    <input type="date" name="start_date" class="form-control" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>تاريخ الانتهاء </label>
+                                    <input type="date" name="end_date" class="form-control" value="" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label> قيمة التعاقد</label>
+                                    <input type="number" step="-1" name="amount" class="form-control" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>ملفات التعاقد  </label>
+                                    <input type="file" name="file" class="form-control" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label> ملاحظات</label>
+                                    <textarea class="form-control" name="notes"></textarea>
+                                </div>
+
                             </div>
 
-                            <div class="form-group">
-                                <label> قيمة التعاقد</label>
-                                <input type="number" step="-1" name="amount" class="form-control" value="" required>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" >حفظ</button>
                             </div>
-                            <div class="form-group">
-                                <label>ملفات التعاقد  </label>
-                                <input type="file" name="file" class="form-control" value="">
-                            </div>
-                            <div class="form-group">
-                                <label> ملاحظات</label>
-                                <textarea class="form-control" name="notes"></textarea>
-                            </div>
-
-                        </div>
-
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" >حفظ</button>
-                        </div>
                         </form>
 
                         </div>
@@ -81,50 +81,50 @@
                         <form id="addContactorsRvenue" name="add_contactors_rvenue" action="{{ route('dashboard.project.contactor.rvenue.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="project_id" value="{{ $project->id }}">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label> المقاول </label>
-                                <select class="form-control select2" name="subcontractor_id">
-                                    <option selected disabled>اختر مقاول</option>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label> المقاول </label>
+                                    <select class="form-control select2" name="subcontractor_id">
+                                        <option selected disabled>اختر مقاول</option>
 
-                                    @foreach ($prjectCotractors as $subcontactor)
-                                    <option value="{{ $subcontactor->subcontractor_id }}" >{{ $subcontactor->contractor->name ?? ''}}</option>
-                                    @endforeach
-                                </select>
-                                <input type="hidden" name="project_id" class="form-control" value="{{ $project->id }}">
+                                        @foreach ($prjectCotractors as $subcontactor)
+                                        <option value="{{ $subcontactor->subcontractor_id }}" >{{ $subcontactor->contractor->name ?? ''}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="hidden" name="project_id" class="form-control" value="{{ $project->id }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>رقم المستخلص</label>
+                                    <input type="text" name="reference" class="form-control" value="" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>تاريخ  </label>
+                                    <input type="date" name="date" class="form-control" value="" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label> قيمة المستخلص</label>
+                                    <input type="number" step="-1" name="amount" class="form-control" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label> الخزن</label>
+                                    <select  name="safe_id" class="form-control" required >
+                                        <option selected disabled > اختر خزنة </option>
+
+                                        @foreach ($safes as $safe )
+                                            <option value="{{ $safe->id }}" {{ isset($row) && $row->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
                             </div>
-                            <div class="form-group">
-                                <label>رقم المستخلص</label>
-                                <input type="text" name="reference" class="form-control" value="" required>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" >حفظ</button>
                             </div>
-
-                            <div class="form-group">
-                                <label>تاريخ  </label>
-                                <input type="date" name="date" class="form-control" value="" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label> قيمة المستخلص</label>
-                                <input type="number" step="-1" name="amount" class="form-control" value="" required>
-                            </div>
-                            <div class="form-group">
-                                <label> الخزن</label>
-                                <select  name="safe_id" class="form-control" required >
-                                    <option selected disabled > اختر خزنة </option>
-
-                                    @foreach ($safes as $safe )
-                                        <option value="{{ $safe->id }}" {{ isset($row) && $row->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-
-                        </div>
-
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" >حفظ</button>
-                        </div>
                         </form>
 
                         </div>
@@ -258,6 +258,7 @@
                     <th>تاريخ   </th>
                     <th>المقاول </th>
                     <th>قيمة المستخلص  </th>
+                    <th>المستند</th>
                     <th>اجراء</th>
                     </tr>
                 </thead>
@@ -268,7 +269,14 @@
                         <td>{{ $revenu->reference }} </td>
                         <td>{{ $revenu->date }}</td>
                         <td>{{ $revenu->contactor->name ?? '' }} </td>
-                            <td>{{ $revenu->amount }}</td>
+                        <td>{{ $revenu->amount }}</td>
+                        <td>
+                            @if($revenu->file)
+                             <a href="{{url('public/uploads/projects/contractorrevenu/'.$revenu->file) }}" download="">تحميل المستند</a> 
+                             @else
+                             -----
+                             @endif    
+                        </td>
                         <td>
                             {{-- ediit revneu --}}
                             <a type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModalContactorsRevenus{{ $revenu->id }}" title="تعديل "><i class="fa fa-edit"></i></a>

@@ -15,8 +15,8 @@
          text-align: center;
     }
 
-
-
+ 
+ 
 
 </style>
 @endpush
@@ -80,7 +80,7 @@
                                         <th class="no-space">الاستقطاعات  </th>
                                         <th class="no-space">الصافي  </th>
 
-                                        <th class="no-space">ربح متوقع </th>
+                                        <th class="no-space">ربح متوقع <br> (2000000000)</th>
                                         <th class="no-space">ربح فعلي </th>
 
 

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ManageMaterials extends Controller
 {
     public function store(Request $request){
-        //dd($request->all());
+       // dd($request->all());
         $request->validate([
             'material_name'  => 'required',
             'date'           => 'required',
@@ -30,6 +30,15 @@ class ManageMaterials extends Controller
                 'balance' => $safeBalanceAfter
             ]);
         }
+        // handle file 
+
+        $fileName = '';
+        if ($request->has('file')) {
+            $file = $request->file('file');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/projects/materials'), $fileName);
+        }
+      
         Expense::create([
             'material_name'  => $request->material_name,
             'date'           => $request->date,
@@ -39,7 +48,8 @@ class ManageMaterials extends Controller
             'project_id'     => $request->project_id,
             'note'           => $request->note,
             'type'           => 'materials',
-            'safe_id'        => $request->safe_id
+            'safe_id'        => $request->safe_id,
+            'file'           => $fileName
         ]);
 
         return redirect()->back()->with(isCreated());

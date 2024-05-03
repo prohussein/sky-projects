@@ -67,6 +67,7 @@
                                 <th>تاريخ </th>
                             <th> القيمة  </th>
                             <th>الغرض </th>
+                            <th>المستند</th>
                             <th>اجراء </th>
                             </tr>
                         </thead>
@@ -77,6 +78,13 @@
                                 <td>{{ $expense->date }}</td>
                                 <td>{{ $expense->amount }}</td>
                                 <td>{{ $expense->note }}</td>
+                                <td>
+                                    @if($expense->file)
+                                     <a href="{{url('public/uploads/projects/expenses/'.$expense->file) }}" download="">تحميل المستند</a> 
+                                     @else
+                                     -----
+                                     @endif    
+                                </td>
                                 <td>
                                         <a type="button" class="btn btn-sm btn-warning" title="تعديل " data-toggle="modal" data-target="#myModalExpenses{{ $expense->id }}">
                                             <i class="fa fa-edit"></i>

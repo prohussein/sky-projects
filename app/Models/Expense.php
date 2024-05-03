@@ -8,12 +8,12 @@ class Expense extends Model
 {
     protected $fillable = ['date','reference','amount','note','cat_id', 'safe_id',
                             'material_name', 'material_qty', 'subcontractor_id',
-                            'project_id', 'type', 'user_id', 'employee_id'];
+                            'project_id', 'type', 'user_id', 'employee_id','file'];
 
     protected static $logAttributes =[
         'date', 'reference', 'amount', 'note', 'cat_id', 'safe_id',
         'material_name', 'material_qty', 'subcontractor_id',
-        'project_id', 'type', 'user_id', 'employee_id'
+        'project_id', 'type', 'user_id', 'employee_id','file'
     ];
     protected static $logName       =  'expense';
     protected static $logOnlyDirty  = true;

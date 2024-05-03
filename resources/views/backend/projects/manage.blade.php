@@ -93,6 +93,10 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>رفع المستند   </label>
+                                <input type="file" name="file" class="form-control" value="">
+                            </div>
+                            <div class="form-group">
                                 <label> ملاحظات</label>
                                 <textarea class="form-control" name="note"></textarea>
                             </div>
@@ -241,6 +245,11 @@
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <label>رفع المستند   </label>
+                                <input type="file" name="file" class="form-control" value="">
+                            </div>
+
                         </div>
 
                         <!-- Modal footer -->
@@ -309,6 +318,10 @@
                                 <input type="number" step="-1" name="amount" class="form-control" value="" required>
                             </div>
                             <div class="form-group">
+                                <label>رفع المستند   </label>
+                                <input type="file" name="file" class="form-control" value="">
+                            </div>
+                            <div class="form-group">
                                 <label> ملاحظات</label>
                                 <textarea class="form-control" name="note"></textarea>
                             </div>
@@ -368,6 +381,10 @@
                             <div class="form-group">
                                 <label> القيمة</label>
                                 <input type="number" step="-1" name="amount" class="form-control" value="" required>
+                            </div>
+                            <div class="form-group">
+                                <label>رفع المستند   </label>
+                                <input type="file" name="file" class="form-control" value="">
                             </div>
                             <div class="form-group">
                                 <label> الغرض</label>

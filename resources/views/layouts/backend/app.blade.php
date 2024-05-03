@@ -87,13 +87,16 @@
 
     <script src="{{ asset('public/backend/js/plugins/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
-    $('#sampleTable').DataTable({
+    /*$('#sampleTable').DataTable({
          fixedHeader: {
                 header: true,
                 footer: true
             },
 
             scrollY: 400
+    });*/
+   $('#sampleTable').DataTable({
+         
     });
 
     </script>

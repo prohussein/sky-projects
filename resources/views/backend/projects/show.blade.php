@@ -17,7 +17,7 @@
     <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index')}}">@lang('site.'. $routeName .'')</a></li>
     <li class="breadcrumb-item">ادارة المشروع</li>
 
-@endcomponent
+@endcomponent 
 
     <div class="tile mb-4">
         {{-- project statictes  --}}

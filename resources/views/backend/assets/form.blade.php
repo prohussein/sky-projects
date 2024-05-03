@@ -12,12 +12,14 @@
        <input type="text" name="{{ $input }}" class="form-control" value="{{ old('name', isset($row) ? $row->{$input} : '')}}">
        </div>
     </div>
-
+ 
     <div class="form-group col-md-3">
         <label>النوع</label>
         <select  name="type" class="form-control" id="type">
             <option value="cash" {{ isset($row) && $row->type == 'cash' ? 'selected' : '' }} > نقدي </option>
             <option value="properties" {{ isset($row) && $row->type == 'properties' ? 'selected' : '' }} > ممتلكات </option>
+            <option value="cash_money" {{ isset($row) && $row->type == 'cash_money' ? 'selected' : '' }} > نقود ائتمانية  </option>
+
         </select>
     </div>
 
@@ -38,8 +40,11 @@
         <input type="number" name="{{ $input }}" class="form-control @error('{{ $input }}') is-invalid @enderror" value="{{ old('amount', isset($row) ? $row->{$input} : '')}}" >
     </div>
 
-
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-3">
+        <label>رفع المستند   </label>
+        <input type="file" name="file" class="form-control" value="">
+    </div>
+    <div class="form-group col-md-9">
         @php  $input = "descripton";    @endphp
         <label>الوصف </label>
        <div>

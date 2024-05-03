@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Asset extends Model
 {
-    protected $fillable = ['name', 'amount', 'type', 'descripton', 'added_by', 'safe_id'];
+    protected $fillable = ['name', 'amount', 'type', 'descripton', 'added_by', 'safe_id','file'];
 
     public function getNameAttribute($value){
         return ucfirst($value);
