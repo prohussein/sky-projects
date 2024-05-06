@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class AssetsExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize 
+class AssetsExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
 {
     use Exportable;
 
@@ -24,10 +24,10 @@ class AssetsExport implements FromCollection, WithHeadings, WithMapping, ShouldA
                 $q->where('type', $_GET['type']);
             })->get();
         }else{
-            
+
             $assets = Asset::all();
         }
-        return  $assets; 
+        return  $assets;
     }
     /**
      * @return array
@@ -36,11 +36,11 @@ class AssetsExport implements FromCollection, WithHeadings, WithMapping, ShouldA
     public function map($asset): array
     {
         return [
-           
+
             $asset->name,
             $asset->type,
             $asset->amount,
-            public_path('uploads/assets/'.$asset->file) ,
+            asset('public/uploads/assets/'.$asset->file) ,
             $asset->descripton,
 
         ];
@@ -54,7 +54,7 @@ class AssetsExport implements FromCollection, WithHeadings, WithMapping, ShouldA
             'القيمة',
             'المستند',
             'الوصف',
-          
+
 
         ];
     }
