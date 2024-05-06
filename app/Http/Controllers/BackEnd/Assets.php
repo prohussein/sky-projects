@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Asset;
 use App\Models\Safe;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AssetsExport;
+
+
 use Illuminate\Support\Facades\Auth;
 
 class Assets extends BackEndController
@@ -19,7 +23,26 @@ class Assets extends BackEndController
         parent::__construct($model);
     } //end of construct
 
+    public function index(Request $request)
+    {
+        
+        $rows  = $this->model;
+        $rows  = $this->fillter($rows);
+        $with  = $this->with();
+        if (!empty($with)) {
+            $rows = $rows->with($with);
+        }
+        if($request->type){
+            $rows = $rows->where('type',$request->type);
+        }
+       
 
+        $rows = $rows->orderBy('id', 'desc')->get();
+        //dd($rows);
+
+        $routeName = $this->getClassNameFromModel();
+        return view('backend.' . $routeName . '.index', compact('rows', 'routeName','request'));
+    }// end of index
     protected function append()
     {
 
@@ -104,6 +127,13 @@ class Assets extends BackEndController
 
         return redirect()->route('dashboard.assets.index')->with(isUpdated());
     } // end of update
+
+    public function exportToExcel()
+    {
+        return (new AssetsExport)->download('assets.xlsx');
+
+
+    }
 
     public function destroy($id)
     {

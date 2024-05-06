@@ -55,6 +55,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
 
         Route::resource('subcontractors', Subcontractors::class);
         Route::resource('assets', Assets::class);
+        Route::get('assets/export/excell', [Assets::class, 'exportToExcel'])->name('assets.export.excell');
 
         Route::post('project/contactor/store', [ProjectContractors::class, 'store'])->name('project.contactor.store');
         Route::delete('project/contactor/delete/{id}', [ProjectContractors::class, 'destroy'])->name('project.contactor.destroy');

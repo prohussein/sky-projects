@@ -5,6 +5,8 @@ namespace App\Http\Controllers\BackEnd;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+
 
 class BackEndController extends Controller
 {
@@ -17,7 +19,7 @@ class BackEndController extends Controller
        $this->model = $model ;
    }
 
-    public function index()
+    public function index(Request $request)
     {
         $rows  = $this->model;
         $rows  = $this->fillter($rows);
@@ -30,7 +32,7 @@ class BackEndController extends Controller
 
         $routeName = $this->getClassNameFromModel();
         return view('backend.' . $routeName . '.index', compact('rows', 'routeName'));
-    }// end of index
+    }// end of index 
     public function create()
     {
         $routeName = $this->getClassNameFromModel();
