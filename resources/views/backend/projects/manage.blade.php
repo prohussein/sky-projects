@@ -62,7 +62,7 @@
                                     <option selected disabled>اختر مشروع</option>
 
                                     @foreach ($projects as $project)
-                                    <option value="{{ $project->project_id }}" >{{ $project->project->name }}</option>
+                                    <option value="{{ $project->project_id }}" >{{ $project->project->name ?? ''}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -136,7 +136,7 @@
                                     <option selected disabled>اختر مشروع</option>
 
                                     @foreach ($projects as $project)
-                                    <option value="{{ $project->project_id }}" >{{ $project->project->name }}</option>
+                                    <option value="{{ $project->project_id }}" >{{ $project->project->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -283,7 +283,7 @@
                                     <option selected disabled>اختر مشروع</option>
 
                                     @foreach ($projects as $project)
-                                    <option value="{{ $project->project_id }}" >{{ $project->project->name }}</option>
+                                    <option value="{{ $project->project_id }}" >{{ $project->project->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -359,7 +359,7 @@
                                     <option selected disabled>اختر مشروع</option>
 
                                     @foreach ($projects as $project)
-                                    <option value="{{ $project->project_id }}" >{{ $project->project->name }}</option>
+                                    <option value="{{ $project->project_id }}" >{{ $project->project->name ?? ''}}</option>
                                     @endforeach
                                 </select>
                             </div>

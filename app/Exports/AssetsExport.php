@@ -40,7 +40,7 @@ class AssetsExport implements FromCollection, WithHeadings, WithMapping, ShouldA
             $asset->name,
             $asset->type,
             $asset->amount,
-            asset('public/uploads/assets/'.$asset->file) ,
+            ($asset->file !=  null ? asset('public/uploads/assets/' . $asset->file)  : '') ,
             $asset->descripton,
 
         ];

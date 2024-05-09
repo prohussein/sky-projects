@@ -19,12 +19,12 @@
 
 @endcomponent
 <div class="tile mb-4">
-   
+
     <form action="{{route('dashboard.assets.index')}}" method="get">
         <div class="row">
                 <div class="form-group col-md-3">
                     <label>النوع</label>
-                    <select  name="type" class="form-control" id="type" name="type">
+                    <select  name="type" class="form-control" id="type">
                         <option value="cash" {{ isset($request) && $request->type == 'cash' ? 'selected' : '' }} > نقدي </option>
                         <option value="properties" {{ isset($request) && $request->type == 'properties' ? 'selected' : '' }} > ممتلكات </option>
                         <option value="cash_money" {{ isset($request) && $request->type == 'cash_money' ? 'selected' : '' }} > نقود ائتمانية  </option>
@@ -33,27 +33,27 @@
                 <div class="form-group col-md-3">
                     <button class="btn btn-info btn-lg mt-4" type="submit"> بحث</button>
                 </div>
-        
 
-        </div> 
+
+        </div>
     </form>
 
 </div>
 <div class="tile mb-4">
     {{-- project statictes  --}}
     <div class="row">
-      
+
         <div class="col-md-4">
             <div class="widget-small primary" >
                 <div class="info text-center">
                     <h4> نقدي   </h4>
                     <p style="font-weight: bold; font-size: 20px">
-                        {{ $rows->where("type", 'cash')->count() }} 
+                        {{ $rows->where("type", 'cash')->count() }}
                     </p>
                     <p style="font-weight: bold; font-size: 20px">
                         {{ number_format ($rows->where("type", 'cash')->sum('amount')) }}
                     </p>
-                    
+
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
                 <div class="info text-center">
                     <h4>ممتلكات  </h4>
                     <p style="font-weight: bold; font-size: 20px">
-                        {{ $rows->where("type", 'properties')->count() }} 
+                        {{ $rows->where("type", 'properties')->count() }}
                     </p>
                     <p style="font-weight: bold; font-size: 20px">
                         {{ number_format ($rows->where("type", 'properties')->sum('amount')) }}
@@ -76,7 +76,7 @@
                 <div class="info text-center">
                     <h4> نقود ائتمانية   </h4>
                     <p style="font-weight: bold; font-size: 20px">
-                        {{ $rows->where("type", 'cash_money')->count() }} 
+                        {{ $rows->where("type", 'cash_money')->count() }}
                     </p>
                     <p style="font-weight: bold; font-size: 20px">
                         {{ number_format ($rows->where("type", 'cash_money')->sum('amount')) }}
@@ -84,8 +84,8 @@
                 </div>
             </div>
         </div>
-       
-       
+
+
 
     </div> {{-- end of row --}}
 </div>
@@ -143,12 +143,12 @@
                                         </td>
                                         <td > {{ $row->amount }} </td>
 
-                                        <td> 
+                                        <td>
                                             @if($row->file)
-                                             <a href="{{url('public/uploads/assets/'.$row->file) }}" download="">تحميل المستند</a> 
+                                             <a href="{{url('public/uploads/assets/'.$row->file) }}" download="">تحميل المستند</a>
                                              @else
                                              -----
-                                             @endif    
+                                             @endif
                                         </td>
                                         <td > {{ $row->descripton }} </td>
                                         <td>

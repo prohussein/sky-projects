@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Revenue extends Model
 {
     protected $fillable = ['project_id', 'code', 'customer_id', 'safe_id',
-     'date', 'total_amount', 'tax_type', 'tax_amount', 'net_amount'];
+     'date', 'total_amount', 'tax_type', 'tax_amount', 'net_amount','file'];
 
     public function getNameAttribute($value)
     {

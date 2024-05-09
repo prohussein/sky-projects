@@ -50,6 +50,7 @@
                                         <th>القيمة الاجمالية</th>
                                         <th>قيمة الضرائب</th>
                                         <th>صافي القيمة</th>
+                                        <th>المستند</th>
                                         <th>@lang('site.action')</th>
                                     </tr>
                                 </thead>
@@ -64,6 +65,13 @@
                                         <td > {{ $row->total_amount }}   </td>
                                         <td > {{ $row->tax_amount }}   </td>
                                         <td > {{ $row->net_amount }}   </td>
+                                        <td>
+                                            @if($row->file)
+                                             <a href="{{url('public/uploads/revenues/'.$row->file) }}" download="">تحميل المستند</a>
+                                             @else
+                                             -----
+                                             @endif
+                                        </td>
                                         <td>
                                             @include('backend.partials._buttons')
                                         </td>

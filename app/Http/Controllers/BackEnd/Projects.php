@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers\BackEnd;
 
+use App\Exports\ProjectsExport;
 use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\ProjectFile;
 use App\Models\ProjectItem;
 use App\Models\ProjectSubcontractor;
 use App\Models\ProjectUser;
+use App\Models\Revenue;
 use App\Models\Safe;
 use App\Models\Subcontractor;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Projects extends BackEndController
 {
@@ -27,6 +31,34 @@ class Projects extends BackEndController
         parent::__construct($model);
     } //end of construct
 
+    public function index(Request $request)
+    {
+        $rows  = $this->model;
+        $rows  = $this->fillter($rows);
+        $with  = $this->with();
+        if (!empty($with)) {
+            $rows = $rows->with($with);
+        }
+        $rows = $rows->when(request('customer_id'), function ($q) use ($request) {
+            $q->where('customer_id', $request->customer_id);
+        })->when(request('from'), function ($q)  use ($request) {
+            $q->whereBetween('start_date', [$request->from, $request->to])->get();
+        })->when(request('to'), function ($q) use ($request) {
+            $q->whereBetween('start_date', [$request->from, $request->to])->get();
+        })->orderBy('id', 'desc')->get();
+
+        //$rows = $rows->orderBy('id', 'desc')->get();
+        //dd($rows);
+       $customers =  Customer::all(['id','name']);
+        $routeName = $this->getClassNameFromModel();
+        return view('backend.' . $routeName . '.index', compact('rows', 'request','customers','routeName'));
+    }// end of index
+
+    public function exportExcel(){
+        return Excel::download(new ProjectsExport, 'projects.xlsx');
+
+       
+    }
 
     protected function append()
     {
@@ -101,7 +133,7 @@ class Projects extends BackEndController
     public function show($id){
         $routeName = 'projects';
 
-        $project   = Project::where('id',$id)->first();
+        $project   = Project::where('id',$id)->with('revenues', 'expenses')->first();
 
         $materials = Expense::where([['project_id',$id],['type', 'materials']])
                     ->select('id','project_id','type','amount','date','note','material_qty','material_name')
@@ -126,6 +158,7 @@ class Projects extends BackEndController
                                 ->get();
 
         $projectItems    = ProjectItem::where('project_id', $id)->get();
+        $prjectFiles    = ProjectFile::where('project_id', $id)->get();
         $safes           = Safe::all(['id', 'name']);
 
         if($projectItems->sum('total_implement_qty') > 0){
@@ -138,7 +171,50 @@ class Projects extends BackEndController
 
         $contactors = Subcontractor::all('id','name');
 
-        return view('backend.projects.show',compact('safes','project', 'projectProgress','routeName','materials', 'projectItems', 'expenses', 'wages', 'prjectCotractors', 'contactors', 'tempEmployees','contactorsRevenus'));
+        return view('backend.projects.show',compact('prjectFiles','safes','project', 'projectProgress','routeName','materials', 'projectItems', 'expenses', 'wages', 'prjectCotractors', 'contactors', 'tempEmployees','contactorsRevenus'));
+    }
+
+    public function projectReport($id)
+    {
+        $routeName = 'projects';
+
+        $project   = Project::where('id', $id)->with('revenues', 'expenses')->first();
+
+        $materials = Expense::where([['project_id', $id], ['type', 'materials']])
+        ->select('id', 'project_id', 'type', 'amount', 'date', 'note', 'material_qty', 'material_name')
+        ->get();
+
+        $expenses  = Expense::where([['project_id', $id], ['type', 'other']])
+        ->select('id', 'project_id', 'type', 'amount', 'date', 'note')
+        ->get();
+
+        $wages     = Expense::where([['project_id', $id], ['type', 'tempwages']])
+        ->select('id', 'project_id', 'type', 'amount', 'date', 'note', 'employee_id')
+        ->with('employee')
+        ->get();
+
+        $tempEmployees = Employee::where('type', 'temp')->select('id', 'name', 'type')->get();
+
+        $prjectCotractors   = ProjectSubcontractor::where('project_id', $id)->with('contractor')->get();
+
+        $contactorsRevenus  = Expense::where([['project_id', $id], ['type', 'subcontractor']])
+        ->select('id', 'project_id', 'subcontractor_id', 'type', 'amount', 'date', 'reference')
+        ->with('contactor')
+        ->get();
+
+        $projectItems    = ProjectItem::where('project_id', $id)->get();
+        $prjectFiles    = ProjectFile::where('project_id', $id)->get();
+        $safes           = Safe::all(['id', 'name']);
+
+        if ($projectItems->sum('total_implement_qty') > 0) {
+            $projectProgress =  ($projectItems->sum('total_implement_qty') /  $projectItems->sum('item_total')) * 100;
+        } else {
+            $projectProgress =  0;
+        }
+
+        $contactors = Subcontractor::all('id', 'name');
+        $revenus = Revenue::where('project_id', $id)->get();
+        return view('backend.projects.project_report', compact('prjectFiles', 'safes', 'project', 'revenus', 'projectProgress', 'routeName', 'materials', 'projectItems', 'expenses', 'wages', 'prjectCotractors', 'contactors', 'tempEmployees', 'contactorsRevenus'));
     }
 
 

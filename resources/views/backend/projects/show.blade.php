@@ -17,7 +17,7 @@
     <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index')}}">@lang('site.'. $routeName .'')</a></li>
     <li class="breadcrumb-item">ادارة المشروع</li>
 
-@endcomponent 
+@endcomponent
 
     <div class="tile mb-4">
         {{-- project statictes  --}}
@@ -30,7 +30,7 @@
                 <div class="widget-small primary" >
                     <div class="info text-center">
                         <h4>تكلفة المواد  </h4>
-                        <p style="font-weight: bold; font-size: 20px">{{ $materials->sum('amount') }}</p>
+                        <p style="font-weight: bold; font-size: 20px">{{ number_format($materials->sum('amount')) }}</p>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 <div class="widget-small primary" >
                     <div class="info text-center">
                         <h4>الاجور   </h4>
-                        <p style="font-weight: bold; font-size: 20px">{{ $wages->sum('amount') }}</p>
+                        <p style="font-weight: bold; font-size: 20px">{{ number_format($wages->sum('amount') )}}</p>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 <div class="widget-small primary" >
                     <div class="info text-center">
                         <h4> مقاولين الباطن  </h4>
-                        <p style="font-weight: bold; font-size: 20px">{{ $contactorsRevenus->sum('amount') }}</p>
+                        <p style="font-weight: bold; font-size: 20px">{{ number_format($contactorsRevenus->sum('amount')) }}</p>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 <div class="widget-small primary" >
                     <div class="info text-center">
                         <h4>مصروفات اخري </h4>
-                        <p style="font-weight: bold; font-size: 20px">{{ $expenses->sum('amount') }}</p>
+                        <p style="font-weight: bold; font-size: 20px">{{ number_format($expenses->sum('amount')) }}</p>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                 <div class="widget-small primary" >
                     <div class="info text-center">
                         <h4>تكلفة المشروع  </h4>
-                        <p style="font-weight: bold; font-size: 20px">{{ $project->customer_cost }}</p>
+                        <p style="font-weight: bold; font-size: 20px">{{ number_format($project->customer_cost) }}</p>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                 <div class="widget-small primary" >
                     <div class="info text-center">
                         <h4>التكلفة التقديرية   </h4>
-                        <p style="font-weight: bold; font-size: 20px">{{ $project->estimated_cost }}</p>
+                        <p style="font-weight: bold; font-size: 20px">{{ number_format($project->estimated_cost )}}</p>
                     </div>
                 </div>
             </div>
@@ -79,15 +79,18 @@
                 <div class="widget-small primary" >
                     <div class="info text-center">
                         <h4>التكلفة الفعلية  </h4>
-                        <p style="font-weight: bold; font-size: 20px">{{ $contactorsRevenus->sum('amount') + $wages->sum('amount') + $materials->sum('amount') + $expenses->sum('amount') }}</p>
+                        <p style="font-weight: bold; font-size: 20px">{{ number_format($contactorsRevenus->sum('amount') + $wages->sum('amount') + $materials->sum('amount') + $expenses->sum('amount') )}}</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="widget-small primary" >
                     <div class="info text-center">
-                        <h4> الربح  </h4>
-                        <p style="font-weight: bold; font-size: 20px">{{ $project->customer_cost - ($contactorsRevenus->sum('amount') + $wages->sum('amount') + $materials->sum('amount') + $expenses->sum('amount')) }}</p>
+                        <h4> الربح الفعلي  </h4>
+                        <p style="font-weight: bold; font-size: 20px">
+                            {{ number_format($project->revenues->sum('net_amount')  - $project->expenses->sum('amount') ) }}
+                            {{--number_format( $project->customer_cost - ($contactorsRevenus->sum('amount') + $wages->sum('amount') + $materials->sum('amount') + $expenses->sum('amount')) )--}}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -117,6 +120,10 @@
                         <button class="nav-link btn" id="pills-expenses-tab" data-toggle="pill" data-target="#pills-expenses" type="button" role="tab" aria-controls="pills-expenses" aria-selected="false">مصروفات اخري </button>
 
                     </li>
+                     <li class="nav-item" role="presentation">
+                        <button class="nav-link btn" id="pills-files-tab" data-toggle="pill" data-target="#pills-files" type="button" role="tab" aria-controls="pills-files" aria-selected="false">ملفات المشروع  </button>
+
+                    </li>
                 </ul>
             </div>
             <div class="col-md-12">
@@ -133,6 +140,8 @@
                     @include('backend.projects.parts.wages')
 
                     @include('backend.projects.parts.expenses')
+
+                    @include('backend.projects.parts.files')
 
 
 

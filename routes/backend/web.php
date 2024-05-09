@@ -6,6 +6,7 @@ use App\Http\Controllers\BackEnd\Employees;
 use App\Http\Controllers\BackEnd\ManageMaterials;
 use App\Http\Controllers\BackEnd\ProjectContractors;
 use App\Http\Controllers\BackEnd\ProjectExpenses;
+use App\Http\Controllers\BackEnd\ProjectFiles;
 use App\Http\Controllers\BackEnd\ProjectItems;
 use App\Http\Controllers\BackEnd\Projects;
 use App\Http\Controllers\BackEnd\ProjectWages;
@@ -27,6 +28,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
         Route::resource('customers', Customers::class);
 
         Route::resource('projects', Projects::class);
+
+        Route::get('projects/project/report/{id}', [Projects::class, 'projectReport'])->name('projects.report');
+        Route::get('projects/export/excel', [Projects::class, 'exportExcel'])->name('projects.export.excel');
+
         Route::get('projects/manageproject/cost', [Projects::class, 'manage'])->name('projects.manage.cost');
         Route::get('/selectProjectsBelongsContract', [Projects::class, 'selectProjectsBelongsToSubcontract'])->name('selectProjectsBelongsToSubcontract');
 
@@ -43,6 +48,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
         Route::post('project/materials/store', [ManageMaterials::class, 'store'])->name('project.materials.store');
         Route::delete('project/materials/delete/{id}', [ManageMaterials::class, 'destroy'])->name('project.materials.destroy');
         Route::post('project/materials/update/{id}', [ManageMaterials::class, 'update'])->name('project.materials.update');
+
+        Route::post('project/files/store', [ProjectFiles::class, 'store'])->name('project.files.store');
+        Route::delete('project/files/delete/{id}', [ProjectFiles::class, 'destroy'])->name('project.files.destroy');
+        Route::post('project/files/update/{id}', [ProjectFiles::class, 'update'])->name('project.files.update');
 
         Route::post('project/expenses/store', [ProjectExpenses::class, 'store'])->name('project.expenses.store');
         Route::delete('project/expenses/delete/{id}', [ProjectExpenses::class, 'destroy'])->name('project.expenses.destroy');

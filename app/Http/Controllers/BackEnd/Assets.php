@@ -25,7 +25,7 @@ class Assets extends BackEndController
 
     public function index(Request $request)
     {
-        
+
         $rows  = $this->model;
         $rows  = $this->fillter($rows);
         $with  = $this->with();
@@ -35,7 +35,7 @@ class Assets extends BackEndController
         if($request->type){
             $rows = $rows->where('type',$request->type);
         }
-       
+
 
         $rows = $rows->orderBy('id', 'desc')->get();
         //dd($rows);
@@ -61,7 +61,7 @@ class Assets extends BackEndController
             'amount'     => 'required',
             'type'       => 'required',
             'safe_id'    => ['required_if:type,cash'],
-        ]); 
+        ]);
 
         $fileName = '';
         if ($request->has('file')) {
@@ -69,7 +69,7 @@ class Assets extends BackEndController
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/assets'), $fileName);
         }
-      
+
         $requestArray = ['added_by' => Auth::id(),'file'=> $fileName] + $request->all();
 
         $row =  $this->model->create($requestArray);

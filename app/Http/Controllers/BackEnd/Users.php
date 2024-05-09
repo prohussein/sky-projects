@@ -13,30 +13,32 @@ class Users  extends BackEndController
 {
     public function __construct(User $model)
     {
-        
+
         $this->middleware('permission:read_users')->only(['index']);
         $this->middleware('permission:create_users')->only(['create','store']);
         $this->middleware('permission:update_users')->only(['edit', 'store']);
         $this->middleware('permission:delete_users')->only(['destroy']);
         parent::__construct($model);
-    }//end of construct 
-    
+    }//end of construct
+
     protected function append(){
-     
+
        $roles = Role::get();
        return ['roles' => $roles] ;
-    }// to add paremater in controller 
+    } // to add paremater in controller
+
+
     public function store(Request $request)
-    { 
+    {
 
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required|confirmed',
-            'role_id' => 'required|numeric',
-           
+            'role' => 'required|numeric',
+
         ]);
-       
+
         $user =   User::create([
             'name'              => $request->name,
             'email'             => $request->email,
@@ -53,7 +55,7 @@ class Users  extends BackEndController
 
     public function update(Request $request, User $user )
     {
-
+        //dd($request->role);
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email,'.$user->id,
@@ -61,7 +63,7 @@ class Users  extends BackEndController
 
         $row =  $this->model->FindOrFail($user->id);
         $requestArray = $request->all();
-            
+
         if(isset($requestArray['password']) && $request->has('password') != ""){
             $requestArray['password']  = Hash::make($request->password);
         }else{
@@ -70,14 +72,15 @@ class Users  extends BackEndController
 
         $row->update($requestArray);
 
-        
-        ///////////////////////////////
+
+        $row->roles()->sync($request->role);
+        // $user->roles()->attach($request->role);
 
        //return redirect()->route('dashboard.users.edit', ['id' => $user->id]);
        return redirect()->route('dashboard.users.index')->with(isUpdated());
 
-    }// end of update 
+    }// end of update
 
-   
 
-}//en of controller 
+
+}//en of controller
