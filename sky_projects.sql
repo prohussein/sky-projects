@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 03, 2024 at 10:26 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: May 11, 2024 at 10:40 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hatem_projects`
+-- Database: `sky_projects`
 --
 
 -- --------------------------------------------------------
@@ -68,15 +68,10 @@ INSERT INTO `assets` (`id`, `name`, `amount`, `type`, `safe_id`, `added_by`, `de
 (3, 'محمد حسين', 5000.00, 'properties', NULL, 1, 'حفار لشغل اسوان', NULL, '2024-03-27 01:59:31', '2024-03-27 01:59:31'),
 (4, 'محمد حسين', 5000.00, 'properties', NULL, 1, 'حفار لشغل اسوان', NULL, '2024-03-27 02:12:41', '2024-03-27 02:12:41'),
 (7, 'حفار 60', 500000.00, 'properties', NULL, 1, 'حفار لشغل اسوان', NULL, '2024-03-29 10:37:00', '2024-03-29 10:37:00'),
-(8, 'شريك محمد حسين', 100000.00, 'cash', 4, 1, 'شراكة', NULL, '2024-03-29 10:42:22', '2024-03-29 10:42:22'),
-(9, 'محمد حسين', 1000000.00, 'cash', 1, 1, 'حفار لشغل اسوان', NULL, '2024-03-31 01:05:46', '2024-03-31 01:05:46'),
-(10, 'محمد حسين', 1000000.00, 'cash', 1, 1, 'حفار لشغل اسوان', NULL, '2024-03-31 01:06:42', '2024-03-31 01:06:42'),
-(11, 'محمد حسين', 1000000.00, 'cash', 1, 1, 'حفار لشغل اسوان', NULL, '2024-03-31 01:07:06', '2024-03-31 01:07:06'),
-(12, 'محمد حسين', 1000000000.00, 'cash', 2, 1, 'حفار لشغل اسوان', NULL, '2024-03-31 01:08:14', '2024-03-31 01:08:14'),
 (13, 'محمد علي', 250.00, 'properties', NULL, 1, 'حفار لشغل اسوان', NULL, '2024-04-11 18:46:56', '2024-04-11 18:46:56'),
 (14, 'محمد علي', 250.00, 'cash_money', NULL, 1, 'مبلغ الشراكة', NULL, '2024-04-11 18:47:23', '2024-04-11 18:47:23'),
-(15, 'محمد علي حسان احمد', 250.00, 'cash', 1, 1, 'حفار لشغل اسوان', '6618f63785a77.pdf', '2024-04-12 06:43:54', '2024-04-12 06:52:08'),
-(16, 'ddd', 1000000000.00, 'cash', 1, 1, 'حفار لشغل اسوان', '6618f66fb780e.pdf', '2024-04-12 06:53:03', '2024-04-12 06:53:03');
+(18, 'Mony', 5000.00, 'cash', 2, 1, NULL, '', '2024-05-11 12:11:11', '2024-05-11 12:11:29'),
+(19, 'محمد حسين', 5000.00, 'cash', 1, 1, NULL, '', '2024-05-11 12:15:14', '2024-05-11 12:15:14');
 
 -- --------------------------------------------------------
 
@@ -220,42 +215,18 @@ CREATE TABLE `expenses` (
 --
 
 INSERT INTO `expenses` (`id`, `date`, `reference`, `amount`, `note`, `cat_id`, `created_at`, `updated_at`, `type`, `safe_id`, `project_id`, `subcontractor_id`, `user_id`, `employee_id`, `material_name`, `material_qty`, `file`) VALUES
-(4, '2024-01-07', NULL, 526325.00, NULL, NULL, '2024-01-07 11:54:46', '2024-01-07 11:54:53', 'materials', 0, 1, NULL, 1, NULL, 'new23', 500.00, NULL),
-(7, '2024-01-09', '02', 15242.00, NULL, NULL, '2024-01-09 06:22:56', '2024-01-09 06:22:56', 'subcontractor', 0, 1, 5, 1, NULL, NULL, NULL, NULL),
-(9, '2024-01-09', NULL, 5000.00, 'اجر شهر 12', NULL, '2024-01-09 07:07:23', '2024-01-09 07:07:23', 'tempwages', 0, 1, NULL, 1, 2, NULL, NULL, NULL),
-(10, '2024-01-30', NULL, 8000.00, NULL, NULL, '2024-01-09 07:13:53', '2024-01-09 07:13:53', 'tempwages', 0, 1, NULL, 1, 2, NULL, NULL, NULL),
-(11, '2024-01-01', NULL, 5433.00, 'test', NULL, '2024-01-09 07:30:29', '2024-01-09 07:30:29', 'other', 0, 1, NULL, 1, NULL, NULL, NULL, NULL),
-(12, '2024-01-01', NULL, 100000.00, 'تم الاخال', NULL, '2024-01-09 07:38:30', '2024-01-09 07:38:30', 'materials', 0, 2, NULL, 1, NULL, 'مواسير', 1000.00, NULL),
-(13, '2024-01-09', '01', 50000.00, NULL, NULL, '2024-01-09 07:39:51', '2024-01-09 07:39:51', 'subcontractor', 0, 2, 7, 1, NULL, NULL, NULL, NULL),
-(14, '2024-01-01', NULL, 5000.00, NULL, NULL, '2024-01-09 07:40:20', '2024-01-09 07:40:20', 'tempwages', 0, 2, NULL, 1, 2, NULL, NULL, NULL),
-(15, '2024-01-01', NULL, 250000.00, 'ايجار معدات', NULL, '2024-01-09 07:40:51', '2024-01-09 07:40:51', 'other', 0, 2, NULL, 1, NULL, NULL, NULL, NULL),
-(16, '2024-01-20', NULL, 5000.00, 'fhhfhhfh', NULL, '2024-01-20 15:39:58', '2024-01-20 15:39:58', 'other', 0, 3, NULL, 1, NULL, NULL, NULL, NULL),
-(17, '2024-03-02', NULL, 10.00, 'hhhh', NULL, '2024-03-02 09:31:15', '2024-03-02 09:31:15', 'materials', 0, 3, NULL, 1, NULL, 'new', 10.00, NULL),
-(18, '2024-03-08', NULL, 50000.00, NULL, NULL, '2024-03-08 18:42:45', '2024-03-08 18:42:45', 'materials', 0, 4, NULL, 1, NULL, 'مواسير', 10.00, NULL),
-(19, '2024-03-08', '250', 250.00, NULL, NULL, '2024-03-08 18:44:50', '2024-03-08 18:44:50', 'subcontractor', 0, 4, 7, 1, NULL, NULL, NULL, NULL),
-(20, '2024-03-08', NULL, 500.00, NULL, NULL, '2024-03-08 18:45:08', '2024-03-08 18:45:08', 'tempwages', 0, 4, NULL, 1, 2, NULL, NULL, NULL),
-(21, '2024-03-11', NULL, 500.00, 'test', NULL, '2024-03-11 02:25:55', '2024-03-11 02:25:55', 'materials', 0, NULL, NULL, 1, NULL, 'new', 500.00, NULL),
-(22, '2024-03-18', NULL, 500.00, NULL, NULL, '2024-03-11 02:28:15', '2024-03-11 02:28:15', 'materials', 0, 7, NULL, 1, NULL, 'new', 500.00, NULL),
-(23, '2024-03-11', NULL, 500.00, NULL, NULL, '2024-03-11 02:30:13', '2024-03-11 02:30:13', 'materials', 0, 5, NULL, 1, NULL, 'new', 500.00, NULL),
-(24, '2024-03-25', NULL, 5000.00, '50', NULL, '2024-03-11 02:45:40', '2024-03-11 02:45:40', 'tempwages', 0, 5, NULL, 1, 2, NULL, NULL, NULL),
-(25, '2024-03-11', NULL, 1500.00, 'hhh', NULL, '2024-03-11 02:47:00', '2024-03-11 02:47:00', 'other', 0, 5, NULL, 1, NULL, NULL, NULL, NULL),
-(26, '2024-03-19', NULL, 5000.00, NULL, NULL, '2024-03-12 01:30:25', '2024-03-12 01:30:25', 'materials', 0, 4, NULL, 1, NULL, 'new23', 500.00, NULL),
-(27, '2024-03-12', '250', 5000.00, NULL, NULL, '2024-03-12 01:49:05', '2024-03-12 01:49:05', 'subcontractor', 0, 2, 7, 1, NULL, NULL, NULL, NULL),
-(28, '2024-03-29', NULL, 5000.00, NULL, NULL, '2024-03-29 07:29:26', '2024-03-29 07:29:26', 'materials', 3, 5, NULL, 1, NULL, 'new', 52.00, NULL),
-(29, '2024-03-29', NULL, 1000.00, NULL, NULL, '2024-03-29 07:32:02', '2024-03-29 07:32:02', 'other', 3, 5, NULL, 1, NULL, NULL, NULL, NULL),
-(30, '2024-03-29', NULL, 500.00, NULL, NULL, '2024-03-29 07:34:29', '2024-03-29 07:34:29', 'tempwages', 3, 4, NULL, 1, 2, NULL, NULL, NULL),
-(31, '2024-03-29', '250', 3500.00, NULL, NULL, '2024-03-29 07:39:05', '2024-03-29 07:39:05', 'subcontractor', 3, 4, 6, 1, NULL, NULL, NULL, NULL),
-(32, '2024-03-29', NULL, 5000.00, 'ddd', NULL, '2024-03-29 07:43:34', '2024-03-29 07:43:34', 'materials', 3, 5, NULL, 1, NULL, 'new23', 5.00, NULL),
-(33, '2024-03-29', NULL, 500.00, 'dddd', NULL, '2024-03-29 07:44:50', '2024-03-29 07:44:50', 'other', 3, 5, NULL, 1, NULL, NULL, NULL, NULL),
-(34, '2024-03-02', NULL, 500.00, 'dddd', NULL, '2024-03-29 07:45:36', '2024-03-29 07:45:36', 'tempwages', 3, 5, NULL, 1, 2, NULL, NULL, NULL),
-(35, '2024-03-29', '250', 500.00, NULL, NULL, '2024-03-29 07:47:34', '2024-03-29 07:47:34', 'subcontractor', 3, 5, 7, 1, NULL, NULL, NULL, NULL),
-(36, '2024-04-10', NULL, 222.00, '222', NULL, '2024-04-10 15:46:23', '2024-04-10 15:46:23', 'materials', 1, 31, NULL, 1, NULL, 'مواسير', 2.00, NULL),
-(37, '2024-04-13', NULL, 250.00, NULL, NULL, '2024-04-13 07:09:45', '2024-04-13 07:09:45', 'materials', 1, 6, NULL, 1, NULL, 'مواسير', 4.00, '661a4bd943eaf.pdf'),
-(38, '2024-04-13', '250', 250.00, NULL, NULL, '2024-04-13 07:15:37', '2024-04-13 07:15:37', 'subcontractor', 2, 1, 6, 1, NULL, NULL, NULL, '661a4d398e478.pdf'),
-(39, '2024-04-13', NULL, 250.00, NULL, NULL, '2024-04-13 07:20:26', '2024-04-13 07:20:26', 'tempwages', 1, 4, NULL, 1, 2, NULL, NULL, '661a4e5a59b59.pdf'),
-(40, '2024-04-13', NULL, 250.00, 'ww', NULL, '2024-04-13 07:23:47', '2024-04-13 07:23:47', 'other', 1, 4, NULL, 1, NULL, NULL, NULL, '661a4f237ac65.pdf'),
-(41, '2024-04-13', NULL, 250.00, NULL, NULL, '2024-04-13 07:24:43', '2024-04-13 07:24:43', 'materials', 1, 5, NULL, 1, NULL, 'مواسير', 90.00, '661a4f5ba10f2.sql'),
-(42, '2024-04-13', NULL, 250.00, NULL, NULL, '2024-04-13 07:39:14', '2024-04-13 07:39:14', 'materials', 1, 5, NULL, 1, NULL, 'مواسير', 55.00, '661a52c296356.pdf');
+(1, '2024-05-08', NULL, 4000.00, 'test', NULL, '2024-05-08 09:05:32', '2024-05-11 11:19:14', 'materials', 4, 1, NULL, 1, NULL, 'مواسير', 500.00, '663e1bda3537d.pdf'),
+(3, '2024-05-09', NULL, 500.00, NULL, NULL, '2024-05-08 11:32:49', '2024-05-11 11:22:03', 'materials', 5, 1, NULL, 1, NULL, 'new', 8.00, ''),
+(5, '2024-05-08', NULL, 1200.00, NULL, NULL, '2024-05-08 11:33:34', '2024-05-11 11:53:49', 'other', 4, 1, NULL, 1, NULL, NULL, NULL, '663f2626d00cd.pdf'),
+(6, '2024-05-09', NULL, 5000.00, 'رمل من المحجر', 7, '2024-05-09 07:44:43', '2024-05-09 07:44:43', 'general', 1, NULL, NULL, NULL, NULL, NULL, NULL, '663ca91b6d9dc.pdf'),
+(7, '2024-05-09', NULL, 5000.00, 'اجازة عيد الفطر', 7, '2024-05-09 09:41:49', '2024-05-09 09:53:02', 'general', 5, NULL, NULL, NULL, NULL, NULL, NULL, '663cc72e7bf0c.pdf'),
+(10, '2024-05-11', '50', 50.00, NULL, NULL, '2024-05-11 04:24:34', '2024-05-11 04:24:34', 'subcontractor', 4, 1, 7, 1, NULL, NULL, NULL, '663f1d32d859b.pdf'),
+(11, '2024-05-11', '250', 500.00, NULL, NULL, '2024-05-11 04:29:18', '2024-05-11 11:22:41', 'subcontractor', 4, 1, 7, 1, NULL, NULL, NULL, '663f1e4eae52a.pdf'),
+(12, '2024-05-11', NULL, 150.00, 'd', NULL, '2024-05-11 04:36:22', '2024-05-11 11:41:33', 'tempwages', 4, 1, NULL, 1, 2, NULL, NULL, '663f1ff6d29fc.pdf'),
+(13, '2024-05-11', NULL, 50.00, 'f', NULL, '2024-05-11 05:00:57', '2024-05-11 11:54:35', 'other', 3, 1, NULL, 1, NULL, NULL, NULL, '663f25b9664f2.pdf'),
+(14, '2024-05-11', NULL, 3750.00, 'test', NULL, '2024-05-11 05:18:27', '2024-05-11 05:19:12', 'materials', 4, 1, NULL, 1, NULL, 'new  2', 5.00, '663f29d3b32b6.pdf'),
+(15, '2024-05-11', '185', 4500.00, NULL, NULL, '2024-05-11 09:41:30', '2024-05-11 10:01:10', 'subcontractor', 4, 1, 7, 1, NULL, NULL, NULL, ''),
+(16, '2024-05-11', NULL, 1050.00, '85', NULL, '2024-05-11 10:03:06', '2024-05-11 10:03:06', 'tempwages', 4, 1, NULL, 1, 2, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -433,7 +404,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (46, '2024_03_23_034757_add_safe_id_to_revenues_table', 16),
 (47, '2024_03_23_035531_create_safe_transfers_table', 16),
 (48, '2024_03_27_035458_add_added_by_to_assets_table', 17),
-(49, '2024_03_27_040059_add_safe_id_to_assets_table', 18);
+(49, '2024_03_27_040059_add_safe_id_to_assets_table', 18),
+(50, '2024_05_08_175704_add_file_to_revenues_table', 19),
+(51, '2024_05_08_181508_create_project_files_table', 20),
+(52, '2024_05_11_160251_create_project_ptofits_table', 21);
 
 -- --------------------------------------------------------
 
@@ -1110,32 +1084,30 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `code`, `name`, `customer_id`, `start_date`, `end_date`, `customer_cost`, `estimated_cost`, `created_at`, `updated_at`) VALUES
-(1, 'project-1', 'مشروع ادفو', 1, '2024-01-02', '2024-01-31', 1000000.00, 700000.00, '2024-01-02 05:11:31', '2024-01-09 07:29:29'),
-(2, 'project-2', 'مشروع اسوان الجديدة', 2, '2024-01-01', '2024-03-01', 1000000.00, 700000.00, '2024-01-09 07:37:34', '2024-01-09 07:37:34'),
-(3, 'project-3', 'شروع جديد', 2, '2024-01-20', '2024-02-07', 5000.00, 3000.00, '2024-01-20 15:37:31', '2024-01-20 15:37:31'),
-(4, 'project-4', 'Tesy', 2, '2024-03-08', '2024-03-15', 1522222.00, 15000.00, '2024-03-08 18:42:02', '2024-03-11 01:59:47'),
-(5, 'sky-5', 'Project test', 1, '2024-03-11', '2024-04-06', 500.00, 250.00, '2024-03-11 01:55:59', '2024-03-11 02:00:05'),
-(6, 'sky-6', 'محمد حسين', 2, '2024-03-31', '2024-04-06', 2000000000.00, 15000000512.00, '2024-03-31 01:12:20', '2024-03-31 01:12:20'),
-(13, 'project-11', 'مشروع ادفو', 1, '2024-01-02', '2024-01-31', 1000000.00, 700000.00, '2024-01-02 05:11:31', '2024-01-09 07:29:29'),
-(14, 'project-22', 'مشروع اسوان الجديدة', 2, '2024-01-01', '2024-03-01', 1000000.00, 700000.00, '2024-01-09 07:37:34', '2024-01-09 07:37:34'),
-(15, 'project-33', 'شروع جديد', 2, '2024-01-20', '2024-02-07', 5000.00, 3000.00, '2024-01-20 15:37:31', '2024-01-20 15:37:31'),
-(16, 'project-44', 'Tesy', 2, '2024-03-08', '2024-03-15', 1522222.00, 15000.00, '2024-03-08 18:42:02', '2024-03-11 01:59:47'),
-(17, 'sky-55', 'Project test', 1, '2024-03-11', '2024-04-06', 500.00, 250.00, '2024-03-11 01:55:59', '2024-03-11 02:00:05'),
-(18, 'sky-66', 'محمد حسين', 2, '2024-03-31', '2024-04-06', 2000000000.00, 15000000512.00, '2024-03-31 01:12:20', '2024-03-31 01:12:20'),
-(19, 'project-111', 'مشروع ادفو', 1, '2024-01-02', '2024-01-31', 1000000.00, 700000.00, '2024-01-02 05:11:31', '2024-01-09 07:29:29'),
-(20, 'project-222', 'مشروع اسوان الجديدة', 2, '2024-01-01', '2024-03-01', 1000000.00, 700000.00, '2024-01-09 07:37:34', '2024-01-09 07:37:34'),
-(21, 'project-333', 'شروع جديد', 2, '2024-01-20', '2024-02-07', 5000.00, 3000.00, '2024-01-20 15:37:31', '2024-01-20 15:37:31'),
-(22, 'project-444', 'Tesy', 2, '2024-03-08', '2024-03-15', 1522222.00, 15000.00, '2024-03-08 18:42:02', '2024-03-11 01:59:47'),
-(23, 'sky-555', 'Project test', 1, '2024-03-11', '2024-04-06', 500.00, 250.00, '2024-03-11 01:55:59', '2024-03-11 02:00:05'),
-(24, 'sky-666', 'محمد حسين', 2, '2024-03-31', '2024-04-06', 2000000000.00, 15000000512.00, '2024-03-31 01:12:20', '2024-03-31 01:12:20'),
-(25, 'project-1111', 'مشروع ادفو', 1, '2024-01-02', '2024-01-31', 1000000.00, 700000.00, '2024-01-02 05:11:31', '2024-01-09 07:29:29'),
-(26, 'project-2222', 'مشروع اسوان الجديدة', 2, '2024-01-01', '2024-03-01', 1000000.00, 700000.00, '2024-01-09 07:37:34', '2024-01-09 07:37:34'),
-(27, 'project-3333', 'شروع جديد', 2, '2024-01-20', '2024-02-07', 5000.00, 3000.00, '2024-01-20 15:37:31', '2024-01-20 15:37:31'),
-(28, 'project-4444', 'Tesy', 2, '2024-03-08', '2024-03-15', 1522222.00, 15000.00, '2024-03-08 18:42:02', '2024-03-11 01:59:47'),
-(29, 'sky-5555', 'Project test', 1, '2024-03-11', '2024-04-06', 500.00, 250.00, '2024-03-11 01:55:59', '2024-03-11 02:00:05'),
-(30, 'sky-6666', 'محمد حسين', 2, '2024-03-31', '2024-04-06', 2000000000.00, 15000000512.00, '2024-03-31 01:12:20', '2024-03-31 01:12:20'),
-(31, 'sky-31', 'hozefaa', 2, '2024-04-10', '2024-04-10', 4000.00, 4000.00, '2024-04-10 15:45:43', '2024-04-10 15:45:43'),
-(32, 'sky-32', 'محمد علي', 1, '2024-04-11', '2024-05-01', 666677.00, 77777.00, '2024-04-11 19:47:21', '2024-04-11 19:47:21');
+(1, 'sky-1', 'sky project', 2, '2023-02-01', '2024-05-31', 10000000.00, 9000000.00, '2024-05-08 09:01:39', '2024-05-08 09:01:39');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_files`
+--
+
+CREATE TABLE `project_files` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) NOT NULL,
+  `file` varchar(191) NOT NULL,
+  `project_id` bigint(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `project_files`
+--
+
+INSERT INTO `project_files` (`id`, `name`, `file`, `project_id`, `created_at`, `updated_at`) VALUES
+(2, 'محمد حسين 20', '663bdd01b4567.sql', 1, '2024-05-08 16:49:44', '2024-05-08 17:13:53'),
+(3, 'index.html', '663bdd3b6cc31.png', 1, '2024-05-08 17:14:51', '2024-05-08 17:14:51');
 
 -- --------------------------------------------------------
 
@@ -1163,7 +1135,29 @@ CREATE TABLE `project_items` (
 
 INSERT INTO `project_items` (`id`, `project_id`, `code`, `name`, `qty`, `cat`, `item_total`, `implement_qty`, `total_implement_qty`, `created_at`, `updated_at`) VALUES
 (2, 4, 1, 'البند الاول 2', 1000.00, 5000.00, 1000.00, 500.00, 250.00, '2024-03-09 06:43:05', '2024-03-09 07:08:25'),
-(3, 4, 2, 'البند الثاني', 50.00, 10.00, 50.00, 5.00, 25.00, '2024-03-09 07:07:56', '2024-03-09 07:07:56');
+(3, 4, 2, 'البند الثاني', 50.00, 10.00, 50.00, 5.00, 25.00, '2024-03-09 07:07:56', '2024-03-09 07:07:56'),
+(4, 1, 824318, 'محمد حسين', 50.00, 10.00, 50.00, 8.00, 40.00, '2024-05-08 11:34:14', '2024-05-09 03:19:41');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_ptofits`
+--
+
+CREATE TABLE `project_ptofits` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `project_id` bigint(20) NOT NULL,
+  `safe_id` bigint(20) DEFAULT NULL,
+  `customer_cost` double(12,2) NOT NULL,
+  `estimate_cost` double(12,2) NOT NULL,
+  `actual_cost` double(12,2) NOT NULL,
+  `profit` double(12,2) NOT NULL,
+  `notes` text DEFAULT NULL,
+  `type` enum('profit','loss') NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1189,12 +1183,7 @@ CREATE TABLE `project_subcontractors` (
 --
 
 INSERT INTO `project_subcontractors` (`id`, `project_id`, `subcontractor_id`, `start_date`, `end_date`, `amount`, `file`, `notes`, `created_at`, `updated_at`) VALUES
-(4, 1, 6, '2024-01-01', '2024-02-06', 50000.00, '', NULL, '2024-01-08 10:49:38', '2024-01-08 10:49:38'),
-(5, 1, 5, '2024-01-01', '2024-01-31', 1000.00, '', NULL, '2024-01-09 06:22:23', '2024-01-09 06:22:23'),
-(6, 2, 7, '2024-01-01', '2024-02-25', 150000.00, '', NULL, '2024-01-09 07:39:15', '2024-01-09 07:39:15'),
-(7, 4, 7, '2024-03-08', '2024-03-28', 1000.00, '', NULL, '2024-03-08 18:44:26', '2024-03-08 18:44:26'),
-(8, 5, 7, '2024-03-11', '2024-04-06', 5000.00, '', NULL, '2024-03-11 02:32:32', '2024-03-11 02:32:32'),
-(9, 4, 6, '2024-03-12', '2024-03-29', 5000.00, '65efcc753ecd5.pdf', NULL, '2024-03-12 01:31:01', '2024-03-12 01:31:01');
+(1, 1, 7, '2024-05-08', '2024-05-31', 5000.00, '663f1be47103a.pdf', 'fed', '2024-05-08 11:31:30', '2024-05-11 05:30:00');
 
 -- --------------------------------------------------------
 
@@ -1210,19 +1199,6 @@ CREATE TABLE `project_users` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `project_users`
---
-
-INSERT INTO `project_users` (`id`, `project_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(5, 5, 1, '2024-03-11 02:13:28', '2024-03-11 02:13:28'),
-(6, 5, 3, '2024-03-11 02:13:28', '2024-03-11 02:13:28'),
-(7, 4, 1, '2024-03-11 02:24:33', '2024-03-11 02:24:33'),
-(8, 4, 3, '2024-03-11 02:24:33', '2024-03-11 02:24:33'),
-(9, 6, 1, '2024-03-31 01:12:20', '2024-03-31 01:12:20'),
-(10, 31, 1, '2024-04-10 15:45:43', '2024-04-10 15:45:43'),
-(11, 32, 1, '2024-04-11 19:47:21', '2024-04-11 19:47:21');
-
 -- --------------------------------------------------------
 
 --
@@ -1235,6 +1211,7 @@ CREATE TABLE `revenues` (
   `customer_id` bigint(20) NOT NULL,
   `project_id` bigint(20) DEFAULT NULL,
   `date` date DEFAULT NULL,
+  `file` varchar(191) DEFAULT NULL,
   `total_amount` double(8,2) NOT NULL,
   `safe_id` bigint(20) NOT NULL,
   `tax_type` enum('flat','percent') NOT NULL DEFAULT 'flat',
@@ -1248,9 +1225,9 @@ CREATE TABLE `revenues` (
 -- Dumping data for table `revenues`
 --
 
-INSERT INTO `revenues` (`id`, `code`, `customer_id`, `project_id`, `date`, `total_amount`, `safe_id`, `tax_type`, `tax_amount`, `net_amount`, `created_at`, `updated_at`) VALUES
-(1, 'rev-1', 2, 2, '2024-01-13', 5000.00, 0, 'flat', 500.00, 4500.00, '2024-01-13 06:26:48', '2024-01-13 06:26:48'),
-(2, 'rev-2', 2, 1, '2024-01-04', 50000.00, 0, 'flat', 10000.00, 40000.00, '2024-01-13 06:39:19', '2024-01-13 06:39:19');
+INSERT INTO `revenues` (`id`, `code`, `customer_id`, `project_id`, `date`, `file`, `total_amount`, `safe_id`, `tax_type`, `tax_amount`, `net_amount`, `created_at`, `updated_at`) VALUES
+(3, 'rev-1', 2, 1, '2024-05-08', '663bbef8939ae.pdf', 100000.00, 4, 'flat', 0.00, 100000.00, '2024-05-08 14:53:16', '2024-05-08 15:10:41'),
+(4, 'rev-4', 2, 1, '2024-05-08', '663bbdd4acb64.pdf', 10000.00, 4, 'flat', 1000.00, 9000.00, '2024-05-08 15:00:52', '2024-05-08 15:00:52');
 
 -- --------------------------------------------------------
 
@@ -1294,7 +1271,9 @@ CREATE TABLE `role_user` (
 --
 
 INSERT INTO `role_user` (`role_id`, `user_id`, `user_type`) VALUES
-(1, 1, 'App\\Models\\User');
+(1, 1, 'App\\Models\\User'),
+(3, 2, 'App\\Models\\User'),
+(1, 3, 'App\\Models\\User');
 
 -- --------------------------------------------------------
 
@@ -1318,11 +1297,11 @@ CREATE TABLE `safes` (
 --
 
 INSERT INTO `safes` (`id`, `name`, `balance`, `type`, `descripton`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'محمد حسين', 1001008768.00, 'main', 'حفار لشغل اسوان', 2, '2024-03-23 03:33:58', '2024-04-13 07:39:14'),
-(2, 'البنك الاهلي', 1000004736.00, 'main', 'خزنة البنك الاهلي', 2, '2024-03-23 05:02:12', '2024-04-13 07:15:37'),
-(3, 'خزنة بنك مصر', 3500.00, 'bank', 'خزنة البنك مصر', 2, '2024-03-23 05:02:37', '2024-03-29 07:47:34'),
-(4, 'الخزنة الرئيسية', 105000.00, 'main', 'الخزنة الرئيسية للشركة', 2, '2024-03-23 07:00:39', '2024-03-29 10:42:22'),
-(5, 'حاتم', 5000.00, 'custody', 'خزنة', 2, '2024-03-29 10:34:57', '2024-03-29 10:35:34');
+(1, 'محمد حسين', 5000.00, 'main', 'حفار لشغل اسوان', 2, '2024-03-23 03:33:58', '2024-05-11 12:15:14'),
+(2, 'البنك الاهلي', 5000.00, 'main', 'خزنة البنك الاهلي', 2, '2024-03-23 05:02:12', '2024-05-11 12:11:29'),
+(3, 'خزنة بنك مصر', 400.00, 'bank', 'خزنة البنك مصر', 2, '2024-03-23 05:02:37', '2024-05-11 11:54:35'),
+(4, 'الخزنة الرئيسية', 0.00, 'main', 'الخزنة الرئيسية للشركة', 2, '2024-03-23 07:00:39', '2024-05-11 12:11:29'),
+(5, 'حاتم', 50.00, 'custody', 'خزنة', 2, '2024-03-29 10:34:57', '2024-05-11 11:54:35');
 
 -- --------------------------------------------------------
 
@@ -1334,12 +1313,12 @@ CREATE TABLE `safe_transfers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `from_safe` bigint(20) NOT NULL,
   `to_safe` bigint(20) NOT NULL,
-  `amount` double(8,2) NOT NULL,
-  `safe_send_blance` double(8,2) NOT NULL,
-  `safe_receive_blance` double(8,2) NOT NULL,
+  `amount` float(12,2) NOT NULL,
+  `safe_send_blance` float(12,2) NOT NULL,
+  `safe_receive_blance` decimal(12,2) NOT NULL,
   `transfer_date` datetime NOT NULL,
   `added_by` bigint(20) NOT NULL,
-  `notes` varchar(191) NOT NULL,
+  `notes` varchar(191) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1349,9 +1328,7 @@ CREATE TABLE `safe_transfers` (
 --
 
 INSERT INTO `safe_transfers` (`id`, `from_safe`, `to_safe`, `amount`, `safe_send_blance`, `safe_receive_blance`, `transfer_date`, `added_by`, `notes`, `created_at`, `updated_at`) VALUES
-(4, 1, 3, 5000.00, 5000.00, 15000.00, '2024-03-23 11:08:00', 1, 'test', '2024-03-23 07:08:45', '2024-03-23 07:08:45'),
-(5, 1, 2, 10000.00, -5000.00, 20000.00, '2024-03-23 11:10:00', 1, 'test', '2024-03-23 07:10:43', '2024-03-23 07:10:43'),
-(6, 4, 5, 5000.00, 5000.00, 5000.00, '2024-03-29 14:35:00', 1, 'تحويل جديد', '2024-03-29 10:35:34', '2024-03-29 10:35:34');
+(1, 4, 5, 500.00, 500.00, 500.00, '2024-05-11 17:20:00', 1, NULL, '2024-05-11 11:21:19', '2024-05-11 11:21:19');
 
 -- --------------------------------------------------------
 
@@ -1503,7 +1480,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone_number`, `whatsapp_number`, `photo`, `active`, `created_by`, `level`, `deleted_at`, `deleted_by`, `email`, `email_leads`, `address`, `country`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'super_admin@app.com', NULL, NULL, NULL, NULL, '$2y$12$SrC9IDnxL5f0tf.AMcEPc.1Pjjq1OaFPvMb93RTm.WgVig1debHEy', NULL, '2024-03-23 06:42:17', '2024-03-23 06:42:17');
+(1, 'admin', '01157809060', NULL, NULL, 1, NULL, NULL, NULL, NULL, 'super_admin@app.com', NULL, NULL, NULL, NULL, '$2y$12$SrC9IDnxL5f0tf.AMcEPc.1Pjjq1OaFPvMb93RTm.WgVig1debHEy', NULL, '2024-03-23 06:42:17', '2024-05-08 06:31:38'),
+(2, 'محمد حسين', '01157809060', NULL, NULL, 1, 1, NULL, NULL, NULL, 'admin@app.com', NULL, NULL, NULL, NULL, '$2y$12$fJmWNFK.3eoEEQHYWIbBfOOG6Ir/M4RJ67GFus3d8Jlc7tH/JR8tm', NULL, '2024-05-08 06:32:54', '2024-05-08 06:32:54'),
+(3, 'احمد عباس', '01157809060', NULL, NULL, 1, 1, NULL, NULL, NULL, 'dfrf@app.com', NULL, NULL, NULL, NULL, '$2y$12$RIAAor90jIXTqaqV0wbJWupiCCbPPRmF7v7s3mCabfi4KmhaRDLhS', NULL, '2024-05-08 08:58:48', '2024-05-08 08:58:48');
 
 --
 -- Indexes for dumped tables
@@ -1690,9 +1669,21 @@ ALTER TABLE `projects`
   ADD UNIQUE KEY `projects_code_unique` (`code`);
 
 --
+-- Indexes for table `project_files`
+--
+ALTER TABLE `project_files`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `project_items`
 --
 ALTER TABLE `project_items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `project_ptofits`
+--
+ALTER TABLE `project_ptofits`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1798,7 +1789,7 @@ ALTER TABLE `activity_log`
 -- AUTO_INCREMENT for table `assets`
 --
 ALTER TABLE `assets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `brands`
@@ -1834,7 +1825,7 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `expense_categories`
@@ -1876,7 +1867,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `offers`
@@ -1930,31 +1921,43 @@ ALTER TABLE `product_photos`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `project_files`
+--
+ALTER TABLE `project_files`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `project_items`
 --
 ALTER TABLE `project_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `project_ptofits`
+--
+ALTER TABLE `project_ptofits`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `project_subcontractors`
 --
 ALTER TABLE `project_subcontractors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `project_users`
 --
 ALTER TABLE `project_users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `revenues`
 --
 ALTER TABLE `revenues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1972,7 +1975,7 @@ ALTER TABLE `safes`
 -- AUTO_INCREMENT for table `safe_transfers`
 --
 ALTER TABLE `safe_transfers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sliders`
@@ -2014,7 +2017,7 @@ ALTER TABLE `tags_products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
