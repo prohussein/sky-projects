@@ -22,13 +22,15 @@ class Safes extends BackEndController
 
     protected function append()
     {
-
         $array =  [
             'users' => Employee::all(['id','name']),
         ];
-
-
         return $array;
+    } // to add paremater in controller
+
+    protected function with()
+    {
+        return ['employee'];
     }// to add paremater in controller
 
 

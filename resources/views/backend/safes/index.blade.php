@@ -67,7 +67,8 @@
                                             @endif
 
                                         </td>
-                                        <td > {{  $row->balance }}      </td>
+                                        <td > {{ number_format($row->balance)  }}      </td>
+                                         
                                         <td > {{ $row->employee->name ?? '' }}   </td>
                                         <td > {{ $row->descripton }}   </td>
                                         <td>

@@ -46,13 +46,17 @@
                                                             <option selected disabled > اختر خزنة </option>
 
                                                             @foreach ($safes as $safe )
-                                                                <option value="{{ $safe->id }}" {{ isset($row) && $row->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
+                                                                <option value="{{ $safe->id }}"> {{ $safe->name }} </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label> ملاحظات</label>
                                                         <textarea class="form-control" name="note"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>رفع المستند   </label>
+                                                        <input type="file" name="file" class="form-control" value="">
                                                     </div>
 
                                                 </div>
@@ -77,6 +81,7 @@
                                                 <th> الاسم  </th>
                                                 <th>الكمية </th>
                                                 <th>التكلفة</th>
+                                                <th>الخزنة</th>
                                                 <th>المستند</th>
                                                 <th>ملاحظات</th>
                                                 <th>اجراء </th>
@@ -90,12 +95,13 @@
                                                     <td>{{ $material->material_name }}</td>
                                                     <td>{{ $material->material_qty }}</td>
                                                     <td>{{ $material->amount }}</td>
+                                                    <td>{{ $material->safe->name ?? '' }}</td>
                                                     <td>
                                                         @if($material->file)
-                                                         <a href="{{url('public/uploads/projects/materials/'.$material->file) }}" download="">تحميل المستند</a> 
+                                                         <a href="{{url('public/uploads/projects/materials/'.$material->file) }}" download="">تحميل المستند</a>
                                                          @else
-                                                         -----
-                                                         @endif    
+                                                         -------
+                                                         @endif
                                                     </td>
                                                     <td>{{ $material->note }}</td>
                                                     <td>
@@ -136,8 +142,22 @@
                                                                         <input type="number" step="-1" name="amount" class="form-control" value="{{ $material->amount }}" required>
                                                                     </div>
                                                                     <div class="form-group">
+                                                                        <label> الخزن</label>
+                                                                        <select  name="safe_id" class="form-control" required >
+                                                                            <option selected disabled > اختر خزنة </option>
+
+                                                                            @foreach ($safes as $safe )
+                                                                                <option value="{{ $safe->id }}" {{ isset($material) && $material->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
                                                                         <label> ملاحظات</label>
                                                                         <textarea class="form-control" name="note">{{ $material->note }}</textarea>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>رفع المستند   </label>
+                                                                        <input type="file" name="file" class="form-control" value="">
                                                                     </div>
 
                                                                 </div>

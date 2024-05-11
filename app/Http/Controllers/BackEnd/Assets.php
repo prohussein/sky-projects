@@ -51,6 +51,11 @@ class Assets extends BackEndController
         ];
 
         return $array;
+    } // to add paremater in controller
+
+    protected function with()
+    {
+        return ['safe'];
     }// to add paremater in controller
 
 

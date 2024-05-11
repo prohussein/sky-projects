@@ -51,13 +51,17 @@
                                         <option selected disabled > اختر خزنة </option>
 
                                         @foreach ($safes as $safe )
-                                            <option value="{{ $safe->id }}" {{ isset($row) && $row->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
+                                            <option value="{{ $safe->id }}"> {{ $safe->name }} </option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label> ملاحظات</label>
                                     <textarea class="form-control" name="note"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>رفع المستند   </label>
+                                    <input type="file" name="file" class="form-control" value="">
                                 </div>
 
                             </div>
@@ -80,6 +84,7 @@
                             <th>الموظف </th>
                             <th>تاريخ </th>
                             <th> القيمة  </th>
+                            <th> الخزنة  </th>
                             <th>الغرض </th>
                             <th>المستند</th>
                             <th>اجراء </th>
@@ -92,13 +97,14 @@
                                 <td>{{ $expense->employee->name ?? '' }}</td>
                                 <td>{{ $expense->date }}</td>
                                 <td>{{ $expense->amount }}</td>
+                                <td>{{ $expense->safe->name ?? ''}}</td>
                                 <td>{{ $expense->note }}</td>
                                 <td>
                                     @if($expense->file)
-                                     <a href="{{url('public/uploads/projects/expenses/'.$expense->file) }}" download="">تحميل المستند</a> 
+                                     <a href="{{url('public/uploads/projects/expenses/'.$expense->file) }}" download="">تحميل المستند</a>
                                      @else
                                      -----
-                                     @endif    
+                                     @endif
                                 </td>
                                 <td>
                                         <a type="button" class="btn btn-sm btn-warning" title="تعديل " data-toggle="modal" data-target="#myModalWages{{ $expense->id }}">
@@ -142,8 +148,22 @@
                                                     <input type="number" step="-1" name="amount" class="form-control" value="{{ $expense->amount }}" required>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label> الخزن</label>
+                                                    <select  name="safe_id" class="form-control" required >
+                                                        <option selected disabled > اختر خزنة </option>
+
+                                                        @foreach ($safes as $safe )
+                                                            <option value="{{ $safe->id }}" {{ isset($expense) && $expense->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
                                                     <label> ملاحظات</label>
                                                     <textarea class="form-control" name="note">{{ $expense->note }}</textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>رفع المستند   </label>
+                                                    <input type="file" name="file" class="form-control" value="">
                                                 </div>
 
                                             </div>

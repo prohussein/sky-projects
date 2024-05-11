@@ -113,11 +113,14 @@
                                         <option selected disabled > اختر خزنة </option>
 
                                         @foreach ($safes as $safe )
-                                            <option value="{{ $safe->id }}" {{ isset($row) && $row->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
+                                            <option value="{{ $safe->id }}" > {{ $safe->name }} </option>
                                         @endforeach
                                     </select>
                                 </div>
-
+                                <div class="form-group">
+                                    <label>رفع المستند   </label>
+                                    <input type="file" name="file" class="form-control" value="">
+                                </div>
 
                             </div>
 
@@ -258,6 +261,7 @@
                     <th>تاريخ   </th>
                     <th>المقاول </th>
                     <th>قيمة المستخلص  </th>
+                    <th>الخزنة</th>
                     <th>المستند</th>
                     <th>اجراء</th>
                     </tr>
@@ -270,12 +274,13 @@
                         <td>{{ $revenu->date }}</td>
                         <td>{{ $revenu->contactor->name ?? '' }} </td>
                         <td>{{ $revenu->amount }}</td>
+                         <td>{{ $revenu->safe->name ?? '' }}</td>
                         <td>
                             @if($revenu->file)
-                             <a href="{{url('public/uploads/projects/contractorrevenu/'.$revenu->file) }}" download="">تحميل المستند</a> 
+                             <a href="{{url('public/uploads/projects/contractorrevenu/'.$revenu->file) }}" download="">تحميل المستند</a>
                              @else
                              -----
-                             @endif    
+                             @endif
                         </td>
                         <td>
                             {{-- ediit revneu --}}
@@ -319,6 +324,21 @@
                                             <input type="number" step="-1" name="amount" class="form-control" value="{{ $revenu->amount }}" required>
                                         </div>
 
+                                        <div class="form-group">
+                                            <label> الخزن</label>
+                                            <select  name="safe_id" class="form-control" required >
+                                                <option selected disabled > اختر خزنة </option>
+
+                                                @foreach ($safes as $safe )
+                                                    <option value="{{ $safe->id }}" {{ isset($revenu) && $revenu->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>رفع المستند   </label>
+                                            <input type="file" name="file" class="form-control" value="">
+                                        </div>
 
                                     </div>
 

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectExpenses extends Controller
 {
+
     public function store(Request $request){
         //dd($request->all());
         $request->validate([
@@ -57,17 +58,74 @@ class ProjectExpenses extends Controller
             'amount'         => 'required',
         ]);
 
-        Expense::where('id',$id)->update([
-            'date'           => $request->date,
-            'amount'         => $request->amount,
-            'note'           => $request->note,
-        ]);
+        //handle safes
+        $row =  Expense::FindOrFail($id);
+
+        if ($request->has('file')) {
+            $file = $request->file('file');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/projects/materials'), $fileName);
+        } else {
+            $fileName =  $row->file;
+        }
+
+        //handle safes
+        if ($request->safe_id == $row->safe_id) {
+            //dd('here');
+
+            $checkSafeBalance              = Safe::where('id', $request->safe_id)->first()->balance + $row->amount;
+
+
+            if ($checkSafeBalance >= $request->amount) {
+
+                Safe::where('id', $row->safe_id)->update([
+                    'balance' => Safe::where('id', $row->safe_id)->first()->balance + $row->amount
+                ]);
+
+                $safeBalance              = Safe::where('id', $request->safe_id)->first()->balance;
+
+                $safeBalanceAfterTransaction = $safeBalance - $request->amount;
+
+
+                Safe::where('id', $request->safe_id)->update([
+                    'balance' => $safeBalanceAfterTransaction
+                ]);
+            } else {
+                return redirect()->back()->with(noMoneyInSafe());
+            }
+        } elseif ($request->safe_id != $row->safe_id) {
+
+            $safeBalance              = Safe::where('id', $request->safe_id)->first()->balance;
+            if ($safeBalance < $request->amount) {
+                return redirect()->back()->with(noMoneyInSafe());
+            }
+
+            Safe::where('id', $row->safe_id)->update([
+                'balance' => Safe::where('id', $row->safe_id)->first()->balance + $row->amount
+            ]);
+
+            $safeBalanceAfterTransaction = $safeBalance - $request->amount;
+            Safe::where('id', $request->safe_id)->update([
+                'balance' => $safeBalanceAfterTransaction
+            ]);
+        }
+
+        $requestAray = ['file' => $fileName] + $request->all();
+
+        $row->update($requestAray);
+
+
 
         return redirect()->back()->with(isUpdated());
     }
+
     public function destroy($id){
-        //dd($id);
-        Expense::FindOrFail($id)->delete();
+        $row =   Expense::FindOrFail($id);
+        Safe::where('id', $row->safe_id)->update([
+            'balance' => Safe::where('id', $row->safe_id)->first()->balance + $row->amount
+        ]);
+        $row->delete();
         return redirect()->back()->with(isDeleted());
     }
+    
 }

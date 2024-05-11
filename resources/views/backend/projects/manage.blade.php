@@ -401,7 +401,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> 
 
     </div>{{-- end of tile  --}}
 @endsection

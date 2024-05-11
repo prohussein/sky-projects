@@ -34,6 +34,20 @@ function isCreated()
     return $notification;
 }
 
+function noMoneyInSafe()
+{
+
+
+        $notification = array(
+            'message' => 'لا يوجد رصيد كافي داخل الخزنة  ',
+            'alert-type' => 'error'
+        );
+
+
+    return $notification;
+}
+
+
 function isOverAmount()
 {
 

@@ -32,7 +32,7 @@ class BackEndController extends Controller
 
         $routeName = $this->getClassNameFromModel();
         return view('backend.' . $routeName . '.index', compact('rows', 'routeName'));
-    }// end of index 
+    }// end of index
     public function create()
     {
         $routeName = $this->getClassNameFromModel();
@@ -49,7 +49,7 @@ class BackEndController extends Controller
         return view('backend.'.$this->getClassNameFromModel().'.edit', compact('row','routeName'))->with($append);
     }// end of edit
 
-     public function destroy($id)
+    public function destroy($id)
     {
        $this->model->FindOrFail($id)->delete();
 

@@ -46,8 +46,9 @@
                                         <th>التاريخ </th>
                                         <th>@lang('site.category') </th>
                                         <th>القيمة </th>
-                                        <th>المرجع </th>
-                                        <th>@lang('site.notes') </th>
+                                        <th>الخزنة </th>
+                                        <th>المستند </th>
+                                        <th>ملاحظات</th>
                                         <th>@lang('site.action')</th>
                                     </tr>
                                 </thead>
@@ -64,7 +65,14 @@
 
                                         </td>
                                         <td > {{ $row->amount }}      </td>
-                                        <td > {{ $row->reference }}   </td>
+                                        <td > {{ $row->safe->name ?? '' }}      </td>
+                                         <td>
+                                            @if($row->file)
+                                             <a href="{{url('public/uploads/expenses/'.$row->file) }}" download="">تحميل المستند</a>
+                                             @else
+                                             -----
+                                             @endif
+                                        </td>
                                         <td > {{ $row->note }}        </td>
                                         <td>
                                             @include('backend.partials._buttons')

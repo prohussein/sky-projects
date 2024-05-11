@@ -8,6 +8,7 @@ use App\Http\Controllers\BackEnd\ProjectContractors;
 use App\Http\Controllers\BackEnd\ProjectExpenses;
 use App\Http\Controllers\BackEnd\ProjectFiles;
 use App\Http\Controllers\BackEnd\ProjectItems;
+use App\Http\Controllers\BackEnd\ProjectProfits;
 use App\Http\Controllers\BackEnd\Projects;
 use App\Http\Controllers\BackEnd\ProjectWages;
 use App\Http\Controllers\BackEnd\Revenues;
@@ -61,6 +62,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
         Route::delete('project/wages/delete/{id}', [ProjectWages::class, 'destroy'])->name('project.wages.destroy');
         Route::post('project/wages/update/{id}', [ProjectWages::class, 'update'])->name('project.wages.update');
 
+        Route::get('projects/profits/create/{id}', [ProjectProfits::class, 'create'])->name('project.profits.create');
+        Route::post('project/profits/store', [ProjectWages::class, 'store'])->name('project.profits.store');
+        Route::get('project/profits/all', [ProjectWages::class, 'index'])->name('project.profits.index');
 
         Route::resource('subcontractors', Subcontractors::class);
         Route::resource('assets', Assets::class);

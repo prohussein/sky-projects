@@ -227,7 +227,7 @@
 
                                             @endif
                                              @if (auth()->user()->hasPermission('update_'.$routeName .''))
-                                            <a href="{{route('dashboard.'. $routeName . '.show', $row)}}" class="btn btn-sm btn-success" title="اقفال المشروع "><i class="fa fa-lock"></i></a>
+                                            <a href="{{route('dashboard.project.profits.create', $row->id)}}" class="btn btn-sm btn-success" title="اقفال المشروع "><i class="fa fa-lock"></i></a>
 
                                             @endif
                                             @include('backend.partials._buttons')

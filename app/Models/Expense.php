@@ -32,4 +32,9 @@ class Expense extends Model
     {
         return $this->belongsTo(Employee::class , 'employee_id');
     }
+
+    public function safe()
+    {
+        return $this->belongsTo(Safe::class, 'safe_id');
+    }
 }

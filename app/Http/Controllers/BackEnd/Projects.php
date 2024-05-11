@@ -56,8 +56,6 @@ class Projects extends BackEndController
 
     public function exportExcel(){
         return Excel::download(new ProjectsExport, 'projects.xlsx');
-
-       
     }
 
     protected function append()
@@ -136,16 +134,18 @@ class Projects extends BackEndController
         $project   = Project::where('id',$id)->with('revenues', 'expenses')->first();
 
         $materials = Expense::where([['project_id',$id],['type', 'materials']])
-                    ->select('id','project_id','type','amount','date','note','material_qty','material_name')
+                    ->select('id','project_id','safe_id','type','amount','date','note','material_qty','material_name','file')
+                    ->with('safe')
                     ->get();
 
         $expenses  = Expense::where([['project_id', $id], ['type', 'other']])
-                    ->select('id', 'project_id', 'type', 'amount', 'date', 'note')
+                    ->select('id', 'project_id', 'type', 'safe_id', 'amount', 'date', 'note', 'file')
+                    ->with('safe')
                     ->get();
 
         $wages     = Expense::where([['project_id', $id], ['type', 'tempwages']])
-                    ->select('id', 'project_id', 'type', 'amount', 'date', 'note', 'employee_id')
-                    ->with('employee')
+                    ->select('id', 'project_id', 'type', 'safe_id', 'amount', 'date', 'note', 'employee_id', 'file')
+                    ->with('employee','safe')
                     ->get();
 
         $tempEmployees = Employee::where('type','temp')->select('id','name','type')->get();
@@ -153,8 +153,8 @@ class Projects extends BackEndController
         $prjectCotractors   = ProjectSubcontractor::where('project_id', $id)->with('contractor')->get();
 
         $contactorsRevenus  = Expense::where([['project_id', $id], ['type', 'subcontractor']])
-                                ->select('id', 'project_id', 'subcontractor_id', 'type', 'amount', 'date', 'reference')
-                                ->with('contactor')
+                                ->select('id', 'project_id','safe_id', 'subcontractor_id', 'type', 'amount', 'date', 'reference', 'file')
+                                ->with('contactor','safe')
                                 ->get();
 
         $projectItems    = ProjectItem::where('project_id', $id)->get();
