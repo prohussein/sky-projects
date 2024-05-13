@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackEnd;
 
 use App\Http\Controllers\Controller;
 use App\Models\Expense;
+use App\Models\Project;
 use App\Models\ProjectProfit;
 use App\Models\Safe;
 use Illuminate\Http\Request;
@@ -13,8 +14,10 @@ class ProjectProfits extends Controller
 {
 
     public function create($id){
+        $row   = Project::where('id',$id)->with('customer', 'expenses', 'revenues')->first();
+        $safes = Safe::all(['id','name']);
 
-        return view('backend.projects.profits.create');
+        return view('backend.projects.profits.create', compact('row', 'safes'));
     }
 
     public function edit(Request $request)
