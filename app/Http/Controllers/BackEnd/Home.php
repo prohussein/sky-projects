@@ -4,34 +4,23 @@ namespace App\Http\Controllers\BackEnd;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\SupCategory;
-use App\Models\SupsupCategory;
-use App\Models\Slider;
-use App\Models\Product;
-use App\Models\Page;
-use App\Models\Partner;
-use App\Models\User;
-use App\Models\Message;
-class Home extends BackEndController
+use App\Models\Employee;
+use App\Models\ProjectUser;
+use App\Models\Safe;
+use App\Models\Subcontractor;
+use Illuminate\Support\Facades\Auth;
+
+class Home extends Controller
 {
-    public function __construct()
-    {
 
-    }//end of construct
     public function index(){
-        //dd('welcom');
-        $categories       = Category::count();
-        $supCategories    = SupCategory::count();
-        $supsupCategories = SupsupCategory::count();
-        $sliders          = Slider::count();
-        $products         = Product::count();
-        $pages            = Page::count();
+        $routeName     = 'projects';
+        $projects      = ProjectUser::where('user_id', Auth::id())->with('project')->get();
+        $contactors    = Subcontractor::all('id', 'name');
+        $tempEmployees = Employee::where('type', 'temp')->select('id', 'name', 'type')->get();
+        $safes         = Safe::all(['id', 'name']);
 
-        $messages         = Message::count();
-        $users            = User::count();
-
-
-        return view('backend.index', compact('users','categories','supCategories','supsupCategories','sliders','products','pages','messages'));
+        return view('backend.index', compact('safes', 'routeName', 'tempEmployees', 'projects', 'contactors'));
+       // return view('backend.index');
     }// end of index
 }// end of controller

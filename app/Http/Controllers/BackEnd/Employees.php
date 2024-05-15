@@ -5,15 +5,15 @@ namespace App\Http\Controllers\BackEnd;
 use Illuminate\Http\Request;
 use App\Models\Employee;
 use Carbon\Carbon;
- 
+
 class Employees extends BackEndController
 {
     public function __construct(Employee $model)
     {
-        $this->middleware('permission:read_employees')->only(['index']);
-        $this->middleware('permission:create_employees')->only(['create', 'store']);
-        $this->middleware('permission:update_employees')->only(['edit', 'store']);
-        $this->middleware('permission:delete_employees')->only(['destroy']);
+        // $this->middleware('permission:read_employees')->only(['index']);
+        // $this->middleware('permission:create_employees')->only(['create', 'store']);
+        // $this->middleware('permission:update_employees')->only(['edit', 'store']);
+        // $this->middleware('permission:delete_employees')->only(['destroy']);
         parent::__construct($model);
     } //end of construct
 

@@ -1,7 +1,7 @@
 @extends('layouts.backend.app')
 
 @section('pageTitle')
-   @lang('site.add_'. $routeName .'') 
+   @lang('site.add_'. $routeName .'')
 @endsection
 
 @section('content')
@@ -13,15 +13,15 @@
     ])
     <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index')}}">@lang('site.'. $routeName .'')</a></li>
     <li class="breadcrumb-item"> @lang('site.add_'. $routeName .'') </li>
-    
+
 @endcomponent
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
-                <form action="{{ route('dashboard.'. $routeName .'.store') }}" method="POST">
+                <form action="{{ route('dashboard.'. $routeName .'.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('post')
-        
+
                     @include('backend.partials._errors')
 
                     @include('backend.'. $routeName .'.form')
@@ -32,7 +32,7 @@
                     </div>
                 </form> {{-- end of form --}}
             </div>{{-- end of tile  --}}
-            
+
         </div>{{-- end of col-md-12 --}}
     </div> {{-- end of row --}}
 

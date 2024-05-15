@@ -12,10 +12,10 @@ class Expenses extends BackEndController
 {
     public function __construct(Expense $model)
     {
-        $this->middleware('permission:read_expenses')->only(['index']);
-        $this->middleware('permission:create_expenses')->only(['create','store']);
-        $this->middleware('permission:update_expenses')->only(['edit', 'store']);
-        $this->middleware('permission:delete_expenses')->only(['destroy']);
+        // $this->middleware('permission:read_expenses')->only(['index']);
+        // $this->middleware('permission:create_expenses')->only(['create','store']);
+        // $this->middleware('permission:update_expenses')->only(['edit', 'store']);
+        // $this->middleware('permission:delete_expenses')->only(['destroy']);
         parent::__construct($model);
     } //end of construct
     protected function fillter($rows)

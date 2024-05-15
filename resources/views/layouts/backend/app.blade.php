@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="{{ LaravelLocalization::getCurrentLocale() }}" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
+<html lang="ar" dir="rtl">
 
 
   <head>

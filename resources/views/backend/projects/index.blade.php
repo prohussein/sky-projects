@@ -1,7 +1,7 @@
 @extends('layouts.backend.app')
 
 @php
-	$current_lang =  LaravelLocalization::getCurrentLocale();
+	$current_lang =  'ar';
 @endphp
 @section('pageTitle')
    @lang('site.'. $routeName .'')

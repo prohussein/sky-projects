@@ -16,10 +16,10 @@ class Assets extends BackEndController
 {
     public function __construct(Asset $model)
     {
-        $this->middleware('permission:read_assets')->only(['index']);
-        $this->middleware('permission:create_assets')->only(['create', 'store']);
-        $this->middleware('permission:update_assets')->only(['edit', 'store']);
-        $this->middleware('permission:delete_assets')->only(['destroy']);
+        // $this->middleware('permission:read_assets')->only(['index']);
+        // $this->middleware('permission:create_assets')->only(['create', 'store']);
+        // $this->middleware('permission:update_assets')->only(['edit', 'store']);
+        // $this->middleware('permission:delete_assets')->only(['destroy']);
         parent::__construct($model);
     } //end of construct
 

@@ -14,10 +14,10 @@ class SafeTransfers extends BackEndController
 {
     public function __construct(SafeTransfer $model)
     {
-        $this->middleware('permission:read_safes')->only(['index']);
-        $this->middleware('permission:create_safes')->only(['create', 'store']);
-        $this->middleware('permission:update_safes')->only(['edit', 'store']);
-        $this->middleware('permission:delete_safes')->only(['destroy']);
+        // $this->middleware('permission:read_safes')->only(['index']);
+        // $this->middleware('permission:create_safes')->only(['create', 'store']);
+        // $this->middleware('permission:update_safes')->only(['edit', 'store']);
+        // $this->middleware('permission:delete_safes')->only(['destroy']);
         parent::__construct($model);
     } //end of construct
 

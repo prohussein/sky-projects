@@ -20,7 +20,7 @@
             <tbody>
 
                 @php
-                    $models = ['categories' , 'users','roles','pages','reports','settings', 'products','messages','partners','customers','sliders'] ;
+                    $models = ['users','roles','settings', 'customers'] ;
                 @endphp
 
                 @foreach($models as $index=>$model )

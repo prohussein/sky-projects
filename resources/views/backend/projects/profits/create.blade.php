@@ -46,6 +46,7 @@
                                     @foreach ($safes as $safe )
                                         <option value="{{ $safe->id }}" > {{ $safe->name }} </option>
                                     @endforeach
+                                    
                                 </select>
                             </div>
 

@@ -38,9 +38,12 @@ return [
             'safes' => 'c,r,u,d',
             'reports' => 'c,r,u,d',
             'safetransfers' => 'c,r,u,d',
+
         ],
         'admin' => [],
         'user' => [],
+        'account_manager' => [],
+        'super_user' => [],
     ],
 
     'permissions_map' => [
@@ -48,5 +51,6 @@ return [
         'r' => 'read',
         'u' => 'update',
         'd' => 'delete',
+
     ],
 ];

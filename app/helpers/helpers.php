@@ -14,7 +14,7 @@ function lang()
 function is_expanded(string $routeName)
 {
 
-    return null !== request()->segment(3) && request()->segment(3) == $routeName ? 'is-expanded' : '';
+    return null !== request()->segment(2) && request()->segment(2) == $routeName ? 'is-expanded' : '';
 }
 function isCreated()
 {
@@ -150,7 +150,7 @@ function isSend()
 }
 function is_active(string $routeName){
 
-    return null !== request()->segment(3) && request()->segment(3) == $routeName ? 'active' : '' ;
+    return null !== request()->segment(2) && request()->segment(2) == $routeName ? 'active' : '' ;
 
 }// end is_active
 

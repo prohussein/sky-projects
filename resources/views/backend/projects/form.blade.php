@@ -37,7 +37,7 @@
 
      <div class="col-md-4">
         <label> العميل</label>
-        <select name="customer_id" class=" form-control select2">
+        <select name="customer_id" class=" form-control select2" required>
             @foreach ($customers as $customer)
                 <option value="{{ $customer->id}}" {{ isset($row) && $row->customer_id == $customer->id ? 'selected' : '' }} >
                     {{ $customer->name }}
@@ -52,12 +52,12 @@
     <div class="form-group col-md-4">
         @php  $input = "customer_cost";    @endphp
         <label>  تكلفة العميل  </label>
-        <input type="number" step="any" name="{{ $input }}" class="form-control @error('{{ $input }}') is-invalid @enderror" value="{{ old('customer_cost', isset($row) ? $row->{$input} : '')}}" >
+        <input type="number" step="any" name="{{ $input }}" class="form-control @error('{{ $input }}') is-invalid @enderror" value="{{ old('customer_cost', isset($row) ? $row->{$input} : '')}}" required>
     </div>
     <div class="form-group col-md-4">
         @php  $input = "estimated_cost";    @endphp
         <label>  تكلفة المتوقعة  </label>
-        <input type="number" step="any" name="{{ $input }}" class="form-control @error('{{ $input }}') is-invalid @enderror" value="{{ old('estimated_cost', isset($row) ? $row->{$input} : '')}}" >
+        <input type="number" step="any" name="{{ $input }}" class="form-control @error('{{ $input }}') is-invalid @enderror" value="{{ old('estimated_cost', isset($row) ? $row->{$input} : '')}}" required>
     </div>
 
 

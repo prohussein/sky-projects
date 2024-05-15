@@ -17,11 +17,13 @@ use App\Http\Controllers\BackEnd\SafeTransfers;
 use App\Http\Controllers\BackEnd\Subcontractors;
 use Illuminate\Support\Facades\Route;
 
-
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['localeSessionRedirect','localizationRedirect','localeViewPath']], function()
+{
+    /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
 
     Route::prefix('dashboard')
         ->name('dashboard.')
-        ->middleware(['auth'])
+        ->middleware(['auth','role:super_admin'])
         ->group(function(){
 
         Route::resource('customers', Customers::class);
@@ -161,6 +163,6 @@ use Illuminate\Support\Facades\Route;
 
     });
 
-
+});
 
 

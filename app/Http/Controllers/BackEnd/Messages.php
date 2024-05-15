@@ -8,17 +8,17 @@ use App\Models\Message;
 class Messages extends Controller
 {
     public function index(){
-        // select counts  
-               
- 
+        // select counts
+
+
         $messages = Message::where('type' , '1') ->orderByRaw('created_at DESC')->limit(5)->get();
         $leads = Message::where('type' , '2') ->orderByRaw('created_at DESC')->limit(5)->get();
         $news = Message::where('type' , '3') ->orderByRaw('created_at DESC')->limit(5)->get();
-        
+
         $routeName = 'messages';
 
         return view('backend.messages.index', compact('routeName','messages','leads','news'));
-    }// end of index 
+    }// end of index
 
     public function getMessageByType($type){
         //dd($type);
@@ -31,9 +31,9 @@ class Messages extends Controller
     public function destroy($id)
     {
        Message::FindOrFail($id)->delete();
-       
-       
+
+
         return redirect()->back()->with(isDeleted());
     }// end of destroy
-    
+
 }

@@ -10,10 +10,10 @@ class Customers extends BackEndController
 {
     public function __construct(Customer $model)
     {
-        $this->middleware('permission:read_customers')->only(['index']);
-        $this->middleware('permission:create_customers')->only(['create','store']);
-        $this->middleware('permission:update_customers')->only(['edit', 'store']);
-        $this->middleware('permission:delete_customers')->only(['destroy']);
+        // $this->middleware('permission:read_customers')->only(['index']);
+        // $this->middleware('permission:create_customers')->only(['create','store']);
+        // $this->middleware('permission:update_customers')->only(['edit', 'store']);
+        // $this->middleware('permission:delete_customers')->only(['destroy']);
         parent::__construct($model);
     }//end of construct
 

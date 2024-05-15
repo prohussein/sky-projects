@@ -24,10 +24,10 @@ class Projects extends BackEndController
 {
     public function __construct(Project $model)
     {
-        $this->middleware('permission:read_projects')->only(['index']);
-        $this->middleware('permission:create_projects')->only(['create','store']);
-        $this->middleware('permission:update_projects')->only(['edit', 'store']);
-        $this->middleware('permission:delete_projects')->only(['destroy']);
+        // $this->middleware('permission:read_projects')->only(['index']);
+        // $this->middleware('permission:create_projects')->only(['create','store']);
+        // $this->middleware('permission:update_projects')->only(['edit', 'store']);
+        // $this->middleware('permission:delete_projects')->only(['destroy']);
         parent::__construct($model);
     } //end of construct
 
@@ -83,7 +83,10 @@ class Projects extends BackEndController
     {
 
         $request->validate([
-            'name'       => 'required',
+            'name'          => 'required',
+            'customer_id'   => 'required',
+            'customer_cost' => 'required',
+            'estimated_cost'=> 'required',
         ]);
 
 
@@ -94,12 +97,15 @@ class Projects extends BackEndController
 
         $row =  $this->model->create($requestArray);
 
-        foreach ($request->users as $user) {
-            ProjectUser::create([
-                'project_id' => $row->id ,
-                'user_id'    => $user
-            ]);
+        if( $request->users){
+            foreach ($request->users as $user) {
+                ProjectUser::create([
+                    'project_id' => $row->id,
+                    'user_id'    => $user
+                ]);
+            }
         }
+
 
         return redirect()->route('dashboard.projects.index')->with(isCreated());;
     }// end of store
@@ -107,21 +113,25 @@ class Projects extends BackEndController
     public function update(Request $request, Project $project)
     {
          // dd($request->id);
-         $request->validate([
-            'name'       => 'required',
+        $request->validate([
+            'name'          => 'required',
+            'customer_id'   => 'required',
+            'customer_cost' => 'required',
+            'estimated_cost'=> 'required',
         ]);
 
         $requestArray = $request->all();
         $row =  $this->model->FindOrFail($request->id);
         $row->update($requestArray);
 
-        ProjectUser::where('project_id',$row->id)->delete();
-
-        foreach ($request->users as $user) {
-            ProjectUser::create([
-                'project_id' => $row->id,
-                'user_id'    => $user
-            ]);
+        ProjectUser::where('project_id', $row->id)->delete();
+        if ($request->users) {
+            foreach ($request->users as $user) {
+                ProjectUser::create([
+                    'project_id' => $row->id,
+                    'user_id'    => $user
+                ]);
+            }
         }
 
         return redirect()->route('dashboard.projects.index')->with(isUpdated());

@@ -31,11 +31,16 @@
             <div class="col-md-12">
 
                 <div class="col-md-12 text-center">
+                    @if(auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin') || auth()->user()->hasRole('account_manager') || auth()->user()->hasRole('user'))
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-list"></i>  اضافة مواد</button>
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalExpenses"><i class="fa fa-money"></i>    اضافة مصروفات </button>
+
+                    @endif
+                    @if(auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin') || auth()->user()->hasRole('account_manager'))
                     <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#myModalContactors">   <i class="fa fa-user"></i>  اضافة مقاول الي المشروع </button>
                     <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalContactorsRevenus"> <i class="fa fa-money"></i>  اضافة مستخلص الي المقاول</button>
                     <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModalWages">   <i class="fa fa-money"></i> اضافة أجور </button>
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalExpenses"><i class="fa fa-money"></i>    اضافة مصروفات </button>
+                    @endif
                 </div>
 
             </div>{{-- end of col 12--}}
@@ -401,7 +406,7 @@
 
                         </div>
                     </div>
-                </div> 
+                </div>
 
     </div>{{-- end of tile  --}}
 @endsection

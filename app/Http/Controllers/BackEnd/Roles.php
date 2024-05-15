@@ -13,10 +13,10 @@ class Roles extends BackEndController
     public function __construct(Role $model)
     {
 
-        $this->middleware('permission:read_roles')->only(['index']);
-        $this->middleware('permission:create_roles')->only(['create','store']);
-        $this->middleware('permission:update_roles')->only(['edit', 'store']);
-        $this->middleware('permission:delete_roles')->only(['destroy']);
+        // $this->middleware('permission:read_roles')->only(['index']);
+        // $this->middleware('permission:create_roles')->only(['create','store']);
+        // $this->middleware('permission:update_roles')->only(['edit', 'store']);
+        // $this->middleware('permission:delete_roles')->only(['destroy']);
         parent::__construct($model);
     }//end of construct
     protected function fillter($rows){

@@ -13,10 +13,10 @@ class Revenues extends BackEndController
 {
     public function __construct(Revenue $model)
     {
-        $this->middleware('permission:read_revenues')->only(['index']);
-        $this->middleware('permission:create_revenues')->only(['create', 'store']);
-        $this->middleware('permission:update_revenues')->only(['edit', 'store']);
-        $this->middleware('permission:delete_revenues')->only(['destroy']);
+        // $this->middleware('permission:read_revenues')->only(['index']);
+        // $this->middleware('permission:create_revenues')->only(['create', 'store']);
+        // $this->middleware('permission:update_revenues')->only(['edit', 'store']);
+        // $this->middleware('permission:delete_revenues')->only(['destroy']);
         parent::__construct($model);
     } //end of construct
 

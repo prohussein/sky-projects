@@ -10,10 +10,10 @@ class Subcontractors extends BackEndController
 {
     public function __construct(Subcontractor $model)
     {
-        $this->middleware('permission:read_subcontractors')->only(['index']);
-        $this->middleware('permission:create_subcontractors')->only(['create', 'store']);
-        $this->middleware('permission:update_subcontractors')->only(['edit', 'store']);
-        $this->middleware('permission:delete_subcontractors')->only(['destroy']);
+        // $this->middleware('permission:read_subcontractors')->only(['index']);
+        // $this->middleware('permission:create_subcontractors')->only(['create', 'store']);
+        // $this->middleware('permission:update_subcontractors')->only(['edit', 'store']);
+        // $this->middleware('permission:delete_subcontractors')->only(['destroy']);
         parent::__construct($model);
     } //end of construct
 
