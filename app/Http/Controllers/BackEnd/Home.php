@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 class Home extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    } 
     public function index(){
         $routeName     = 'projects';
         $projects      = ProjectUser::where('user_id', Auth::id())->with('project')->get();

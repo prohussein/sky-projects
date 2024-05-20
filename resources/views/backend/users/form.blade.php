@@ -76,13 +76,14 @@
       </div>
     </div>
 
-     <div class="form-group col-md-6">
+    <div class="form-group col-md-6">
         <div class="animated-checkbox">
             <label>
-            <input type="checkbox" name="active" value="1"  {{isset($row) && $row->active == 1 ? ' checked ' : ''}}><span class="label-text"> @lang('site.active') </span>
+            <input type="checkbox" name="active" value="1"  {{isset($row) && $row->active == 1 ? 'checked'  : ''}}><span class="label-text"> @lang('site.active') </span>
             </label>
         </div>
 
     </div>
+    
 </div>
 

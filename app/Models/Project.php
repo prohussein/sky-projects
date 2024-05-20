@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    protected $fillable = ['name', 'code', 'customer_id', 'start_date', 'end_date', 'customer_cost', 'estimated_cost'];
+    protected $fillable = ['name', 'code', 'customer_id', 'start_date', 'end_date', 'customer_cost', 'estimated_cost', 'manager_id'];
 
     public function getNameAttribute($value){
         return ucfirst($value);

@@ -81,6 +81,7 @@ class Projects extends BackEndController
     }// to add relation in the controller
     public function store(Request $request)
     {
+        //dd($request->all());
 
         $request->validate([
             'name'          => 'required',
@@ -97,11 +98,33 @@ class Projects extends BackEndController
 
         $row =  $this->model->create($requestArray);
 
+        // create safe belongs to project
+
+       $safe =  Safe::create([
+            'name'       => $row->name,
+            'balance'    => 0,
+            'type'       => 'main',
+            'descripton' => 'تمت الاضافة بواسطة النظام',
+            'user_id'    => $row->manager_id,
+            'project_id' => $row->id,
+        ]);
+
         if( $request->users){
             foreach ($request->users as $user) {
                 ProjectUser::create([
                     'project_id' => $row->id,
                     'user_id'    => $user
+                ]);
+ 
+
+                Safe::create([
+                    'name'       => $row->name .' ('. User::where('id',$user)->first()->name . ')',
+                    'balance'    => 0,
+                    'type'       => 'main',
+                    'descripton' => 'تمت الاضافة بواسطة النظام',
+                    'user_id'    => $user,
+                    'project_id' => $row->id,
+                    'parent_id'  => $safe->id
                 ]);
             }
         }

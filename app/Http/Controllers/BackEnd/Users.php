@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\BackEnd;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use Image;
-
+use Illuminate\Support\Facades\Hash;
 use Auth;
 
 class Users  extends BackEndController
@@ -74,7 +75,12 @@ class Users  extends BackEndController
         ]);
 
         $row =  $this->model->FindOrFail($user->id);
-        $requestArray = $request->all();
+        if($request->active){
+            $active = 1 ;
+        }else{
+            $active = 0;
+        }
+        $requestArray = ['active' => $active] + $request->all();
 
         if(isset($requestArray['password']) && $request->has('password') != ""){
             $requestArray['password']  = Hash::make($request->password);
@@ -98,14 +104,24 @@ class Users  extends BackEndController
 
 
         $row->syncRoles([$request->role]);
-// equivalent to $user->roles()->sync([$admin->id, $owner->id]);
+        // equivalent to $user->roles()->sync([$admin->id, $owner->id]);
         // $user->roles()->attach($request->role);
 
        //return redirect()->route('dashboard.users.edit', ['id' => $user->id]);
        return redirect()->route('dashboard.users.index')->with(isUpdated());
 
-    }// end of update
+    } // end of update
 
+    public function destroy($id)
+    {
+        //update employe
+            Employee::where('account_id' , $id)->update([
+                'account_id' => null
+            ]) ;
+        //delete user
+        $this->model->FindOrFail($id)->delete();
 
+        return redirect()->route('dashboard.' . $this->getClassNameFromModel() . '.index')->with(isDeleted());
+    }// end of destroy
 
 }//en of controller

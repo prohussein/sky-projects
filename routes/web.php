@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
+//Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
     /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
     Auth::routes();
 
@@ -31,5 +31,5 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     Route::delete('photosDeleteAll', 'BackEnd\Products@deleteAll');
     Route::delete('fairsphotosDeleteAll', 'BackEnd\Fairs@deleteAll');
-    
-});
+
+//});

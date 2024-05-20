@@ -18,7 +18,26 @@ class Safes extends BackEndController
         // $this->middleware('permission:delete_safes')->only(['destroy']);
         parent::__construct($model);
     } //end of construct
+    public function index(Request $request)
+    {
 
+        $rows  = $this->model;
+        $rows  = $this->fillter($rows);
+        $with  = $this->with();
+        if (!empty($with)) {
+            $rows = $rows->with($with);
+        }
+        if ($request->type) {
+            $rows = $rows->where('type', $request->type);
+        }
+
+
+        $rows = $rows->orderBy('id', 'desc')->get();
+        //dd($rows);
+
+        $routeName = $this->getClassNameFromModel();
+        return view('backend.' . $routeName . '.index', compact('rows', 'routeName', 'request'));
+    }// end of index
 
     protected function append()
     {

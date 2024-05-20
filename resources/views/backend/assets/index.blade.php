@@ -39,11 +39,12 @@
     </form>
 
 </div>
+
 <div class="tile mb-4">
     {{-- project statictes  --}}
     <div class="row">
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="widget-small primary" >
                 <div class="info text-center">
                     <h4> نقدي   </h4>
@@ -57,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="widget-small primary" >
                 <div class="info text-center">
                     <h4>ممتلكات  </h4>
@@ -71,7 +72,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="widget-small primary" >
                 <div class="info text-center">
                     <h4> نقود ائتمانية   </h4>
@@ -80,6 +81,20 @@
                     </p>
                     <p style="font-weight: bold; font-size: 20px">
                         {{ number_format ($rows->where("type", 'cash_money')->sum('amount')) }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="widget-small info" >
+                <div class="info text-center">
+                    <h4> اجمالي الاصول    </h4>
+                    <p style="font-weight: bold; font-size: 20px">
+                        {{ $rows->where("type", 'cash_money')->count() + $rows->where("type", 'cash')->count() + $rows->where("type", 'properties')->count() }}
+                    </p>
+                    <p style="font-weight: bold; font-size: 20px">
+                        {{ number_format ($rows->where("type", 'cash_money')->sum('amount') + $rows->where("type", 'properties')->sum('amount') + $rows->where("type", 'cash')->sum('amount')) }}
                     </p>
                 </div>
             </div>
@@ -142,7 +157,7 @@
                                             @endif
 
                                         </td>
-                                        <td > {{ $row->amount }} </td>
+                                        <td > {{ number_format($row->amount) }} </td>
                                         <td > {{ $row->safe->name ?? '' }}   </td>
                                         <td>
                                             @if($row->file)

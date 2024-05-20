@@ -35,7 +35,7 @@ class Assets extends BackEndController
         if($request->type){
             $rows = $rows->where('type',$request->type);
         }
-
+ 
 
         $rows = $rows->orderBy('id', 'desc')->get();
         //dd($rows);

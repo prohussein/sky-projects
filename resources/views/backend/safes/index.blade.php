@@ -20,6 +20,94 @@
 @endcomponent
 
     <div class="tile mb-4">
+
+    <form action="{{route('dashboard.safes.index')}}" method="get">
+        <div class="row">
+                <div class="form-group col-md-3">
+                    <label>نوع الخزنة</label>
+                    <select  name="type" class="form-control" id="type">
+                        <option value=""> الكل </option>
+                        <option value="bank" {{ isset($request) && $request->type == 'bank' ? 'selected' : '' }} > بنك </option>
+                        <option value="custody" {{ isset($request) && $request->type == 'custody' ? 'selected' : '' }} > عهدة </option>
+                        <option value="main" {{ isset($request) && $request->type == 'main' ? 'selected' : '' }} > رئيسي   </option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <button class="btn btn-info btn-lg mt-4" type="submit"> بحث</button>
+                </div>
+
+
+        </div>
+    </form>
+
+</div>
+
+<div class="tile mb-4">
+    {{-- project statictes  --}}
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="widget-small primary" >
+                <div class="info text-center">
+                    <h4> البنوك   </h4>
+                    <p style="font-weight: bold; font-size: 20px">
+                        {{ $rows->where("type", 'bank')->count() }}
+                    </p>
+                    <p style="font-weight: bold; font-size: 20px">
+                        {{ number_format ($rows->where("type", 'bank')->sum('balance')) }}
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="widget-small primary" >
+                <div class="info text-center">
+                    <h4>العهدة   </h4>
+                    <p style="font-weight: bold; font-size: 20px">
+                        {{ $rows->where("type", 'custody')->count() }}
+                    </p>
+                    <p style="font-weight: bold; font-size: 20px">
+                        {{ number_format ($rows->where("type", 'custody')->sum('balance')) }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="widget-small primary" >
+                <div class="info text-center">
+                    <h4> رئيسي    </h4>
+                    <p style="font-weight: bold; font-size: 20px">
+                        {{ $rows->where("type", 'main')->count() }}
+                    </p>
+                    <p style="font-weight: bold; font-size: 20px">
+                        {{ number_format ($rows->where("type", 'main')->sum('balance')) }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="widget-small info" >
+                <div class="info text-center">
+                    <h4> اجمالي الخزن    </h4>
+                    <p style="font-weight: bold; font-size: 20px">
+                        {{ $rows->where("type", 'custody')->count() + $rows->where("type", 'main')->count() + $rows->where("type", 'bank')->count() }}
+                    </p>
+                    <p style="font-weight: bold; font-size: 20px">
+                        {{ number_format ($rows->where("type", 'custody')->sum('balance') + $rows->where("type", 'main')->sum('balance') + $rows->where("type", 'bank')->sum('balance')) }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div> {{-- end of row --}}
+</div>
+
+    <div class="tile mb-4">
         <div class="row">
             <div class="col-md-12">
 
@@ -68,7 +156,7 @@
 
                                         </td>
                                         <td > {{ number_format($row->balance)  }}      </td>
-                                         
+
                                         <td > {{ $row->employee->name ?? '' }}   </td>
                                         <td > {{ $row->descripton }}   </td>
                                         <td>

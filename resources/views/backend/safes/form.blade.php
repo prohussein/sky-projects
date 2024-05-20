@@ -32,7 +32,7 @@
     <div class="form-group col-md-6">
         <label>امين الخزنة</label>
         <select  name="user_id" class="form-control">
-            @foreach ($users as $user )
+            @foreach ($users as $user ) 
                 <option value="{{ $user->id }}" {{ isset($row) && $row->user_id == $user->id ? 'selected' : '' }} > {{ $user->name }} </option>
             @endforeach
 
