@@ -53,7 +53,7 @@ function isOverAmount()
 
     if (config('app.locale') == 'ar') {
         $notification = array(
-            'message' => 'القيمة المراد تحويلها غير متاحة  ',
+            'message' => 'القيمة المطلوبة غير متاحة في الخزنة ',
             'alert-type' => 'error'
         );
     } else {

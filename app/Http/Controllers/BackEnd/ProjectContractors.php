@@ -92,15 +92,17 @@ class ProjectContractors extends Controller
             'subcontractor_id'  => 'required',
             'safe_id'           => 'required',
         ]);
+        $safeBalance              = Safe::where('id', $request->safe_id)->first()->balance;
 
         // handle safes
-        if ($request->safe_id && $request->amount > 0) {
+        if ($safeBalance >= $request->amount) {
 
-            $safeBalance              = Safe::where('id', $request->safe_id)->first()->balance;
             $safeBalanceAfter = $safeBalance - $request->amount;
             Safe::where('id', $request->safe_id)->update([
                 'balance' => $safeBalanceAfter
             ]);
+        }else {
+            return back()->with(isOverAmount());
         }
 
         $fileName = '';

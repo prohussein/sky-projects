@@ -37,6 +37,11 @@ use Illuminate\Support\Facades\Route;
         Route::resource('revenues', Revenues::class);
         Route::resource('safes', Safes::class);
         Route::resource('safetransfers', SafeTransfers::class);
+        Route::get('safetransfers/btween/projects', [SafeTransfers::class , 'transfareProject'])->name('safetransfers.project');
+        Route::get('safetransfers/getProjectSafes/projects', [SafeTransfers::class, 'getProjectSafes'])->name('safetransfers.project.safes');
+        Route::get('get/project/safes', [ManageMaterials::class, 'getProjectSafes'])->name('get.project.safes');
+        Route::get('get/customer/project', [Revenues::class, 'getprojectsbelongCustomer'])->name('get.customer.project');
+        Route::get('get/main/safe/project', [Revenues::class, 'getMainSafeForproject'])->name('get.main.safe.project');
 
 
         Route::post('project/items/store', [ProjectItems::class, 'store'])->name('project.items.store');

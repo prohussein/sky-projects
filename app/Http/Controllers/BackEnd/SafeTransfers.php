@@ -27,10 +27,11 @@ class SafeTransfers extends BackEndController
 
         $array =  [
             'users' => User::all(['id','name']),
-            'safes' => Safe::all(['id', 'name']),
+            'mainSafes' => Safe::where([['parent_id', null], ['project_id', null]])->get(),
+            'subSafes'  => Safe::where([['parent_id', null]])->get(),
         ];
 
-
+        //,
         return $array;
     }// to add paremater in controller
 
@@ -124,6 +125,25 @@ class SafeTransfers extends BackEndController
 
         return redirect()->route('dashboard.safetransfers.index')->with(isUpdated());
     } // end of update
+
+    public function transfareProject(){
+        $safes =  Safe::where([['parent_id', null], ['project_id', '!=', null]])->get();
+        $routeName = 'safetransfers' ;
+        return view('backend.safetransfers.transfare_project',compact('safes', 'routeName'));
+    }
+
+    public function getProjectSafes(Request $request){
+        if (!$request->safe_id) {
+            $html = '<option value=""> اختر الخزنة </option>';
+        } else {
+            $html = '';
+            $safes = Safe::where('parent_id', $request->safe_id)->get();
+            foreach ($safes as $safe) {
+                $html .= '<option value="' . $safe->id . '">' . $safe->name . ' [ ' . $safe->balance . ' ]' . '</option>';
+            }
+        }
+        return response()->json(['html' => $html]);
+    }
 
     public function destroy($id)
     {

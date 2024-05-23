@@ -27,23 +27,23 @@
         <label> مدير المشروع  </label>
         <select name="manager_id" class=" form-control select2">
             @foreach ($users as $user)
-                <option value="{{ $user->id}}"  {{ isset($row) && $row->manager_id == $user->id ? 'selected' : '' }}>
+                <option value="{{ $user->account_id}}"  {{ isset($row) && $row->manager_id == $user->account_id ? 'selected' : '' }}>
                     {{ $user->name }}
                 </option>
             @endforeach
         </select>
 
-    </div>
+    </div> 
 
      <div class="col-md-3">
         <label> ادارة التنفيذ   </label>
         <select name="users[]" class=" form-control select2" multiple >
             @foreach ($users as $user)
-                <option value="{{ $user->id}}"  {{ in_array( $user->id, $selectedUsers) ? 'selected' : '' }}>
+                <option value="{{ $user->account_id}}"  {{ in_array( $user->account_id, $selectedUsers) ? 'selected' : '' }}>
                     {{ $user->name }}
                 </option>
             @endforeach
-        </select> 
+        </select>
 
     </div>
 

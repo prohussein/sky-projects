@@ -25,7 +25,7 @@ class Expenses extends BackEndController
     protected function append(){
 
         $cats     = ExpenseCategory::get();
-        $safes    = Safe::get();
+        $safes    = Safe::where([['type','!=', 'custody'],['project_id',null]])->get();
 
         return ['cats'=>$cats , 'safes' => $safes] ;
     } // to add paremater in controller

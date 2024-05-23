@@ -30,7 +30,7 @@ class Products extends  BackEndController
         $array =  [
             'categories' => Category::get(),
             'tags' => Tag::get(),
-            'selectedTags' => [], 
+            'selectedTags' => [],
             'brands' => Brand::get(),
         ];
 
@@ -216,7 +216,7 @@ class Products extends  BackEndController
     public function selectSupcat(Request $request)
     {
 
-
+ 
         if (!$request->cat_id) {
             $html = '<option value=""> select sup category</option>';
         } else {

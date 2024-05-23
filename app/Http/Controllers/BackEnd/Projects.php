@@ -62,7 +62,7 @@ class Projects extends BackEndController
     {
         $array =  [
             'customers' => Customer::all(['id','name']),
-            'users' => User::all(['id', 'name']),
+            'users' => Employee::where([['account_id' , '!=' , null],['active',1]])->select('id','name','account_id', 'active')->get(),
             'selectedUsers' => [],
 
         ];
@@ -70,7 +70,7 @@ class Projects extends BackEndController
         if (request()->route()->parameter('project')) {
 
             $array['selectedUsers']  = $this->model->find(request()->route()->parameter('project'))
-            ->users()->pluck('users.id')->toArray();
+            ->users()->pluck('users.account_id')->toArray();
         }
         return $array;
     } // to add paremater in controller
@@ -115,12 +115,12 @@ class Projects extends BackEndController
                     'project_id' => $row->id,
                     'user_id'    => $user
                 ]);
- 
+
 
                 Safe::create([
-                    'name'       => $row->name .' ('. User::where('id',$user)->first()->name . ')',
+                    'name'       => $row->name .' ('. Employee::where('account_id',$user)->first()->name . ')',
                     'balance'    => 0,
-                    'type'       => 'main',
+                    'type'       => 'custody',
                     'descripton' => 'تمت الاضافة بواسطة النظام',
                     'user_id'    => $user,
                     'project_id' => $row->id,
@@ -192,7 +192,7 @@ class Projects extends BackEndController
 
         $projectItems    = ProjectItem::where('project_id', $id)->get();
         $prjectFiles    = ProjectFile::where('project_id', $id)->get();
-        $safes           = Safe::all(['id', 'name']);
+        $safes           = Safe::where([['project_id', $id],['parent_id',null]])->get();
 
         if($projectItems->sum('total_implement_qty') > 0){
             $projectProgress =  ($projectItems->sum('total_implement_qty') /  $projectItems->sum('item_total')) * 100;
@@ -256,7 +256,8 @@ class Projects extends BackEndController
         $projects      = ProjectUser::where('user_id',Auth::id())->with('project')->get();
         $contactors    = Subcontractor::all('id', 'name');
         $tempEmployees = Employee::where('type', 'temp')->select('id', 'name', 'type')->get();
-        $safes         = Safe::all(['id', 'name']);
+
+        $safes         = Safe::where('user_id',Auth::user()->id)->get();
 
         return view('backend.projects.manage',compact('safes','routeName', 'tempEmployees', 'projects', 'contactors'));
     }
@@ -268,7 +269,7 @@ class Projects extends BackEndController
         if (!$request->subcontractor_id) {
             $html = '<option disabled selected> اختر مشروع </option>';
         } else {
-            $html = '';
+            $html = '<option disabled selected> اختر مشروع </option>';
             $sups = ProjectSubcontractor::where('subcontractor_id', $request->subcontractor_id)->with('project')->get();
             foreach ($sups as $sup) {
                 $html .= '<option value="' . $sup->project_id . '">' . $sup->project->name  . '</option>';

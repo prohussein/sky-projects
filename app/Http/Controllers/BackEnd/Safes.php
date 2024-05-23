@@ -42,7 +42,7 @@ class Safes extends BackEndController
     protected function append()
     {
         $array =  [
-            'users' => Employee::all(['id','name']),
+            'users' => Employee::where([['account_id', '!=', null], ['active', 1]])->select('id', 'name', 'account_id', 'active')->get(),
         ];
         return $array;
     } // to add paremater in controller

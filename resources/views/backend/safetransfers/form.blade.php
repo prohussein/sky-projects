@@ -15,8 +15,8 @@
         <select  name="from_safe" class="form-control" required>
             <option selected disabled > اختر خزنة </option>
 
-            @foreach ($safes as $safe )
-                <option value="{{ $safe->id }}" {{ isset($row) && $row->from_safe == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
+            @foreach ($mainSafes as $safe )
+                <option value="{{ $safe->id }}" {{ isset($row) && $row->from_safe == $safe->id ? 'selected' : '' }} > {{ $safe->name .' [ '. $safe->balance .' ]' }} </option>
             @endforeach
         </select>
     </div>
@@ -25,8 +25,8 @@
         <label>الي خزنة</label>
         <select  name="to_safe" class="form-control" required>
             <option selected disabled > اختر خزنة </option>
-            @foreach ($safes as $safe )
-                <option value="{{ $safe->id }}" {{ isset($row) && $row->to_safe == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
+            @foreach ($subSafes as $safe )
+                <option value="{{ $safe->id }}" {{ isset($row) && $row->to_safe == $safe->id ? 'selected' : '' }} > {{ $safe->name .' [ '. $safe->balance .' ]' }} </option>
             @endforeach
         </select>
     </div>

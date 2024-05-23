@@ -155,8 +155,11 @@ class Employees extends BackEndController
 
     public function destroy($id)
     {
+        //dd($id);
         $row = $this->model->FindOrFail($id) ;
-        User::FindOrFail($row->account_id)->delete();
+        if($row->account_id){
+            User::FindOrFail($row->account_id)->delete();
+        }
         $row->delete();
         return redirect()->route('dashboard.' . $this->getClassNameFromModel() . '.index')->with(isDeleted());
     }// end of destroy

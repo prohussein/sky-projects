@@ -60,7 +60,11 @@
                                     @foreach ($rows as $index=>$row)
                                     <tr>
                                         <td >{{ $index+1 }}</td>
-                                        <td > {{ $row->name }} </td>
+                                        <td > {{ $row->name }}
+                                            @if ($row->account_id)
+                                             <i class="fa fa-check text-primary"></i> 
+                                            @endif
+                                        </td>
                                         <td > {{ $row->code }} </td>
                                         <td>
                                             @if ($row->type == 'temp')

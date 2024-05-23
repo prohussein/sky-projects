@@ -29,11 +29,12 @@
         <input type="number" name="{{ $input }}" class="form-control @error('{{ $input }}') is-invalid @enderror" value="{{ old('balance', isset($row) ? $row->{$input} : 0)}}"  readonly>
     </div>
 
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-6"> 
         <label>امين الخزنة</label>
         <select  name="user_id" class="form-control">
-            @foreach ($users as $user ) 
-                <option value="{{ $user->id }}" {{ isset($row) && $row->user_id == $user->id ? 'selected' : '' }} > {{ $user->name }} </option>
+              <option disabled selected> اختر امين الخزنة</option>
+            @foreach ($users as $user )
+                <option value="{{ $user->account_id }}" {{ isset($row) && $row->user_id == $user->account_id ? 'selected' : '' }} > {{ $user->name }} </option>
             @endforeach
 
         </select>

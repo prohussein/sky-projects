@@ -20,14 +20,16 @@ class ProjectWages extends Controller
         ]);
 
         //handle safes
+        $safeBalance              = Safe::where('id', $request->safe_id)->first()->balance;
 
-        if ($request->safe_id && $request->amount > 0) {
+        if ($safeBalance >= $request->amount) {
 
-            $safeBalance              = Safe::where('id', $request->safe_id)->first()->balance;
             $safeBalanceAfter = $safeBalance - $request->amount;
             Safe::where('id', $request->safe_id)->update([
                 'balance' => $safeBalanceAfter
             ]);
+        }else{
+            return back()->with(isOverAmount());
         }
 
         $fileName = '';

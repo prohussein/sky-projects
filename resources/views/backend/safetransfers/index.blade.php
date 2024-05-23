@@ -26,7 +26,9 @@
                 <div class="col-md-12 text-center">
 
                     <a href=" {{ route('dashboard.'. $routeName .'.index') }} " class="btn btn-primary"> <i class="fa fa-refresh"></i> @lang('site.refresh')</a>
-                    <a href="{{ route('dashboard.'. $routeName .'.create')  }}" class="btn btn-primary"> <i class="fa fa-plus"></i>@lang('site.add')</a>
+                    <a href="{{ route('dashboard.'. $routeName .'.create')  }}" class="btn btn-primary"> <i class="fa fa-plus"></i>تحويل رئيسي</a>
+                    <a href="{{ route('dashboard.safetransfers.project')  }}" class="btn btn-primary"> <i class="fa fa-plus"></i>تحويل مشروع</a>
+
                 </div>
 
             </div>{{-- end of col 12--}}

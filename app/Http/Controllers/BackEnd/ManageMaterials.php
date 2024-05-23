@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ManageMaterials extends Controller
 {
     public function store(Request $request){
-       // dd($request->all());
+        //dd($request->all());
         $request->validate([
             'material_name'  => 'required',
             'date'           => 'required',
@@ -20,15 +20,15 @@ class ManageMaterials extends Controller
             'project_id'     => 'required',
             'safe_id'        => 'required',
         ]);
-
+        $safeBalance              = Safe::where('id', $request->safe_id)->first()->balance;
         // handle safes
-        if ($request->safe_id && $request->amount > 0) {
-
-            $safeBalance              = Safe::where('id', $request->safe_id)->first()->balance;
+        if ($safeBalance >= $request->amount ) {
             $safeBalanceAfter = $safeBalance - $request->amount;
             Safe::where('id', $request->safe_id)->update([
                 'balance' => $safeBalanceAfter
             ]);
+        }else{
+            return back()->with(isOverAmount());
         }
         // handle file
 
@@ -118,11 +118,14 @@ class ManageMaterials extends Controller
         return redirect()->back()->with(isUpdated());
     }
     public function destroy($id){
-        //dd($id);
+
 
         $row =   Expense::FindOrFail($id);
+        $safeBalance = Safe::where('id', $row->safe_id)->first()->balance ;
+        $total = $safeBalance +  $row->amount ;
+        
         Safe::where('id', $row->safe_id)->update([
-            'balance' => Safe::where('id', $row->safe_id)->first()->balance + $row->amount
+            'balance' =>   $total
         ]);
         $row->delete();
         return redirect()->back()->with(isDeleted());
@@ -168,5 +171,22 @@ class ManageMaterials extends Controller
             ]);
 
         }
+    }
+
+    public function getProjectSafes(Request $request)
+    {
+        if (!$request->project_id) {
+            $html = '<option value=""> اختر الخزنة </option>';
+        } else {
+            $html = '';
+            $safes = Safe::where([['user_id', Auth::user()->id], ['project_id', $request->project_id]])->get();
+            foreach ($safes as $safe) {
+                $html .= '<option value="' . $safe->id . '">' . $safe->name . ' [ ' . $safe->balance . ' ]' . '</option>';
+            }
+        }
+
+
+
+        return response()->json(['html' => $html]);
     }
 }

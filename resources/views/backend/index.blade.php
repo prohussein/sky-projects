@@ -99,7 +99,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label> المشروع </label>
-                                <select class="form-control select2" name="project_id">
+                                <select  class="form-control projects select2" name="project_id">
                                     <option selected disabled>اختر مشروع</option>
 
                                     @foreach ($projects as $project)
@@ -125,12 +125,12 @@
                             </div>
                             <div class="form-group">
                                 <label> الخزن</label>
-                                <select  name="safe_id" class="form-control" required >
+                                <select id="materialSafes" name="safe_id" class="form-control" required >
                                     <option selected disabled > اختر خزنة </option>
 
-                                    @foreach ($safes as $safe )
-                                        <option value="{{ $safe->id }}" {{ isset($row) && $row->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
-                                    @endforeach
+                                    {{-- @foreach ($safes as $safe )
+                                        <option value="{{ $safe->id }}"  > {{ $safe->name .' [ ' .$safe->balance. ' ]'}} </option>
+                                    @endforeach --}}
                                 </select>
                             </div>
                             <div class="form-group">
@@ -173,7 +173,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label> المشروع </label>
-                                <select class="form-control select2" name="project_id">
+                                <select class="form-control  select2" name="project_id">
                                     <option selected disabled>اختر مشروع</option>
 
                                     @foreach ($projects as $project)
@@ -255,7 +255,7 @@
                             </div>
                             <div class="form-group">
                                 <label> المشروع </label>
-                                <select class="form-control select2" name="project_id" id="projects">
+                                <select class="form-control projects select2" name="project_id" id="projects">
                                     <option selected disabled>اختر مشروع</option>
 
 
@@ -277,12 +277,10 @@
                             </div>
                             <div class="form-group">
                                 <label> الخزن</label>
-                                <select  name="safe_id" class="form-control" required >
+                                <select id="contactorsSafes" name="safe_id" class="form-control" required >
                                     <option selected disabled > اختر خزنة </option>
 
-                                    @foreach ($safes as $safe )
-                                        <option value="{{ $safe->id }}" {{ isset($row) && $row->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
-                                    @endforeach
+
                                 </select>
                             </div>
 
@@ -320,7 +318,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label> المشروع </label>
-                                <select class="form-control select2" name="project_id">
+                                <select class="form-control projects select2" name="project_id">
                                     <option selected disabled>اختر مشروع</option>
 
                                     @foreach ($projects as $project)
@@ -346,12 +344,10 @@
                             </div>
                             <div class="form-group">
                                 <label> الخزن</label>
-                                <select  name="safe_id" class="form-control" required >
+                                <select id="wagesSafes" name="safe_id" class="form-control" required >
                                     <option selected disabled > اختر خزنة </option>
 
-                                    @foreach ($safes as $safe )
-                                        <option value="{{ $safe->id }}" {{ isset($row) && $row->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
-                                    @endforeach
+
                                 </select>
                             </div>
                             <div class="form-group">
@@ -393,51 +389,47 @@
                         <!-- Modal body -->
                         <form id="addProjectExpenses" name="add_project_expenses" action="{{ route('dashboard.project.expenses.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label> المشروع </label>
-                                <select class="form-control select2" name="project_id">
-                                    <option selected disabled>اختر مشروع</option>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label> المشروع </label>
+                                    <select class="form-control select2 projects" name="project_id">
+                                        <option selected disabled>اختر مشروع</option>
 
-                                    @foreach ($projects as $project)
-                                    <option value="{{ $project->project_id }}" >{{ $project->project->name ?? ''}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                                        @foreach ($projects as $project)
+                                        <option value="{{ $project->project_id }}" >{{ $project->project->name ?? ''}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
-                            <div class="form-group">
-                                <label>تاريخ  </label>
-                                <input type="date" name="date" class="form-control" value="" required>
-                            </div>
-                            <div class="form-group">
-                                <label> الخزن</label>
-                                <select  name="safe_id" class="form-control" required >
-                                    <option selected disabled > اختر خزنة </option>
+                                <div class="form-group">
+                                    <label>تاريخ  </label>
+                                    <input type="date" name="date" class="form-control" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label> الخزن</label>
+                                    <select id="expenseSafes" name="safe_id" class="form-control" required >
+                                        <option selected disabled > اختر خزنة </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label> القيمة</label>
+                                    <input type="number" step="-1" name="amount" class="form-control" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>رفع المستند   </label>
+                                    <input type="file" name="file" class="form-control" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label> الغرض</label>
+                                    <textarea class="form-control" name="note"></textarea>
+                                </div>
 
-                                    @foreach ($safes as $safe )
-                                        <option value="{{ $safe->id }}" {{ isset($row) && $row->safe_id == $safe->id ? 'selected' : '' }} > {{ $safe->name }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label> القيمة</label>
-                                <input type="number" step="-1" name="amount" class="form-control" value="" required>
-                            </div>
-                            <div class="form-group">
-                                <label>رفع المستند   </label>
-                                <input type="file" name="file" class="form-control" value="">
-                            </div>
-                            <div class="form-group">
-                                <label> الغرض</label>
-                                <textarea class="form-control" name="note"></textarea>
                             </div>
 
-                        </div>
-
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" >حفظ</button>
-                        </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" >حفظ</button>
+                            </div>
                         </form>
 
                         </div>
@@ -449,6 +441,20 @@
 
 @push('js')
 
+    <script type="text/javascript">
+        $(".projects").change(function(){
+            $.ajax({
+                url: "{{ route('dashboard.get.project.safes') }}?project_id=" + $(this).val(),
+                method: 'GET',
+                success: function(data) {
+                    $('#materialSafes').html(data.html);
+                    $('#expenseSafes').html(data.html);
+                    $('#contactorsSafes').html(data.html);
+                    $('#wagesSafes').html(data.html);
+                }
+            });
+        });
+    </script>
 
     <script type="text/javascript">
         $("#contactors").change(function(){
