@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 11, 2024 at 10:40 PM
+-- Generation Time: May 23, 2024 at 09:15 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -43,6 +43,25 @@ CREATE TABLE `activity_log` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `adjustments`
+--
+
+CREATE TABLE `adjustments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `safe_id` bigint(20) NOT NULL,
+  `receiver_safe_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `total_expenses` double(12,2) NOT NULL DEFAULT 0.00,
+  `safe_balance` double(12,2) NOT NULL DEFAULT 0.00,
+  `total_transfares` double(12,2) NOT NULL DEFAULT 0.00,
+  `notes` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `assets`
 --
 
@@ -64,14 +83,7 @@ CREATE TABLE `assets` (
 --
 
 INSERT INTO `assets` (`id`, `name`, `amount`, `type`, `safe_id`, `added_by`, `descripton`, `file`, `created_at`, `updated_at`) VALUES
-(2, 'حفار 60', 750000.00, 'properties', NULL, 1, 'حفار لشغل اسوان', NULL, '2024-01-10 09:15:45', '2024-01-10 09:15:45'),
-(3, 'محمد حسين', 5000.00, 'properties', NULL, 1, 'حفار لشغل اسوان', NULL, '2024-03-27 01:59:31', '2024-03-27 01:59:31'),
-(4, 'محمد حسين', 5000.00, 'properties', NULL, 1, 'حفار لشغل اسوان', NULL, '2024-03-27 02:12:41', '2024-03-27 02:12:41'),
-(7, 'حفار 60', 500000.00, 'properties', NULL, 1, 'حفار لشغل اسوان', NULL, '2024-03-29 10:37:00', '2024-03-29 10:37:00'),
-(13, 'محمد علي', 250.00, 'properties', NULL, 1, 'حفار لشغل اسوان', NULL, '2024-04-11 18:46:56', '2024-04-11 18:46:56'),
-(14, 'محمد علي', 250.00, 'cash_money', NULL, 1, 'مبلغ الشراكة', NULL, '2024-04-11 18:47:23', '2024-04-11 18:47:23'),
-(18, 'Mony', 5000.00, 'cash', 2, 1, NULL, '', '2024-05-11 12:11:11', '2024-05-11 12:11:29'),
-(19, 'محمد حسين', 5000.00, 'cash', 1, 1, NULL, '', '2024-05-11 12:15:14', '2024-05-11 12:15:14');
+(1, 'افتتاح رصيد الشركة', 5000000.00, 'cash', 1, 1, 'الخزنة الرئيسية للشركة', '', '2024-05-23 09:57:16', '2024-05-23 09:57:16');
 
 -- --------------------------------------------------------
 
@@ -102,18 +114,6 @@ CREATE TABLE `categories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `categories`
---
-
-INSERT INTO `categories` (`id`, `name_ar`, `name_en`, `photo`, `brand_id`, `created_at`, `updated_at`) VALUES
-(1, 'UPVC', 'UPVC', '1690734365jdext9Ihu7.jpg', NULL, '2023-07-30 11:59:35', '2023-07-30 20:26:05'),
-(2, 'ِشيش حصير', 'Rolling Shutters', '1690734538hiwpSIrSEJ.jpg', NULL, '2023-07-30 20:28:58', '2023-07-30 20:28:58'),
-(3, 'كبائن شاور', 'Shower Cabins', '1690734609Og2Sgr0Pco.jpeg', NULL, '2023-07-30 20:30:09', '2023-07-30 20:30:09'),
-(4, 'ستائر مكتبية', 'Office curtains', '1690802763G95mxZIuih.jpeg', NULL, '2023-07-31 15:26:03', '2023-07-31 15:26:03'),
-(5, 'ابواب غرف', 'Room Doors', '16908028518K2TAuwyfz.jpg', NULL, '2023-07-31 15:27:31', '2023-07-31 15:27:31'),
-(6, 'ابواب مصفحة', 'Armored doors', '1690803057iMY4KJWwXj.jpg', NULL, '2023-07-31 15:30:57', '2023-07-31 15:30:57');
 
 -- --------------------------------------------------------
 
@@ -154,8 +154,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `name`, `code`, `phone`, `contact_person`, `balance`, `address`, `created_at`, `updated_at`) VALUES
-(1, 'محمد حسين', 'cust-1', '01157809060', 'محمد حسين', 0.00, 'الحي الاول مدينة العبور, الشباب مدينة العبور', '2024-01-02 03:57:48', '2024-01-02 03:57:48'),
-(2, 'شركة المياه', 'cust-2', '2345677888', 'محمد عباس', 0.00, 'كوم امبو', '2024-01-09 07:35:37', '2024-04-10 15:53:30');
+(1, 'شركة المياه', 'cust-1', '01157809060', 'محمد حسين', 0.00, 'الحي الاول مدينة العبور, الشباب مدينة العبور', '2024-05-14 07:56:18', '2024-05-19 11:17:38'),
+(2, 'شركة الصرف', 'cust-2', '123654789', 'علي محمود', 0.00, 'الحي الاول مدينة العبور, الشباب مدينة العبور', '2024-05-19 11:18:01', '2024-05-19 11:18:01');
 
 -- --------------------------------------------------------
 
@@ -174,15 +174,21 @@ CREATE TABLE `employees` (
   `type` enum('temp','parmanent') NOT NULL DEFAULT 'temp',
   `notes` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `account_id` bigint(20) DEFAULT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `employees`
 --
 
-INSERT INTO `employees` (`id`, `name`, `code`, `phone`, `start_date`, `address`, `file`, `type`, `notes`, `created_at`, `updated_at`) VALUES
-(2, 'محمد حسين', 'emp-1', '01157809060', '2024-01-01', 'الحي الاول مدينة العبور, الشباب مدينة العبور', '', 'temp', NULL, '2024-01-09 06:16:23', '2024-01-09 06:16:23');
+INSERT INTO `employees` (`id`, `name`, `code`, `phone`, `start_date`, `address`, `file`, `type`, `notes`, `created_at`, `updated_at`, `account_id`, `active`) VALUES
+(1, 'مصطفي فهمي', 'emp-1', '01157809060', '2023-01-01', 'الحي الاول مدينة العبور, الشباب مدينة العبور', '66431b6adbb27.pdf', 'parmanent', NULL, '2024-05-14 05:06:02', '2024-05-22 04:33:30', 10, 1),
+(2, 'مصطفي عبده علي', 'emp-2', '1236547896', '2024-05-19', 'الحي الاول مدينة العبور, الشباب مدينة العبور', '', 'parmanent', NULL, '2024-05-19 11:20:12', '2024-05-22 04:29:47', 9, 1),
+(3, 'صالح محمد النجار', 'emp-3', '123654789', '2024-05-01', '10th of ramdan', '', 'parmanent', NULL, '2024-05-19 11:20:42', '2024-05-22 04:33:39', 8, 1),
+(5, 'new user', 'emp-4', '1452541', '2024-05-20', 'test', '', 'temp', NULL, '2024-05-20 07:02:04', '2024-05-20 08:46:13', NULL, 0),
+(6, 'عبدالرحمن محمود 2', 'emp-6', '77777777', '2024-05-01', 'المعادي', '', 'temp', NULL, '2024-05-20 07:29:49', '2024-05-20 08:40:21', 7, 1);
 
 -- --------------------------------------------------------
 
@@ -207,26 +213,21 @@ CREATE TABLE `expenses` (
   `employee_id` bigint(20) DEFAULT NULL,
   `material_name` varchar(191) DEFAULT NULL,
   `material_qty` double(8,2) DEFAULT NULL,
-  `file` varchar(191) DEFAULT NULL
+  `file` varchar(191) DEFAULT NULL,
+  `adjustment_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `expenses`
 --
 
-INSERT INTO `expenses` (`id`, `date`, `reference`, `amount`, `note`, `cat_id`, `created_at`, `updated_at`, `type`, `safe_id`, `project_id`, `subcontractor_id`, `user_id`, `employee_id`, `material_name`, `material_qty`, `file`) VALUES
-(1, '2024-05-08', NULL, 4000.00, 'test', NULL, '2024-05-08 09:05:32', '2024-05-11 11:19:14', 'materials', 4, 1, NULL, 1, NULL, 'مواسير', 500.00, '663e1bda3537d.pdf'),
-(3, '2024-05-09', NULL, 500.00, NULL, NULL, '2024-05-08 11:32:49', '2024-05-11 11:22:03', 'materials', 5, 1, NULL, 1, NULL, 'new', 8.00, ''),
-(5, '2024-05-08', NULL, 1200.00, NULL, NULL, '2024-05-08 11:33:34', '2024-05-11 11:53:49', 'other', 4, 1, NULL, 1, NULL, NULL, NULL, '663f2626d00cd.pdf'),
-(6, '2024-05-09', NULL, 5000.00, 'رمل من المحجر', 7, '2024-05-09 07:44:43', '2024-05-09 07:44:43', 'general', 1, NULL, NULL, NULL, NULL, NULL, NULL, '663ca91b6d9dc.pdf'),
-(7, '2024-05-09', NULL, 5000.00, 'اجازة عيد الفطر', 7, '2024-05-09 09:41:49', '2024-05-09 09:53:02', 'general', 5, NULL, NULL, NULL, NULL, NULL, NULL, '663cc72e7bf0c.pdf'),
-(10, '2024-05-11', '50', 50.00, NULL, NULL, '2024-05-11 04:24:34', '2024-05-11 04:24:34', 'subcontractor', 4, 1, 7, 1, NULL, NULL, NULL, '663f1d32d859b.pdf'),
-(11, '2024-05-11', '250', 500.00, NULL, NULL, '2024-05-11 04:29:18', '2024-05-11 11:22:41', 'subcontractor', 4, 1, 7, 1, NULL, NULL, NULL, '663f1e4eae52a.pdf'),
-(12, '2024-05-11', NULL, 150.00, 'd', NULL, '2024-05-11 04:36:22', '2024-05-11 11:41:33', 'tempwages', 4, 1, NULL, 1, 2, NULL, NULL, '663f1ff6d29fc.pdf'),
-(13, '2024-05-11', NULL, 50.00, 'f', NULL, '2024-05-11 05:00:57', '2024-05-11 11:54:35', 'other', 3, 1, NULL, 1, NULL, NULL, NULL, '663f25b9664f2.pdf'),
-(14, '2024-05-11', NULL, 3750.00, 'test', NULL, '2024-05-11 05:18:27', '2024-05-11 05:19:12', 'materials', 4, 1, NULL, 1, NULL, 'new  2', 5.00, '663f29d3b32b6.pdf'),
-(15, '2024-05-11', '185', 4500.00, NULL, NULL, '2024-05-11 09:41:30', '2024-05-11 10:01:10', 'subcontractor', 4, 1, 7, 1, NULL, NULL, NULL, ''),
-(16, '2024-05-11', NULL, 1050.00, '85', NULL, '2024-05-11 10:03:06', '2024-05-11 10:03:06', 'tempwages', 4, 1, NULL, 1, 2, NULL, NULL, '');
+INSERT INTO `expenses` (`id`, `date`, `reference`, `amount`, `note`, `cat_id`, `created_at`, `updated_at`, `type`, `safe_id`, `project_id`, `subcontractor_id`, `user_id`, `employee_id`, `material_name`, `material_qty`, `file`, `adjustment_id`) VALUES
+(1, '2024-05-23', NULL, 10000.00, NULL, NULL, '2024-05-23 10:53:43', '2024-05-23 10:53:43', 'materials', 3, 1, NULL, 10, NULL, 'مواسير بلاستيك 12 بوصة', 500.00, '', NULL),
+(2, '2024-05-23', NULL, 5000.00, 'مصروفات وسلفة عمال', NULL, '2024-05-23 10:54:03', '2024-05-23 10:54:03', 'other', 3, 1, NULL, 10, NULL, NULL, NULL, '', NULL),
+(3, '2024-05-23', NULL, 25000.00, 'تم الاستلام من السيخ عبده', NULL, '2024-05-23 10:55:07', '2024-05-23 10:55:07', 'materials', 3, 1, NULL, 10, NULL, 'غطيان ظهر', 150.00, '', NULL),
+(4, '2024-05-23', NULL, 20000.00, NULL, NULL, '2024-05-23 10:57:15', '2024-05-23 10:57:15', 'materials', 3, 1, NULL, 10, NULL, 'مواسير 16 بوصة', 90.00, '', NULL),
+(5, '2024-05-23', NULL, 5000.00, 'جاز  للجرار', NULL, '2024-05-23 10:57:44', '2024-05-23 10:57:44', 'other', 3, 1, NULL, 10, NULL, NULL, NULL, '', NULL),
+(6, '2024-05-23', '250', 250000.00, NULL, NULL, '2024-05-23 18:09:25', '2024-05-23 18:09:25', 'subcontractor', 2, 1, 1, 1, NULL, NULL, NULL, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -407,7 +408,15 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (49, '2024_03_27_040059_add_safe_id_to_assets_table', 18),
 (50, '2024_05_08_175704_add_file_to_revenues_table', 19),
 (51, '2024_05_08_181508_create_project_files_table', 20),
-(52, '2024_05_11_160251_create_project_ptofits_table', 21);
+(52, '2024_05_11_160251_create_project_ptofits_table', 21),
+(53, '2024_05_14_045023_rename_ptofits_to_project_profits_table', 22),
+(54, '2024_05_15_113556_add_parent_id_to_safes_table', 23),
+(55, '2024_05_15_124840_add_manager_id_to_projects_table', 24),
+(56, '2024_05_19_193853_add_account_id_to_employees_table', 25),
+(57, '2024_05_19_202050_add_active_to_employees_table', 26),
+(58, '2024_05_23_190608_create_adjustments_table', 27),
+(59, '2024_05_23_191345_add_adjustment_id_to_expenses_table', 27),
+(60, '2024_05_23_191425_add_adjustment_id_to_safe_transfers_table', 27);
 
 -- --------------------------------------------------------
 
@@ -480,14 +489,6 @@ CREATE TABLE `pages` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `pages`
---
-
-INSERT INTO `pages` (`id`, `key`, `name_ar`, `name_en`, `content_en`, `content_ar`, `photo`, `meta_keywords`, `meta_description`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'أيهما أفضل الألومنيوم أم البي في سي (upvc)؟', 'UPVC', '<p>Although Alumetal is a more durable material, UPVC is also a more durable material. If you are looking for windows that you want to virtually install and then forget about, investing in uPVC windows will definitely be a step in the right direction for you.</p>\r\n\r\n<p>Weather and insect resistance<br />\r\nPVC doors and windows do not rust and are not affected by moisture and heat, thus saving you maintenance. As for aluminum, it needs to be repainted after a while, with the possibility of peeling, easy scratching, and color fading, as it is affected by water and moisture that contain salts. Therefore, PVC is more suitable and better for coastal areas close to seas and rivers.</p>\r\n\r\n<p>thermal insulation<br />\r\nThe upvc windows and profiles are of the best quality, because they are characterized by the presence of additional chambers inside the outer frame and the opening cover, which gives these high-quality profiles along with the inherent strength and durability and the ability to fully thermally insulate. On the other hand, aluminum windows may turn out to be stronger in terms of being metal. But it achieves a &ldquo;thermal break&rdquo; through the presence of a thermal strip of polyamide separating the inner and outer frame, which means that it is a good conductor of heat, which means that you will suffer from excessive heat in the summer and extreme cold in the winter, and this was the difference between Alumetal and PVC in terms of thermal insulation.</p>\r\n\r\n<p>The life span<br />\r\nIn general, upvc sectors are sectors with a long life span, as a ten-year guarantee is obtained with these sectors, and another proof of this is that water pipes that last for many years and years are made of upvc, which means that it is a material with a long life span, unlike alumetal which is highly susceptible to wear and tear over time.</p>\r\n\r\n<p><br />\r\nmaintenance<br />\r\nLike most materials, PVCU and aluminum need to be cleaned every now and then with a damp cloth to remove any dirt, but that&#39;s about it. It never needs to be repainted or treated, but alumetal may need maintenance from time to time, especially because it is greatly affected by climatic changes and is highly susceptible to corrosion and damage, and this was the difference between alumetal and pvc in terms of maintenance.</p>\r\n\r\n<p>The difference between aluminum and PVC in terms of cost<br />\r\nDue to manufacturing costs, as well as the type of material, installing an aluminum window is usually much more expensive than installing a uPVC window.<br />\r\nAlthough Alumetal is a more durable material, UPVC is also a more durable material.<br />\r\nIf you are looking for windows that you actually want to install and then forget about, investing in uPVC windows will definitely be a step in the right direction for you.<br />\r\nUPVC windows are offered at a more affordable price than aluminum windows, but they also have a surprisingly long lifespan.<br />\r\nUPVC windows are highly resistant to mold, and uPVC windows are ideal for those looking to install windows in a medium-sized building.</p>', '<p dir=\"rtl\">على الرغم&nbsp;<strong>من</strong>&nbsp;أن الالوميتال مادة أكثر قدرة على التحمل، إلا أن اليو بي في سي مادة أكثر تحملًا&nbsp;<strong>هي</strong>&nbsp;الأخرى. إذا كنت تبحث عن نوافذ تريد تثبيتها فعليًا ثم نسيانها ، فإن الاستثمار في نوافذ&nbsp;<strong>uPVC</strong>&nbsp;سيكون بالتأكيد خطوة في الاتجاه الصحيح بالنسبة لك.</p>\r\n\r\n<h3 dir=\"rtl\">مقاومة العوامل الجوية و الحشرات</h3>\r\n\r\n<p dir=\"rtl\">أبواب وشبابيك PVC لا تصدأ ولا تتأثر بالرطوبة والحرارة وبالتالى توفر عليك الصيانه. أما الألمونيوم يحتاج إلى إعادة طلاء بعد فترة مع إمكانية التقشير و سهولة الخدش و بهتان اللون حيث أنه يتأثر بالمياه و الرطوبة التى تحتوى على أملاح. ولذلك الـ pvc أنسب وأفضل للمناطق الساحلية القريبه من البحار والأنهار.</p>\r\n\r\n<ul dir=\"rtl\">\r\n	<li>\r\n	<h3 style=\"text-align:right\">العزل الحراري</h3>\r\n	</li>\r\n</ul>\r\n\r\n<p dir=\"rtl\">تعتبر نوافذ وقطاعات&nbsp; upvc ذات الجودة الأفضل&nbsp; وذلك لأنها تتميز بوجود غرف إضافية داخل الإطار الخارجي والغطاء الافتتاحي، مما يعطي هذه القطاعات ذات الجودة العالية بجانب القوة والمتانة المتأصلة والقدرة على العزل الحراري التام، أما على الجانب الاخر فقد يتضح أن نوافذ الألمنيوم أقوى من حيث كونها معدنًا ولكنها تحقق &ldquo;كسرًا حراريًا&rdquo; من خلال وجود شريط حراري من مادة البولي أميد يفصل بين الإطار الداخلي والخارجي، مما يعني أنها موصلة جيدة للحرارة مما يعني أنك ستعاني من الحرارة الزائدة في الصيف والبرد الشديد في الشتاء,وهذا كان الفرق بين الالوميتال و pvc من حيث العزل الحراري.</p>\r\n\r\n<ul>\r\n	<li>\r\n	<h3 dir=\"rtl\" style=\"text-align:right\">العمر الافتراضي</h3>\r\n	</li>\r\n</ul>\r\n\r\n<p dir=\"rtl\">بشكل عام تعتبر قطاعات upvc&nbsp; هي القطاعات ذات العمر الافتراضي الطويل حيث يتم الحصول على ضمان لمدة&nbsp; عشر سنوات مع هذه القطاعات، والدليل الآخر على هذا أن مواسير المياه التي تستمر لسنوات وسنوات عديدة مصنعة من upvc مما يعني أنها مادة ذات عمر افتراضي طويل، على عكس الالوميتال الذي يكون عرضة بشكل كبير للتآكل والتلف مع مرور الوقت.<br />\r\n&nbsp;</p>\r\n\r\n<ul dir=\"rtl\">\r\n	<li>\r\n	<h3 style=\"text-align:right\">الصيانة</h3>\r\n	</li>\r\n</ul>\r\n\r\n<p dir=\"rtl\">مثل معظم المواد ، يحتاج PVCU والالمنيوم للتنظيف بين الحين والآخر بقطعة قماش مبللة لإزالة أي أوساخ ، ولكن هذا كل شيء. لا تحتاج أبدًا إلى إعادة طلاءها أو معالجتها، ولكن قد يحتاج الالوميتال إلى صيانة من حين لآخر خاصة لانه يتأثر بشكل كبير بالتغيرات المناخية ويكون عرضة بشكل كبير للتآكل والتلف,وهذا كان الفرق بين الالوميتال و pvc من حيث الصيانة.</p>\r\n\r\n<h2 dir=\"rtl\">الفرق بين الألمنيوم و pvc من حيث التكلفة</h2>\r\n\r\n<ul>\r\n	<li dir=\"rtl\" style=\"text-align:right\">نظرًا لتكاليف التصنيع ، بالإضافة إلى نوع الخامة ، فإن تركيب نافذة مصنوعة من الألمنيوم عادة ما يكون أغلى بكثير من تركيب نافذة مصنوعة من uPVC..</li>\r\n	<li dir=\"rtl\" style=\"text-align:right\">على الرغم من أن الالوميتال&nbsp; مادة أكثر قدرة على التحمل، إلا أن اليو بي في سي مادة أكثر تحملًا هي الأخرى.</li>\r\n	<li dir=\"rtl\" style=\"text-align:right\">إذا كنت تبحث عن نوافذ تريد تثبيتها فعليًا ثم نسيانها ، فإن الاستثمار في نوافذ uPVC سيكون بالتأكيد خطوة في الاتجاه الصحيح بالنسبة لك.</li>\r\n	<li dir=\"rtl\" style=\"text-align:right\">نوافذ upvc تقدم بأسعار معقولة أكثر من نوافذ الألمنيوم ، ولكن لها أيضًا عمر طويل بشكل مدهش.</li>\r\n	<li dir=\"rtl\" style=\"text-align:right\">نوافذ اليو بي في سي تتميز مقاومتها العالية لل<a href=\"https://ar.wikipedia.org/wiki/%D8%B9%D9%81%D9%86\" rel=\"noopener\" target=\"_blank\">عفن</a>&nbsp;، وتعتبر نوافذ uPVC مثالية لأولئك الذين يتطلعون إلى تثبيت النوافذ في مبنى متوسط ​​الحجم.</li>\r\n</ul>', '16908016757q5TsHZdRV.jpg', 'UPVC', 'أيهما أفضل الألومنيوم أم البي في سي (upvc)؟', '2023-07-30 12:08:48', '2023-08-01 02:08:55'),
-(2, NULL, 'مميزات وعيوب upvc', 'upvc advantages and disadvantages', '<p>UPVC windows features<br />\r\n1. Helps save energy<br />\r\nOne of the most important features of UPVC windows is their ability to insulate heat, as they reflect the heat coming from outside in the summer and prevent the heat from leaking from inside the house to the outside in the winter. Therefore, UPVC windows increase the efficiency of cooling and heating, and save you from running air conditioning or heating for long periods, and save you from exorbitant electricity bills.</p>\r\n\r\n<p>2. Ease and speed of installation<br />\r\nUPVC windows are easy to install when compared to wood or alumetal. Its installation takes a few minutes. The manufacturer usually installs them, as the agreed cost includes both manufacturing and installation. And if you want to maintain or clean it, you can easily remove the UPVC window and install it yourself without the need to seek the help of a specialist.</p>\r\n\r\n<p>3. Easy to clean<br />\r\nUPVC windows are easy to clean, which saves you a lot of effort and time. They are also not affected by daily detergents, so you can simply clean them and polish them with a towel and a light polish. In addition, you can take it off yourself to polish it and install it again.</p>\r\n\r\n<p>4. Durability and no need for periodic maintenance<br />\r\nUPVC windows are resistant to high humidity and various weather factors. So it does not rust or rot. UPVC windows are also resistant to shocks, scratches and corrosion. All these features make it do not need regular maintenance. It is more durable and longevity than wood and alumetal, which saves you from spending more money on maintenance and care.</p>\r\n\r\n<p>5. Prevent dust and noise leakage<br />\r\nOne of the most important features of UPVC windows is their protection from air and sound pollution. They prevent dust from entering the house to a large extent. It is also tightly sealed, preventing water from entering the house also in the event of heavy rain.</p>\r\n\r\n<p>UPVC windows also provide you with a sense of calm inside your home. Whatever the noise outside the house, UPVC windows prevent it from leaking into the house. Where it has the ability to insulate sound just as it insulates heat.</p>\r\n\r\n<p>6. Variety of shapes and sizes<br />\r\nUPVC window makers provide sectors in different shapes. Therefore, you can specify the specifications that you need in terms of frame colors or the colors of the glass used and its type, whether double or single, reflective or opaque. You can also choose the opening system that suits you, whether it is tractor or hinge, and other opening systems.</p>\r\n\r\n<p>The unit price is determined according to the specifications that you choose for both the frame and the glass. Prices vary between different colors and types.</p>\r\n\r\n<p>7. Long years warranty<br />\r\nThe warranty years for UPVC windows vary according to the manufacturer and the specifications of the window you choose. But you usually get a guarantee of up to ten years and twenty years as well, especially when the UPVC sector is of high quality.</p>\r\n\r\n<p>There is no doubt that the existence of the warranty gives you a sense of reassurance when purchasing, especially with regard to manufacturing defects that may appear with the passage of time.</p>\r\n\r\n<p>Disadvantages of UPVC windows<br />\r\n1. It is not environmentally friendly<br />\r\nPoly chloride vinyl, which is used to manufacture UPVC windows, is completely chemical. The manufacturing process itself depends entirely on chemical processes and reactions. Of course, these chemicals and processes leave a harmful effect on the environment. If you are a supporter of environmental conservation, perhaps it is more appropriate to choose wooden windows.</p>\r\n\r\n<p>2. The quality of UPVC windows varies from one company to another<br />\r\nWith the increasing demand for UPVC windows, the number of companies and factories that manufacture and supply them to customers has increased dramatically. Of course, quality varies and varies in degree between companies and suppliers. Which makes the customer lost and confused not knowing which one is the best quality and durability. Therefore, we advise you to investigate well and search for evaluation and experiences of other customers with the supplier or company that you wish to purchase from.</p>', '<h1 dir=\"rtl\" style=\"text-align:center\"><span style=\"font-family:Comic Sans MS,cursive\">مميزات شبابيك UPVC</span></h1>\r\n\r\n<h3 dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\"><strong>1. يساعد على توفير الطاقة</strong></span></h3>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">من اهم مميزات نوافذ يو بي في سي (UPVC ) هي فدرتها على عزل الحرارة ،حيث تعكس الحرارة القادمة من الخارج في الصيف و تمنع تسرب الحرارة من داخل البيت الى خارجه في الشتاء. لذا ترفع&nbsp; نوافذ UPVC من كفاءة التبريد و التدفئة ، و توفر عليك تشغيل التكييف او المدفأة لفترات طويلة و ترحمك من فواتير الكهرباء الباهظة.</span></p>\r\n\r\n<hr />\r\n<h3 dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\"><strong>2. سهولة و سرعة التركيب</strong></span></h3>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">تتميز شبابيك UPVC بسهولة التركيب عند مقارنتها بالخشب او الالوميتال. يستغرق تركيبها دقائق معدودة . عادة ما تقوم الشركة المصنعة بتركيبها ،حيث ان التكلفة المتفق عليها تشمل كلا من التصنيع و التركيب. و في حال أردت صيانتها او تنظيفها يمكنك خلع شباك UPVC و تركيبه بنفسك بسهولة دون الحاجة الى الاستعانة بمختص.</span></p>\r\n\r\n<h3 dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\"><strong>3. سهولة التنظيف&nbsp;</strong></span></h3>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">نوافذ اليو بي في سي سهلة التنظيف، مما يوفر عليك الكثير من المجهود و الوقت.كما أنها لا تتأثر بالمنظفات اليومية، فيمكنك بكل بساطة نتظيفها و تلميعها بفوطة و ملمع خفيف. بالاضافة الى انه يمكنك خلعه بنفسك لتلميعه و تركيبه مرة اخرى.</span></p>\r\n\r\n<hr />\r\n<h3 dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\"><strong>4. المتانة و عدم الحاجة الى صيانة دورية</strong></span></h3>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">شبابيك اليو بي في سي مقاومة للرطوبة العالية و عوامل الطقس المختلفة . لذا فهي لا تصدأ أو تتعفن . شباك اليو بي في سي مقاوم أيضا للصدمات و الخدوش و التاكل. كل هذه المميزات تجعلها لا تحتاج الى صيانة دورية. فهي أكثر متانة و طول عمر من الخشب و الالوميتال، مما يوفر عليك انفاق المزيد من الاموال للصيانة و العناية بها.</span></p>\r\n\r\n<hr />\r\n<h3 dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">5. منع تسرب الاتربة و الضوضاء</span></h3>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">من أهم مميزات نوافذ UPVC هي حمايتك من التلوث الهوائي و السمعي.حيث تمنع تسرب الاتربة الى داخل البيت بشكل كبير . كما انها محكمة الغلق ،فتمنع تسرب المياه الى داخل المنزل ايضا في حال هطول امطار شديدة.</span></p>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">شبابيك اليو بي في سي توفر لك أيضا الشعور بالهدوء داخل بيتك. مهما كانت الضوضاء التي تعج خارج البيت ، تمنع شبابيك اليو بي في سي تسربها الى داخل المنزل . حيث لها القدرة على عزل الصوت مثلما تعزل الحرارة.</span></p>\r\n\r\n<h3 dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\"><strong>6. تنوع الاشكال و الاحجام</strong></span></h3>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">يوفر صناع شبابيك اليو بي في سي قطاعات باشكال مختلفة. لذا يمكنك تحديد المواصفات التي تحتاجها من حيث الوان الاطار او الوان الزجاج المستخدم و نوعه سواء مزدوج او فردي ، عاكس او معتم . يمكنك أيضا اختيار نظام الفتح المناسب لك سواء كان جرار او مفصلي و غيرها من انظمة الفتح.</span></p>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">يتم تحديد سعر الوحدة على حسب المواصفات التي تختارها لكل من الاطار و الزجاج . الاسعار متفاوتة بين الالوان و الانواع المختلفة.</span></p>\r\n\r\n<p dir=\"rtl\">&nbsp;</p>\r\n\r\n<h3 dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\"><strong>7. ضمان لسنوات طويلة&nbsp;</strong></span></h3>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">تختلف سنوات الضمان&nbsp; شبابيك UPVC بحسب الشركة المصنعة و مواصفات الشباك الذي تختاره . لكن عادة ما تحصل على ضمان يصل الى عشر سنوات و عشرون سنة ايضا ، خاصة عندما يكون قطاع UPVC عالي الجودة.</span></p>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">لاشك ان وجود الضمان يمنحك شعورا بالاطمئنان عند الشراء ، خاصة فيما يتعلق بعيوب الصناعة التي قد تظهر مع مرور الوقت.</span></p>\r\n\r\n<h1 dir=\"rtl\" style=\"text-align:center\"><span style=\"font-family:Comic Sans MS,cursive\"><strong>عيوب شبابيك UPVC</strong></span></h1>\r\n\r\n<h3 dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\"><strong>1. ليست صديقة للبيئة&nbsp;</strong></span></h3>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">مادة &ldquo;البولي كلوريد فينيل poly chloride vinyl&rdquo; التي تستخدم لتصنيع نوافذ اليو بي في سي هي مادة كيميائية تماما . كذلك عملية التصنيع نفسها تعتمد كليا على العمليات و التفاعلات الكيميائية. بالطبع هذه المواد و العمليات الكيميائية تترك اثرا ضارا بالبيئة. ان كنت من انصار الحفاظ على البيئة ، فربما يناسبك اكثر اختيار النوافذ الخشبية.</span></p>\r\n\r\n<hr />\r\n<h3 dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">2. تفاوت جودة شبابيك UPVC من شركة لاخرى</span></h3>\r\n\r\n<p dir=\"rtl\"><span style=\"font-family:Comic Sans MS,cursive\">مع تزايد الطلب على نوافذ UPVC ،ازداد عدد الشركات و المصانع التي تقوم بتصنيعها و توريدها للعملاء بشدة. و بالطبع تختلف الجودة و تتفاوت في درجتها بين الشركات و الموردين . الامر الذي يجعل العميل تائها و حائرا لا يعرف ايهم افضل جودة و متانة. لذا ننصحك بالتحري جيدا و البحث عن تقييم و تجارب عملاء اخرين مع المورد او الشركة التي ترغب بالشراء منها.</span></p>', '1690815488Y7aS9drp42.jpg', 'مميزات وعيوب upvc   upvc advantages and disadvantages', 'مميزات وعيوب upvc', '2023-07-31 18:58:08', '2023-07-31 18:58:08');
-
 -- --------------------------------------------------------
 
 --
@@ -507,19 +508,6 @@ CREATE TABLE `partners` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `partners`
---
-
-INSERT INTO `partners` (`id`, `created_by`, `photo`, `name_ar`, `name_en`, `content_ar`, `content_en`, `active`, `type`, `created_at`, `updated_at`) VALUES
-(2, 1, '1690734855NCgSgPDQcy.coop2.jpeg', '2', '2', NULL, NULL, '1', 'client', '2023-07-30 20:34:15', '2023-07-30 20:35:02'),
-(3, 1, '16907348922GoTm8B0oa.export.jpeg', '3', '3', NULL, NULL, '1', 'client', '2023-07-30 20:34:52', '2023-07-30 20:34:52'),
-(4, 1, '1690734928NdKMut1BWr.headEgypt2.jpeg', '4', '4', NULL, NULL, '1', 'client', '2023-07-30 20:35:28', '2023-07-30 20:35:28'),
-(5, 1, '16907349446AMmCSaeN8.hospital.jpeg', '5', '5', NULL, NULL, '1', 'client', '2023-07-30 20:35:44', '2023-07-30 20:35:55'),
-(6, 1, '1690734968Id9zXqP5i9.insurance.jpeg', '6', '6', NULL, NULL, '1', 'client', '2023-07-30 20:36:08', '2023-07-30 20:36:08'),
-(7, 1, '16908161979N1EBS2uB2.WhatsApp Image 2023-07-31 at 6.09.37 PM.jpeg', 'شريف عبدالفتاح', 'شريف عبدالفتاح', 'من افضل الشركات اللي اتعاملت معاهم مواعيد مظبوطة وشغل نضيف جدا', 'من افضل الشركات اللي اتعاملت معاهم مواعيد مظبوطة وشغل نضيف جدا', '1', 'review', '2023-07-31 19:05:49', '2023-08-03 18:20:18'),
-(8, 1, '1690816498bCgHQpR09X.116268495_738585450259071_6630751358137087762_n.jpg', 'حياتى كلها لله', 'حياتى كلها لله', 'أأمن شركة وأكثرهم ثقه وضمان ربنا يبارك فيكم ويسدد خطاكم والي الامام دايماً يارب', 'أأمن شركة وأكثرهم ثقه وضمان ربنا يبارك فيكم ويسدد خطاكم والي الامام دايماً يارب', '1', 'review', '2023-07-31 19:14:58', '2023-08-03 18:20:25');
 
 -- --------------------------------------------------------
 
@@ -964,68 +952,6 @@ CREATE TABLE `products` (
   `featured` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` (`id`, `name_ar`, `name_en`, `cat_id`, `brand_id`, `desc_ar`, `desc_en`, `photo`, `active`, `meta_keywords`, `meta_des`, `created_at`, `updated_at`, `sup_category`, `supsup_category`, `pdf`, `featured`) VALUES
-(1, 'كبائن شاور', 'Shower Cabins 52', 3, NULL, '<p>test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;</p>', '<p>test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;</p>', '1690735838KWdyhtxTmY.WhatsApp Image 2023-05-23 at 5.35.13 PM.jpeg', 1, '[{\"value\":\"test description\"}]', 'test description', '2023-07-30 12:01:29', '2023-11-12 15:24:34', NULL, NULL, '1690735838B3OQG9OSzj.jpeg', 1),
-(2, 'ستائر مكتبية', 'Rolling Shutters', 2, NULL, '<p>test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;</p>', '<p>test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;</p>', '1690803180Y4NkvKszdX.WhatsApp Image 2023-05-22 at 7.06.01 PM.jpeg', 1, '[{\"value\":\"test description\"}]', 'test description ', '2023-07-30 12:03:38', '2023-08-04 15:19:38', NULL, NULL, NULL, 0),
-(3, 'يو بي فى سي', 'UPVC', 1, NULL, '<p>test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;</p>', '<p>test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;</p>', '1690803241FwaQaUrs4p.WhatsApp Image 2023-05-22 at 7.05.22 PM.jpeg', 1, '[{\"value\":\"test description\"}]', 'test description ', '2023-07-30 12:04:15', '2023-07-31 15:34:01', NULL, NULL, NULL, 0),
-(5, 'Melyssa Serrano', 'Sylvia Spence', 2, NULL, '<p>test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;</p>', '<p>test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;test description&nbsp;</p>', '1690735914nz6cpoXvps.الشيش-الخصيره.jpg', 0, '[{\"value\":\"test description\"}]', 'test description ', '2023-07-30 12:05:04', '2023-08-04 15:17:52', NULL, NULL, NULL, 1),
-(7, 'UPVC', 'UPVC', 1, NULL, '<p>UPVC</p>', '<p>UPVC</p>', '1690811285l64aoQubpE.1.jpg', 1, '[{\"value\":\"UPVC\"}]', 'UPVC', '2023-07-31 17:48:05', '2023-08-01 19:31:54', NULL, NULL, NULL, 1),
-(8, 'UPVC', 'UPVC', 1, NULL, '<p>UPVC</p>', '<p>UPVC</p>', '1690811326X2LkSaYsiK.2.jpg', 1, '[{\"value\":\"UPVC\"}]', 'UPVC', '2023-07-31 17:48:46', '2023-08-01 19:32:19', NULL, NULL, NULL, 0),
-(9, 'UPVC', 'UPVC', 1, NULL, '<p>UPVC</p>', '<p>UPVC</p>', '1690811348onFRvvNC7G.3.jpg', 1, '[{\"value\":\"UPVC\"}]', 'UPVC', '2023-07-31 17:49:08', '2023-08-04 15:17:50', NULL, NULL, NULL, 1),
-(10, 'UPVC', 'UPVC', 1, NULL, '<p>UPVC</p>', '<p>UPVC</p>', '1690811368NZZeKLDwvH.4.jpg', 1, '[{\"value\":\"UPVC\"}]', 'UPVC', '2023-07-31 17:49:28', '2023-08-01 19:31:57', NULL, NULL, NULL, 1),
-(11, 'UPVC', 'UPVC', 1, NULL, '<p>UPVC</p>', '<p>UPVC</p>', '1690811394Vfz2fe60BD.6.jpg', 1, '[{\"value\":\"UPVC\"}]', 'UPVC', '2023-07-31 17:49:54', '2023-07-31 17:50:13', NULL, NULL, NULL, 0),
-(12, 'UPVC', 'UPVC', 1, NULL, '<p>UPVC</p>', '<p>UPVC</p>', '1690811441LGfGeCCAau.5.jpg', 1, '[{\"value\":\"UPVC\"}]', 'UPVC', '2023-07-31 17:50:41', '2023-08-04 15:18:13', NULL, NULL, NULL, 1),
-(13, 'UPVC', 'UPVC', 1, NULL, '<p>UPVC</p>', '<p>UPVC</p>', '1690811462IgYoo0C0Yv.7.jpg', 1, '[{\"value\":\"UPVC\"}]', 'UPVC', '2023-07-31 17:51:03', '2023-07-31 17:53:48', NULL, NULL, NULL, 0),
-(14, 'UPVC', 'UPVC', 1, NULL, '<p>UPVC</p>', '<p>UPVC</p>', '1690811490sRH5ZUJo2A.9.jpg', 1, '[{\"value\":\"UPVC\"}]', 'UPVC', '2023-07-31 17:51:30', '2023-08-01 19:29:38', NULL, NULL, NULL, 1),
-(16, 'UPVC', 'UPVC', 1, NULL, '<p>UPVC</p>', '<p>UPVC</p>', '1690811614XoYpcpc79p.10.jpg', 1, '[{\"value\":\"UPVC\"}]', 'UPVC', '2023-07-31 17:53:34', '2023-07-31 17:53:51', NULL, NULL, NULL, 0),
-(17, 'ِشيش حصير', 'Rolling Shutters', 2, NULL, '<p>ِشيش حصير</p>', '<p>Rolling Shutters</p>', '1690811928B6e5eJuVxi.r1.jpg', 1, '[{\"value\":\"ِشيش حصير\"},{\"value\":\"Rolling Shutters\"}]', 'ِشيش حصير Rolling Shutters', '2023-07-31 17:58:48', '2023-08-04 15:18:05', NULL, NULL, NULL, 0),
-(18, 'ِشيش حصير', 'Rolling Shutters', 2, NULL, '<p>ِشيش حصير</p>', '<p>Rolling Shutters</p>', '1690811982NMVL5L8Mkh.New.jpg', 1, '[{\"value\":\"ِشيش حصير\"},{\"value\":\"Rolling Shutters\"}]', 'ِشيش حصير Rolling Shutters', '2023-07-31 17:59:42', '2023-08-01 19:29:42', NULL, NULL, NULL, 1),
-(20, 'ِشيش حصير', 'Rolling Shutters', 2, NULL, '<p>ِشيش حصير</p>', '<p>Rolling Shutters</p>', '169081220180z9rBvS3A.ad1.jpg', 1, '[{\"value\":\"ِشيش حصير\"},{\"value\":\"Rolling Shutters\"}]', 'ِشيش حصير Rolling Shutters', '2023-07-31 18:03:21', '2023-08-01 19:29:42', NULL, NULL, NULL, 1),
-(22, 'شيش حصير', 'Rolling Shutters', 2, NULL, '<p>شيش حصير</p>', '<p>Rolling Shutters</p>', '1690837426YFXJNGZimx.شيش-1.jpg', 1, '[{\"value\":\"Rolling Shutters\"},{\"value\":\"شيش حصير\"}]', 'Rolling Shutters\r\nشيش حصير', '2023-08-01 01:03:46', '2023-08-01 01:03:46', NULL, NULL, NULL, 0),
-(23, 'شيش حصير', 'Rolling Shutters', 2, NULL, '<p>شيش حصير</p>', '<p>Rolling Shutters</p>', '1690837498g9QiKMlBto.شيش-2.jpg', 1, '[{\"value\":\"Rolling Shutters\\r\\nشيش حصير\"}]', 'Rolling Shutters\r\nشيش حصير', '2023-08-01 01:04:58', '2023-08-01 01:04:58', NULL, NULL, NULL, 0),
-(24, 'شيش حصير', 'Rolling Shutters', 2, NULL, '<p>شيش حصير</p>', '<p>Rolling Shutters</p>', '1690837590ixsWLtQL7G.شيش-3.jpg', 1, '[{\"value\":\"Rolling Shutters\\r\\nشيش حصير\"}]', 'Rolling Shutters\r\nشيش حصير', '2023-08-01 01:06:30', '2023-08-01 01:07:05', NULL, NULL, NULL, 0),
-(25, 'شيش حصير', 'Rolling Shutters', 2, NULL, '<p>شيش حصير</p>', '<p>Rolling Shutters</p>', '1690837703ujgoexa7DI.شيش-4.jpg', 1, '[{\"value\":\"Rolling Shutters\\r\\nشيش حصير\"}]', 'Rolling Shutters\r\nشيش حصير', '2023-08-01 01:08:23', '2023-08-01 01:08:23', NULL, NULL, NULL, 0),
-(26, 'شيش حصير', 'Rolling Shutters', 2, NULL, '<p>شيش حصير</p>', '<p>Rolling Shutters</p>', '1690837770Tou7nTgCNi.شيش-5.jpg', 1, '[{\"value\":\"Rolling Shutters\\r\\nشيش حصير\"}]', 'Rolling Shutters\r\nشيش حصير', '2023-08-01 01:09:30', '2023-08-01 01:09:30', NULL, NULL, NULL, 0),
-(27, 'شيش حصير', 'Rolling Shutters', 2, NULL, '<p>شيش حصير</p>', '<p>Rolling Shutters</p>', '1690837833ks4LRwKau2.شيش-6.jpg', 1, '[{\"value\":\"Rolling Shutters\\r\\nشيش حصير\"}]', 'Rolling Shutters\r\nشيش حصير', '2023-08-01 01:10:33', '2023-08-01 01:10:33', NULL, NULL, NULL, 0),
-(28, 'شيش حصير', 'Rolling Shutters', 2, NULL, '<p>شيش حصير</p>', '<p>Rolling Shutters</p>', '1690837898KFq3maK0Yo.شيش-7.jpg', 1, '[{\"value\":\"Rolling Shutters\\r\\nشيش حصير\"}]', 'Rolling Shutters\r\nشيش حصير', '2023-08-01 01:11:38', '2023-08-01 01:11:38', NULL, NULL, NULL, 0),
-(29, 'شيش حصير', 'Rolling Shutters', 2, NULL, '<p>شيش حصير</p>', '<p>Rolling Shutters</p>', '1690837954tLaIomXfuI.شيش-8.jpg', 1, '[{\"value\":\"Rolling Shutters\\r\\nشيش حصير\"}]', 'Rolling Shutters\r\nشيش حصير', '2023-08-01 01:12:34', '2023-08-01 01:12:34', NULL, NULL, NULL, 0),
-(30, 'شيش حصير', 'Rolling Shutters', 2, NULL, '<p>شيش حصير</p>', '<p>Rolling Shutters</p>', '1690838025vGhH8wWPO5.شيش-9.jpg', 1, '[{\"value\":\"Rolling Shutters\\r\\nشيش حصير\"}]', 'Rolling Shutters\r\nشيش حصير', '2023-08-01 01:13:45', '2023-08-01 01:13:45', NULL, NULL, NULL, 0),
-(31, 'شيش حصير', 'Rolling Shutters', 2, NULL, '<p>شيش حصير</p>', '<p>Rolling Shutters</p>', '1690838078P2dUwRAYGj.شيش-10.jpg', 1, '[{\"value\":\"Rolling Shutters\\r\\nشيش حصير\"}]', 'Rolling Shutters\r\nشيش حصير', '2023-08-01 01:14:38', '2023-08-01 01:14:38', NULL, NULL, NULL, 0),
-(32, 'ستائر', 'Office curtains', 4, NULL, '<p>ستائر</p>', '<p>Office curtains</p>', '16908400623x8LXZkCVs.ستائر-1.jpg', 1, '[{\"value\":\"Office curtains\\r\\nستائر\"}]', 'Office curtains\r\nستائر', '2023-08-01 01:47:42', '2023-08-01 01:47:42', NULL, NULL, NULL, 0),
-(33, 'ستائر', 'Office curtains', 4, NULL, '<p>ستائر</p>', '<p>Office curtains</p>', '16908401253ZaReWlym5.ستائر-2.jpg', 1, '[{\"value\":\"Office curtains\\r\\nستائر\"}]', 'Office curtains\r\nستائر', '2023-08-01 01:48:45', '2023-08-01 01:48:45', NULL, NULL, NULL, 0),
-(34, 'ستائر', 'Office curtains', 4, NULL, '<p>ستائر</p>', '<p>Office curtains</p>', '1690840189GnEWmY0REa.ستائر-3.jpg', 1, '[{\"value\":\"Office curtains\\r\\nستائر\"}]', 'Office curtains\r\nستائر', '2023-08-01 01:49:49', '2023-08-01 01:49:49', NULL, NULL, NULL, 0),
-(35, 'ستائر', 'Office curtains', 4, NULL, '<p>ستائر</p>', '<p>Office curtains</p>', '1690840245ouWxMquMMo.ستائر-4.jpg', 1, '[{\"value\":\"Office curtains\\r\\nستائر\"}]', 'Office curtains\r\nستائر', '2023-08-01 01:50:45', '2023-08-01 01:52:17', NULL, NULL, NULL, 0),
-(36, 'ستائر', 'Office curtains', 4, NULL, '<p>ستائر</p>', '<p>Office curtains</p>', '1690840302Ks1Z7NfWi1.ستائر-5.jpg', 1, '[{\"value\":\"Office curtains\\r\\nستائر\"}]', 'Office curtains\r\nستائر', '2023-08-01 01:51:42', '2023-08-01 01:51:42', NULL, NULL, NULL, 0),
-(37, 'ستائر', 'Office curtains', 4, NULL, '<p>ستائر</p>', '<p>Office curtains</p>', '1690840398lSQ5szVLOD.ستائر-6.jpg', 1, '[{\"value\":\"Office curtains\\r\\nستائر\"}]', 'Office curtains\r\nستائر', '2023-08-01 01:53:18', '2023-08-01 01:53:18', NULL, NULL, NULL, 0),
-(38, 'ستائر', 'Office curtains', 4, NULL, '<p>ستا\\ر</p>', '<p>Office curtains</p>', '169084044964FqX7ZHvF.ستائر-7.jpg', 1, '[{\"value\":\"Office curtains\\r\\nستائر\"}]', 'Office curtains\r\nستائر', '2023-08-01 01:54:09', '2023-08-04 15:18:22', NULL, NULL, NULL, 0),
-(39, 'ستائر', 'Office curtains', 4, NULL, '<p>ستائر</p>', '<p>Office curtains</p>', '1690840498gVQHcHgXgI.ستائر-8.jpg', 0, '[{\"value\":\"Office curtains\\r\\nستائر\"}]', 'Office curtains\r\nستائر', '2023-08-01 01:54:58', '2023-08-01 01:54:58', NULL, NULL, NULL, 0),
-(40, 'ستائر', 'Office curtains', 4, NULL, '<p>ستائر</p>', '<p>Office curtains</p>', '1690840546hPN7Lt9MqP.ستائر-9.jpg', 1, '[{\"value\":\"Office curtains\\r\\nستائر\"}]', 'Office curtains\r\nستائر', '2023-08-01 01:55:46', '2023-08-01 01:55:46', NULL, NULL, NULL, 0),
-(41, 'ستائر', 'Office curtains', 4, NULL, '<p>ستائر</p>', '<p>Office curtains</p>', '1690840601kbNOr2En7I.ستائر-10.jpg', 1, '[{\"value\":\"Office curtains\\r\\nستائر\"}]', 'Office curtains\r\nستائر', '2023-08-01 01:56:41', '2023-08-04 15:19:28', NULL, NULL, NULL, 0),
-(42, 'كبائن شاور', 'Shower Cabins', 3, NULL, '<p>كبائن شاور</p>', '<p>Shower Cabins</p>', '1690842663qLt3mw666E.كبينة-1.jpg', 1, '[{\"value\":\"Shower Cabins\\r\\nكبائن شاور\"}]', 'Shower Cabins\r\nكبائن شاور', '2023-08-01 02:31:03', '2023-08-01 02:31:03', NULL, NULL, NULL, 0),
-(43, 'كبائن شاور', 'Shower Cabins', 3, NULL, '<p>كبائن شاور</p>', '<p>Shower Cabins</p>', '1690842722wkqRCdHqiy.كبينة-2.jpg', 1, '[{\"value\":\"Shower Cabins\\r\\nكبائن شاور\"}]', 'Shower Cabins\r\nكبائن شاور', '2023-08-01 02:32:02', '2023-08-01 02:32:02', NULL, NULL, NULL, 0),
-(44, 'كبائن شاور', 'Shower Cabins', 3, NULL, '<p>كبائن شاور</p>', '<p>Shower Cabins</p>', '1690842785DlBYFhdpZ5.كبينة-3.jpg', 1, '[{\"value\":\"Shower Cabins\\r\\nكبائن شاور\"}]', 'Shower Cabins\r\nكبائن شاور', '2023-08-01 02:33:05', '2023-08-01 02:33:05', NULL, NULL, NULL, 0),
-(45, 'كبائن شاور', 'Shower Cabins', 3, NULL, '<p>كبائن شاور</p>', '<p>Shower Cabins</p>', '169084287466fPn2ay83.كبينة-4.jpg', 1, '[{\"value\":\"Shower Cabins\\r\\nكبائن شاور\"}]', 'Shower Cabins\r\nكبائن شاور', '2023-08-01 02:34:34', '2023-08-01 02:34:34', NULL, NULL, NULL, 0),
-(46, 'كبائن شاور', 'Shower Cabins', 3, NULL, '<p>كبائن شاور</p>', '<p>Shower Cabins</p>', '1690842941Bra0h61eQk.كبينة-5.jpg', 1, '[{\"value\":\"Shower Cabins\\r\\nكبائن شاور\"}]', 'Shower Cabins\r\nكبائن شاور', '2023-08-01 02:35:41', '2023-08-01 02:35:41', NULL, NULL, NULL, 0),
-(47, 'كبائن شاور', 'Shower Cabins', 3, NULL, '<p>كبائن شاور</p>', '<p>Shower Cabins</p>', '1690842997GxFCJLXCbo.كبينة-6.jpg', 1, '[{\"value\":\"Shower Cabins\\r\\nكبائن شاور\"}]', 'Shower Cabins\r\nكبائن شاور', '2023-08-01 02:36:37', '2023-08-01 02:36:37', NULL, NULL, NULL, 0),
-(48, 'كبائن شاور', 'Shower Cabins', 3, NULL, '<p>كبائن شاور</p>', '<p>Shower Cabins</p>', '1690843062ddOlC4QaRs.كبينة-7.jpg', 1, '[{\"value\":\"Shower Cabins\\r\\nكبائن شاور\"}]', 'Shower Cabins\r\nكبائن شاور', '2023-08-01 02:37:42', '2023-08-01 02:37:42', NULL, NULL, NULL, 0),
-(49, 'كبائن شاور', 'Shower Cabins', 3, NULL, '<p>كبائن شاور</p>', '<p>Shower Cabins</p>', '1690843120l37cbsvELo.كبينة-8.jpg', 1, '[{\"value\":\"Shower Cabins\\r\\nكبائن شاور\"}]', 'Shower Cabins\r\nكبائن شاور', '2023-08-01 02:38:40', '2023-08-01 02:38:40', NULL, NULL, NULL, 0),
-(50, 'كبائن شاور', 'Shower Cabins', 3, NULL, '<p>كبائن شاور</p>', '<p>Shower Cabins</p>', '1690843185yAmijabCv3.كبينة-9.jpg', 1, '[{\"value\":\"Shower Cabins\\r\\nكبائن شاور\"}]', 'Shower Cabins\r\nكبائن شاور', '2023-08-01 02:39:45', '2023-08-04 15:18:35', NULL, NULL, NULL, 1),
-(51, 'كبائن شاور', 'Shower Cabins', 3, NULL, '<p>كبائن شاور</p>', '<p>Shower Cabins</p>', '1690843245orxGX6ieFm.كبينة-10.jpg', 1, '[{\"value\":\"Shower Cabins\\r\\nكبائن شاور\"}]', 'Shower Cabins\r\nكبائن شاور', '2023-08-01 02:40:46', '2023-08-01 02:40:46', NULL, NULL, NULL, 0),
-(52, 'ابواب', 'Room Doors', 5, NULL, '<p>ابواب</p>', '<p>Room Doors</p>', '1690845566zM7TrvrYPa.باب-1.jpg', 1, '[{\"value\":\"Room Doors\\r\\nابواب\"}]', 'Room Doors\r\nابواب', '2023-08-01 03:19:26', '2023-08-01 03:19:26', NULL, NULL, NULL, 0),
-(53, 'ابواب', 'Room Doors', 5, NULL, '<p>ابواب</p>', '<p>Room Doors</p>', '16908456131TrftApWQm.باب-2.jpg', 1, '[{\"value\":\"Room Doors\\r\\nابواب\"}]', 'Room Doors\r\nابواب', '2023-08-01 03:20:13', '2023-08-01 03:20:13', NULL, NULL, NULL, 0),
-(54, 'ابواب', 'Room Doors', 5, NULL, '<p>ابواب</p>', '<p>Room Doors</p>', '1690845661S1mXpz4eUz.باب-3.jpg', 1, '[{\"value\":\"Room Doors\\r\\nابواب\"}]', 'Room Doors\r\nابواب', '2023-08-01 03:21:01', '2023-08-04 15:18:44', NULL, NULL, NULL, 1),
-(55, 'ابواب', 'Room Doors', 5, NULL, '<p>ابواب</p>', '<p>Room Doors</p>', '1690845702hfmPxC69vr.باب-4.jpg', 1, '[{\"value\":\"Room Doors\\r\\nابواب\"}]', 'Room Doors\r\nابواب', '2023-08-01 03:21:42', '2023-08-01 03:21:42', NULL, NULL, NULL, 0),
-(56, 'ابواب', 'Room Doors', 5, NULL, '<p>&nbsp;</p>\r\n\r\n<p>ابواب</p>', '<p>Room Doors</p>', '1690845748KwC2LS6rKw.باب-5.jpg', 1, '[{\"value\":\"Room Doors\\r\\nابواب\"}]', 'Room Doors\r\nابواب', '2023-08-01 03:22:28', '2023-08-01 03:22:28', NULL, NULL, NULL, 0),
-(57, 'ابواب', 'Room Doors', 5, NULL, '<p>ابواب</p>', '<p>Room Doors</p>', '1690845787GPR6KfNB4h.باب-6.jpg', 1, '[{\"value\":\"Room Doors\\r\\nابواب\"}]', 'Room Doors\r\nابواب', '2023-08-01 03:23:07', '2023-08-01 03:23:07', NULL, NULL, NULL, 0),
-(58, 'ابواب', 'Room Doors', 5, NULL, '<p>ابواب</p>', '<p>Room Doors</p>', '16908458263Xz0t7hpcS.باب-7.jpg', 1, '[{\"value\":\"Room Doors\\r\\nابواب\"}]', 'Room Doors\r\nابواب', '2023-08-01 03:23:46', '2023-08-01 03:23:46', NULL, NULL, NULL, 0),
-(59, 'ابواب', 'Room Doors', 5, NULL, '<p>ابواب</p>', '<p>Room Doors</p>', '16908458705arXjDDPpx.باب-8.jpg', 1, '[{\"value\":\"Room Doors\\r\\nابواب\"}]', 'Room Doors\r\nابواب', '2023-08-01 03:24:30', '2023-08-01 03:24:30', NULL, NULL, NULL, 0),
-(60, 'ابواب', 'Room Doors', 5, NULL, '<p>ابواب</p>', '<p>Room Doors</p>', '16908459126IWl8Yt8x2.باب-9.jpg', 1, '[{\"value\":\"Room Doors\\r\\nابواب\"}]', 'Room Doors\r\nابواب', '2023-08-01 03:25:12', '2023-08-01 03:25:12', NULL, NULL, NULL, 0),
-(61, 'ابواب', 'Room Doors', 5, NULL, '<p>ابواب</p>', '<p>Room Doors</p>', '1690845951oj1lPC7y3u.باب-10.jpg', 1, '[{\"value\":\"Room Doors\\r\\nابواب\"}]', 'Room Doors\r\nابواب', '2023-08-01 03:25:51', '2023-08-01 03:26:27', NULL, NULL, NULL, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -1039,26 +965,6 @@ CREATE TABLE `product_photos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `product_photos`
---
-
-INSERT INTO `product_photos` (`id`, `product_id`, `photo`, `created_at`, `updated_at`) VALUES
-(1, 1, '169073573864SY1mtmzZ.Ad.jpg', '2023-07-30 20:48:58', '2023-07-30 20:48:58'),
-(2, 1, '1690735782utodBLaEvr.WhatsApp Image 2023-05-23 at 5.35.13 PM.jpeg', '2023-07-30 20:49:42', '2023-07-30 20:49:42'),
-(3, 1, '169073578257CekepvMT.WhatsApp Image 2023-05-23 at 5.35.14 PM (1).jpeg', '2023-07-30 20:49:42', '2023-07-30 20:49:42'),
-(4, 3, '16908110848ZLxe1z2SB.1.jpg', '2023-07-31 17:44:44', '2023-07-31 17:44:44'),
-(5, 3, '1690811084OkfdZ66XYn.2.jpg', '2023-07-31 17:44:45', '2023-07-31 17:44:45'),
-(6, 3, '1690811085K13Lys8vqR.3.jpg', '2023-07-31 17:44:45', '2023-07-31 17:44:45'),
-(7, 3, '1690811085bHcQuSA0c2.4.jpg', '2023-07-31 17:44:45', '2023-07-31 17:44:45'),
-(8, 3, '16908110858sbfSpjBr0.5.jpg', '2023-07-31 17:44:45', '2023-07-31 17:44:45'),
-(9, 3, '1690811085u7X3kWkvW4.6.jpg', '2023-07-31 17:44:45', '2023-07-31 17:44:45'),
-(10, 3, '1690811085v3LPSPXIyl.7.jpg', '2023-07-31 17:44:45', '2023-07-31 17:44:45'),
-(11, 3, '1690811085gVjjgnwzQD.8.jpg', '2023-07-31 17:44:45', '2023-07-31 17:44:45'),
-(12, 3, '1690811085SpvtPhnPwl.9.jpg', '2023-07-31 17:44:45', '2023-07-31 17:44:45'),
-(13, 3, '1690811085kPMGWM88kh.10.jpg', '2023-07-31 17:44:46', '2023-07-31 17:44:46'),
-(14, 3, '1690811086vuthnNzEIu.11.jpg', '2023-07-31 17:44:46', '2023-07-31 17:44:46');
 
 -- --------------------------------------------------------
 
@@ -1076,15 +982,16 @@ CREATE TABLE `projects` (
   `customer_cost` float(15,2) NOT NULL,
   `estimated_cost` float(15,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `manager_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `projects`
 --
 
-INSERT INTO `projects` (`id`, `code`, `name`, `customer_id`, `start_date`, `end_date`, `customer_cost`, `estimated_cost`, `created_at`, `updated_at`) VALUES
-(1, 'sky-1', 'sky project', 2, '2023-02-01', '2024-05-31', 10000000.00, 9000000.00, '2024-05-08 09:01:39', '2024-05-08 09:01:39');
+INSERT INTO `projects` (`id`, `code`, `name`, `customer_id`, `start_date`, `end_date`, `customer_cost`, `estimated_cost`, `created_at`, `updated_at`, `manager_id`) VALUES
+(1, 'sky-1', 'مشروع الصرف الصحي لمدينة كوم امبو', 2, '2024-05-01', '2025-06-01', 1500000.00, 1000000.00, '2024-05-23 10:01:52', '2024-05-23 10:01:52', 8);
 
 -- --------------------------------------------------------
 
@@ -1100,14 +1007,6 @@ CREATE TABLE `project_files` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `project_files`
---
-
-INSERT INTO `project_files` (`id`, `name`, `file`, `project_id`, `created_at`, `updated_at`) VALUES
-(2, 'محمد حسين 20', '663bdd01b4567.sql', 1, '2024-05-08 16:49:44', '2024-05-08 17:13:53'),
-(3, 'index.html', '663bdd3b6cc31.png', 1, '2024-05-08 17:14:51', '2024-05-08 17:14:51');
 
 -- --------------------------------------------------------
 
@@ -1129,22 +1028,13 @@ CREATE TABLE `project_items` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `project_items`
---
-
-INSERT INTO `project_items` (`id`, `project_id`, `code`, `name`, `qty`, `cat`, `item_total`, `implement_qty`, `total_implement_qty`, `created_at`, `updated_at`) VALUES
-(2, 4, 1, 'البند الاول 2', 1000.00, 5000.00, 1000.00, 500.00, 250.00, '2024-03-09 06:43:05', '2024-03-09 07:08:25'),
-(3, 4, 2, 'البند الثاني', 50.00, 10.00, 50.00, 5.00, 25.00, '2024-03-09 07:07:56', '2024-03-09 07:07:56'),
-(4, 1, 824318, 'محمد حسين', 50.00, 10.00, 50.00, 8.00, 40.00, '2024-05-08 11:34:14', '2024-05-09 03:19:41');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `project_ptofits`
+-- Table structure for table `project_profits`
 --
 
-CREATE TABLE `project_ptofits` (
+CREATE TABLE `project_profits` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `project_id` bigint(20) NOT NULL,
   `safe_id` bigint(20) DEFAULT NULL,
@@ -1183,7 +1073,7 @@ CREATE TABLE `project_subcontractors` (
 --
 
 INSERT INTO `project_subcontractors` (`id`, `project_id`, `subcontractor_id`, `start_date`, `end_date`, `amount`, `file`, `notes`, `created_at`, `updated_at`) VALUES
-(1, 1, 7, '2024-05-08', '2024-05-31', 5000.00, '663f1be47103a.pdf', 'fed', '2024-05-08 11:31:30', '2024-05-11 05:30:00');
+(1, 1, 1, '2024-05-23', '2024-06-01', 500000.00, '', NULL, '2024-05-23 18:09:02', '2024-05-23 18:09:02');
 
 -- --------------------------------------------------------
 
@@ -1199,6 +1089,15 @@ CREATE TABLE `project_users` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `project_users`
+--
+
+INSERT INTO `project_users` (`id`, `project_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 10, '2024-05-23 10:01:52', '2024-05-23 10:01:52'),
+(2, 1, 9, '2024-05-23 10:01:52', '2024-05-23 10:01:52'),
+(3, 1, 8, '2024-05-23 10:01:52', '2024-05-23 10:01:52');
+
 -- --------------------------------------------------------
 
 --
@@ -1212,11 +1111,11 @@ CREATE TABLE `revenues` (
   `project_id` bigint(20) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `file` varchar(191) DEFAULT NULL,
-  `total_amount` double(8,2) NOT NULL,
+  `total_amount` float(12,2) NOT NULL,
   `safe_id` bigint(20) NOT NULL,
   `tax_type` enum('flat','percent') NOT NULL DEFAULT 'flat',
-  `tax_amount` double(8,2) NOT NULL,
-  `net_amount` double(8,2) NOT NULL,
+  `tax_amount` float(12,2) NOT NULL,
+  `net_amount` float(12,2) NOT NULL DEFAULT 0.00,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1226,8 +1125,7 @@ CREATE TABLE `revenues` (
 --
 
 INSERT INTO `revenues` (`id`, `code`, `customer_id`, `project_id`, `date`, `file`, `total_amount`, `safe_id`, `tax_type`, `tax_amount`, `net_amount`, `created_at`, `updated_at`) VALUES
-(3, 'rev-1', 2, 1, '2024-05-08', '663bbef8939ae.pdf', 100000.00, 4, 'flat', 0.00, 100000.00, '2024-05-08 14:53:16', '2024-05-08 15:10:41'),
-(4, 'rev-4', 2, 1, '2024-05-08', '663bbdd4acb64.pdf', 10000.00, 4, 'flat', 1000.00, 9000.00, '2024-05-08 15:00:52', '2024-05-08 15:00:52');
+(1, 'rev-1', 2, 1, '2024-05-23', '', 500000.00, 2, 'flat', 0.00, 500000.00, '2024-05-23 18:08:05', '2024-05-23 18:08:05');
 
 -- --------------------------------------------------------
 
@@ -1252,7 +1150,8 @@ INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, 
 (1, 'super_admin', 'Super Admin', 'Super Admin', '2021-04-03 06:02:42', '2021-04-03 06:02:42'),
 (2, 'admin', 'Admin', 'Admin', '2021-04-03 06:02:44', '2021-04-03 06:02:44'),
 (3, 'user', 'User', 'User', '2021-04-03 06:02:44', '2021-04-03 06:02:44'),
-(4, 'Sales', NULL, NULL, '2023-06-05 13:35:55', '2023-06-06 09:01:12');
+(6, 'account_manager', 'Account Manager', 'Account Manager', '2024-05-14 09:18:00', '2024-05-14 09:18:00'),
+(7, 'super_user', 'Super User', 'Super User', '2024-05-14 09:18:00', '2024-05-14 09:18:00');
 
 -- --------------------------------------------------------
 
@@ -1273,7 +1172,11 @@ CREATE TABLE `role_user` (
 INSERT INTO `role_user` (`role_id`, `user_id`, `user_type`) VALUES
 (1, 1, 'App\\Models\\User'),
 (3, 2, 'App\\Models\\User'),
-(1, 3, 'App\\Models\\User');
+(3, 5, 'App\\Models\\User'),
+(3, 7, 'App\\Models\\User'),
+(3, 8, 'App\\Models\\User'),
+(3, 9, 'App\\Models\\User'),
+(3, 10, 'App\\Models\\User');
 
 -- --------------------------------------------------------
 
@@ -1289,19 +1192,21 @@ CREATE TABLE `safes` (
   `descripton` varchar(191) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `project_id` bigint(20) DEFAULT NULL,
+  `parent_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `safes`
 --
 
-INSERT INTO `safes` (`id`, `name`, `balance`, `type`, `descripton`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'محمد حسين', 5000.00, 'main', 'حفار لشغل اسوان', 2, '2024-03-23 03:33:58', '2024-05-11 12:15:14'),
-(2, 'البنك الاهلي', 5000.00, 'main', 'خزنة البنك الاهلي', 2, '2024-03-23 05:02:12', '2024-05-11 12:11:29'),
-(3, 'خزنة بنك مصر', 400.00, 'bank', 'خزنة البنك مصر', 2, '2024-03-23 05:02:37', '2024-05-11 11:54:35'),
-(4, 'الخزنة الرئيسية', 0.00, 'main', 'الخزنة الرئيسية للشركة', 2, '2024-03-23 07:00:39', '2024-05-11 12:11:29'),
-(5, 'حاتم', 50.00, 'custody', 'خزنة', 2, '2024-03-29 10:34:57', '2024-05-11 11:54:35');
+INSERT INTO `safes` (`id`, `name`, `balance`, `type`, `descripton`, `user_id`, `created_at`, `updated_at`, `project_id`, `parent_id`) VALUES
+(1, 'الخزنة الرئيسية', 4500000.00, 'main', 'الخزنة الرئيسية للشركة', 10, '2024-05-23 09:56:27', '2024-05-23 10:04:17', NULL, NULL),
+(2, 'مشروع الصرف الصحي لمدينة كوم امبو', 645000.00, 'main', 'تمت الاضافة بواسطة النظام', 8, '2024-05-23 10:01:52', '2024-05-23 18:09:25', 1, NULL),
+(3, 'مشروع الصرف الصحي لمدينة كوم امبو (مصطفي فهمي)', 35000.00, 'custody', 'تمت الاضافة بواسطة النظام', 10, '2024-05-23 10:01:52', '2024-05-23 10:57:44', 1, 2),
+(4, 'مشروع الصرف الصحي لمدينة كوم امبو (مصطفي عبده علي)', 5000.00, 'custody', 'تمت الاضافة بواسطة النظام', 9, '2024-05-23 10:01:52', '2024-05-23 11:27:57', 1, 2),
+(5, 'مشروع الصرف الصحي لمدينة كوم امبو (صالح محمد النجار)', 0.00, 'custody', 'تمت الاضافة بواسطة النظام', 8, '2024-05-23 10:01:52', '2024-05-23 10:01:52', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -1320,15 +1225,18 @@ CREATE TABLE `safe_transfers` (
   `added_by` bigint(20) NOT NULL,
   `notes` varchar(191) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `adjustment_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `safe_transfers`
 --
 
-INSERT INTO `safe_transfers` (`id`, `from_safe`, `to_safe`, `amount`, `safe_send_blance`, `safe_receive_blance`, `transfer_date`, `added_by`, `notes`, `created_at`, `updated_at`) VALUES
-(1, 4, 5, 500.00, 500.00, 500.00, '2024-05-11 17:20:00', 1, NULL, '2024-05-11 11:21:19', '2024-05-11 11:21:19');
+INSERT INTO `safe_transfers` (`id`, `from_safe`, `to_safe`, `amount`, `safe_send_blance`, `safe_receive_blance`, `transfer_date`, `added_by`, `notes`, `created_at`, `updated_at`, `adjustment_id`) VALUES
+(1, 1, 2, 500000.00, 4500000.00, 500000.00, '2024-05-23 14:03:00', 1, 'تحويل الي خزنة المشروع', '2024-05-23 10:04:17', '2024-05-23 10:04:17', NULL),
+(2, 2, 3, 100000.00, 400000.00, 100000.00, '2024-05-23 14:51:00', 1, 'test', '2024-05-23 10:51:49', '2024-05-23 10:51:49', NULL),
+(3, 2, 4, 5000.00, 395000.00, 5000.00, '2024-05-23 15:27:00', 1, 'تحويل جديد', '2024-05-23 11:27:57', '2024-05-23 11:27:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -1349,15 +1257,6 @@ CREATE TABLE `sliders` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `sliders`
---
-
-INSERT INTO `sliders` (`id`, `title_en`, `title_ar`, `photo`, `description_en`, `description_ar`, `url`, `active`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 'Modern Vision', 'مودرن فيجن', '1690734246ipJ4hcehJh.jpeg', 'UPVC windows and doors - rolling shutters - shower cabins - armored doors', 'شبابيك وأبواب UPVC - شيش حصيرة - كبائن الشاور - ابواب مصفحة', NULL, 1, 1, '2023-07-30 12:06:20', '2023-07-31 18:29:23'),
-(3, '55', 'Reprehenderit minim', '1699809973CdcljzledJ.logo wasam final.png', 'Consequatur veniam', 'Dolorem quis et quae', NULL, 1, 1, '2023-11-12 15:26:14', '2023-11-12 15:26:33'),
-(4, 'Facebook adds', '20test 52', '1703737717Mxnnj0FSer.home.jpg', 'rr', 'r', NULL, 1, 1, '2023-12-28 02:28:38', '2023-12-28 02:28:38');
 
 -- --------------------------------------------------------
 
@@ -1383,9 +1282,8 @@ CREATE TABLE `subcontractors` (
 --
 
 INSERT INTO `subcontractors` (`id`, `name`, `code`, `phone`, `contact_person`, `balance`, `address`, `file`, `created_at`, `updated_at`) VALUES
-(5, 'Erin Castaneda', 'cont-1', '+1 (233) 963-3482', 'Similique dolor quas', 0.00, 'Veniam soluta nesci', '659b9a04ef1ce.csv', '2024-01-08 04:39:17', '2024-01-08 04:45:24'),
-(6, 'Skyler Bishop', 'cont-6', '+1 (706) 417-1139', 'Vitae nulla asperior', 0.00, 'Sunt magni eu enim o', '', '2024-01-08 08:12:53', '2024-01-08 08:12:53'),
-(7, 'علي محمود', 'cont-7', '1235455555', 'علي عنتر', 0.00, 'الحي الاول مدينة العبور, الشباب مدينة العبور', '', '2024-01-09 07:36:19', '2024-01-09 07:36:19');
+(1, 'المقاول محمود الحج', 'cont-1', '01157809060', 'الحج عبدالعال', 0.00, '96 East New Freeway', '', '2024-05-15 06:23:27', '2024-05-19 11:18:29'),
+(2, 'المقاول علي الريس عبده', 'cont-2', '1123654875', 'علي الريس', 0.00, '96 East New Freeway', '', '2024-05-19 11:19:01', '2024-05-19 11:19:01');
 
 -- --------------------------------------------------------
 
@@ -1480,9 +1378,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone_number`, `whatsapp_number`, `photo`, `active`, `created_by`, `level`, `deleted_at`, `deleted_by`, `email`, `email_leads`, `address`, `country`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '01157809060', NULL, NULL, 1, NULL, NULL, NULL, NULL, 'super_admin@app.com', NULL, NULL, NULL, NULL, '$2y$12$SrC9IDnxL5f0tf.AMcEPc.1Pjjq1OaFPvMb93RTm.WgVig1debHEy', NULL, '2024-03-23 06:42:17', '2024-05-08 06:31:38'),
-(2, 'محمد حسين', '01157809060', NULL, NULL, 1, 1, NULL, NULL, NULL, 'admin@app.com', NULL, NULL, NULL, NULL, '$2y$12$fJmWNFK.3eoEEQHYWIbBfOOG6Ir/M4RJ67GFus3d8Jlc7tH/JR8tm', NULL, '2024-05-08 06:32:54', '2024-05-08 06:32:54'),
-(3, 'احمد عباس', '01157809060', NULL, NULL, 1, 1, NULL, NULL, NULL, 'dfrf@app.com', NULL, NULL, NULL, NULL, '$2y$12$RIAAor90jIXTqaqV0wbJWupiCCbPPRmF7v7s3mCabfi4KmhaRDLhS', NULL, '2024-05-08 08:58:48', '2024-05-08 08:58:48');
+(1, 'admin', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 'super_admin@app.com', NULL, NULL, NULL, NULL, '$2y$12$cCYRxBLZvibftuI2XQfOueucD8avZ9Y1OvLUZfGluxztLlzHkn6fm', NULL, '2024-05-14 09:18:26', '2024-05-14 09:18:26'),
+(2, 'محمد حسين', '01157809060', NULL, '1715689523PzX45jA9NJ.download.jpeg', 1, 1, NULL, NULL, NULL, 'user@app.com', NULL, NULL, NULL, NULL, '$2y$12$N5e2gHD.LC7H6aC/TUayrewCcKqOgda.p0pDwAdYcv/32upBUNjyW', NULL, '2024-05-14 09:25:23', '2024-05-19 11:17:06'),
+(7, 'عبدالرحمن محمود 2', '77777777', NULL, '', 1, 1, NULL, NULL, NULL, 'user2@app.com', NULL, NULL, NULL, NULL, '$2y$12$SJBqRHcY9/Myczh/DKaRdOQxj/zU854Up7sipcKSEtkQFqcQmzs2e', NULL, '2024-05-20 07:29:49', '2024-05-20 08:40:21'),
+(8, 'صالح محمد النجار', '123654789', NULL, '', 1, 1, NULL, NULL, NULL, 'user3@app.com', NULL, NULL, NULL, NULL, '$2y$12$eTtwNx8bLOYTQVVRzy8JEeAfg7LxjFQ/XPP1J44WVLd6bt/QbPtp.', NULL, '2024-05-20 08:41:19', '2024-05-20 08:41:19'),
+(9, 'مصطفي عبده علي', '1236547896', NULL, '', 1, 1, NULL, NULL, NULL, 'user4@app.com', NULL, NULL, NULL, NULL, '$2y$12$G73wDNL1jq6DVrA1wlbSOObDe6ykCozDNkrfVOZnOm5PFpTyWGNKC', NULL, '2024-05-22 04:29:47', '2024-05-22 04:29:47'),
+(10, 'مصطفي فهمي', '01157809060', NULL, '', 1, 1, NULL, NULL, NULL, 'user5@app.com', NULL, NULL, NULL, NULL, '$2y$12$pKRb4nmUTmhCY85ZeF/nseJeHGW/I2H/j.0h.FTH0QAPSiukSdE/q', NULL, '2024-05-22 04:30:13', '2024-05-22 04:30:13');
 
 --
 -- Indexes for dumped tables
@@ -1496,6 +1397,12 @@ ALTER TABLE `activity_log`
   ADD KEY `activity_log_log_name_index` (`log_name`),
   ADD KEY `subject` (`subject_id`,`subject_type`),
   ADD KEY `causer` (`causer_id`,`causer_type`);
+
+--
+-- Indexes for table `adjustments`
+--
+ALTER TABLE `adjustments`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `assets`
@@ -1681,9 +1588,9 @@ ALTER TABLE `project_items`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `project_ptofits`
+-- Indexes for table `project_profits`
 --
-ALTER TABLE `project_ptofits`
+ALTER TABLE `project_profits`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1786,10 +1693,16 @@ ALTER TABLE `activity_log`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `adjustments`
+--
+ALTER TABLE `adjustments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `assets`
 --
 ALTER TABLE `assets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `brands`
@@ -1801,7 +1714,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `certificates`
@@ -1813,19 +1726,19 @@ ALTER TABLE `certificates`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `expense_categories`
@@ -1867,7 +1780,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `offers`
@@ -1885,13 +1798,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `partners`
 --
 ALTER TABLE `partners`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1909,13 +1822,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `product_photos`
 --
 ALTER TABLE `product_photos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `projects`
@@ -1927,18 +1840,18 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `project_files`
 --
 ALTER TABLE `project_files`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `project_items`
 --
 ALTER TABLE `project_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `project_ptofits`
+-- AUTO_INCREMENT for table `project_profits`
 --
-ALTER TABLE `project_ptofits`
+ALTER TABLE `project_profits`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -1951,19 +1864,19 @@ ALTER TABLE `project_subcontractors`
 -- AUTO_INCREMENT for table `project_users`
 --
 ALTER TABLE `project_users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `revenues`
 --
 ALTER TABLE `revenues`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `safes`
@@ -1975,19 +1888,19 @@ ALTER TABLE `safes`
 -- AUTO_INCREMENT for table `safe_transfers`
 --
 ALTER TABLE `safe_transfers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `subcontractors`
 --
 ALTER TABLE `subcontractors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `supsup_categories`
@@ -2017,7 +1930,7 @@ ALTER TABLE `tags_products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
