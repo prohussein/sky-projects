@@ -34,7 +34,7 @@
 
                 @if (auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('account_manager'))
                 <li><a class="treeview-item {{ is_active('revenues')}}" href="{{ route('dashboard.revenues.index') }}"><i class="icon fa fa-money mr-3"></i>المستخلصات</a></li>
-               
+
                 <li><a class="treeview-item {{ is_active('customers')}}" href="{{ route('dashboard.customers.index') }}"><i class="icon fa fa-users mr-3"></i>العملاء</a></li>
 
                 <li><a class="treeview-item {{ is_active('subcontractors')}}" href="{{ route('dashboard.subcontractors.index') }}"><i class="icon fa fa-users mr-3"></i>المقاولاين</a></li>
@@ -50,7 +50,7 @@
 
                 <li><a class="treeview-item {{ is_active('safes')}}" href="{{ route('dashboard.safes.index') }}"><i class="icon fa fa-tags mr-3"></i>الخزن</a></li>
                 <li><a class="treeview-item {{ is_active('safetransfers')}}" href="{{ route('dashboard.safetransfers.index') }}"><i class="icon fa fa-exchange mr-3"></i>تحويلات الخزن</a></li>
-
+                <li><a class="treeview-item {{ is_active('adjustments')}}" href="{{ route('dashboard.adjustments.index') }}"><i class="icon fa fa-exchange mr-3"></i>التسويات </a></li>
 
                 <li><a class="treeview-item {{ is_active('expensecategories')}}" href="{{ route('dashboard.expensecategories.index') }}"><i class="icon fa fa-tags mr-3"></i>@lang('site.expensecategories')</a></li>
                <li><a class="treeview-item {{ is_active('expenses')}}" href="{{ route('dashboard.expenses.index') }}"><i class="icon fa fa-money mr-3"></i>@lang('site.expenses')</a></li>

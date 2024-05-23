@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BackEnd\Adjustments;
 use App\Http\Controllers\BackEnd\Assets;
 use App\Http\Controllers\BackEnd\Customers;
 use App\Http\Controllers\BackEnd\Employees;
@@ -37,6 +38,8 @@ use Illuminate\Support\Facades\Route;
         Route::resource('revenues', Revenues::class);
         Route::resource('safes', Safes::class);
         Route::resource('safetransfers', SafeTransfers::class);
+        Route::resource('adjustments', Adjustments::class);
+
         Route::get('safetransfers/btween/projects', [SafeTransfers::class , 'transfareProject'])->name('safetransfers.project');
         Route::get('safetransfers/getProjectSafes/projects', [SafeTransfers::class, 'getProjectSafes'])->name('safetransfers.project.safes');
         Route::get('get/project/safes', [ManageMaterials::class, 'getProjectSafes'])->name('get.project.safes');

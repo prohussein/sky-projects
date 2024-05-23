@@ -169,5 +169,21 @@ function maxId ($model){
     return $max + 1;
 }
 
+function translateExpenseType($type){
+    if($type == 'materials'){
+        return 'مواد';
+    }elseif($type == 'other'){
+        return 'اخري';
+    }elseif ($type == 'general') {
+        return 'عام';
+    }elseif ($type == 'subcontractor') {
+        return 'مقاول';
+    }elseif ($type == 'tempwages') {
+        return 'اجور موظفين مؤقتة';
+    }elseif ($type == 'permanentwages') {
+        return 'اجور موظفين دائمة';
+    }
+}
+
 
 ?>

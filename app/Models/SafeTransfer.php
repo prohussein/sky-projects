@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SafeTransfer extends Model
 {
-    protected $fillable = ['from_safe', 'to_safe', 'amount', 'safe_send_blance' , 'safe_receive_blance', 'transfer_date', 'added_by', 'notes'];
+    protected $fillable = ['from_safe','adjustment_id', 'to_safe', 'amount', 'safe_send_blance' , 'safe_receive_blance', 'transfer_date', 'added_by', 'notes'];
 
     public function user()
     {
@@ -23,8 +23,7 @@ class SafeTransfer extends Model
         return $this->belongsTo(Safe::class, 'to_safe');
     }
 
-    public function getNameAttribute($value){
-        return ucfirst($value);
-    }// end of getNameAttribute
-
+    public function adjustment(){
+        return $this->belongsTo(Adjustment::class, 'adjustment_id');
+    }
 }

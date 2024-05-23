@@ -33,7 +33,7 @@ class BackEndController extends Controller
         $routeName = $this->getClassNameFromModel();
         return view('backend.' . $routeName . '.index', compact('rows', 'routeName'));
     }// end of index
-    public function create()
+    public function create(Request $request)
     {
         $routeName = $this->getClassNameFromModel();
         $append = $this->append();

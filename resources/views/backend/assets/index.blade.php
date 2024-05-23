@@ -25,6 +25,7 @@
                 <div class="form-group col-md-3">
                     <label>النوع</label>
                     <select  name="type" class="form-control" id="type">
+                        <option value=""  > الكل </option>
                         <option value="cash" {{ isset($request) && $request->type == 'cash' ? 'selected' : '' }} > نقدي </option>
                         <option value="properties" {{ isset($request) && $request->type == 'properties' ? 'selected' : '' }} > ممتلكات </option>
                         <option value="cash_money" {{ isset($request) && $request->type == 'cash_money' ? 'selected' : '' }} > نقود ائتمانية  </option>
